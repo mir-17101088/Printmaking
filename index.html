@@ -277,6 +277,18 @@
             transform: scaleX(1);
             transform-origin: left;
         }
+
+        /* --- HARDWARE ACCELERATION FOR GSAP IMAGE ANIMATIONS --- */
+        .fg-crop,
+        .fg-full {
+            will-change: transform, opacity;
+            /* Forces a dedicated compositor layer to prevent paint-flashing on mobile */
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            /* Ensures smooth scaling without pixel snapping */
+            image-rendering: -webkit-optimize-contrast;
+        }
     </style>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -1264,29 +1276,40 @@
 
                                 </div>
 
-                                ${img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i)
-                                ? `<div class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
-                                       <img src="${img.fileNameBase}" class="w-full h-full object-cover scale-125 md:blur-3xl opacity-40" alt="" />
-                                   </div>
-                                   <img src="${img.fileNameBase}" class="fg-crop absolute inset-0 z-10 w-full h-full object-cover block origin-center pointer-events-none" alt="" />
-                                   <div class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
-                                       <img src="${img.fileNameBase}" alt="${img.boxTitle}" class="w-full h-full object-contain shadow-2xl md:drop-shadow-2xl origin-center" />
-                                   </div>`
-                                : `<picture class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
-                                        <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
-                                        <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
-                                        <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover scale-125 blur-3xl opacity-40" alt="" />
-                                   </picture>
-                                   <picture class="fg-crop absolute inset-0 z-10 w-full h-full block origin-center pointer-events-none">
-                                        <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
-                                        <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
-                                        <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover" alt="" />
-                                   </picture>
-                                   <picture class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
-                                        <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
-                                        <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
-                                        <img src="${img.fileNameBase}_sm.avif" alt="${img.boxTitle}" class="w-full h-full object-contain drop-shadow-2xl origin-center" />
-                                   </picture>`
+                                ${(() => {
+                                // QA Logic: Eager load the first two sections, lazy load the rest with async decoding
+                                const loadStrategy = index <= 1
+                                    ? 'loading="eager" fetchpriority="high"'
+                                    : 'loading="lazy" decoding="async"';
+
+                                if (img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i)) {
+                                    return `
+                                        <div class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
+                                            <img src="${img.fileNameBase}" class="w-full h-full object-cover scale-125 md:blur-3xl opacity-40" alt="" ${loadStrategy} />
+                                        </div>
+                                        <img src="${img.fileNameBase}" class="fg-crop absolute inset-0 z-10 w-full h-full object-cover block origin-center pointer-events-none" alt="" ${loadStrategy} />
+                                        <div class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
+                                            <img src="${img.fileNameBase}" alt="${img.boxTitle}" class="w-full h-full object-contain shadow-2xl md:drop-shadow-2xl origin-center" ${loadStrategy} />
+                                        </div>`;
+                                } else {
+                                    return `
+                                        <picture class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
+                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
+                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
+                                            <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover scale-125 md:blur-3xl opacity-40" alt="" ${loadStrategy} />
+                                        </picture>
+                                        <picture class="fg-crop absolute inset-0 z-10 w-full h-full block origin-center pointer-events-none">
+                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
+                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
+                                            <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover" alt="" ${loadStrategy} />
+                                        </picture>
+                                        <picture class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
+                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
+                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
+                                            <img src="${img.fileNameBase}_sm.avif" alt="${img.boxTitle}" class="w-full h-full object-contain shadow-2xl md:drop-shadow-2xl origin-center" ${loadStrategy} />
+                                        </picture>`;
+                                }
+                            })()}
                             }
                                 
                                 
@@ -1325,29 +1348,40 @@
 
                             </div>
 
-                            ${img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i)
-                            ? `<div class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
-                                    <img src="${img.fileNameBase}" class="w-full h-full object-cover scale-125 md:blur-3xl opacity-40" alt="" />
-                                </div>
-                                <img src="${img.fileNameBase}" class="fg-crop absolute inset-0 z-10 w-full h-full object-cover block origin-center pointer-events-none" alt="" />
-                                <div class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
-                                    <img src="${img.fileNameBase}" alt="${img.boxTitle}" class="w-full h-full object-contain shadow-2xl md:drop-shadow-2xl origin-center" />
-                                </div>`
-                            : `<picture class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
-                                    <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
-                                    <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
-                                    <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover scale-125 blur-3xl opacity-40" alt="" />
-                                </picture>
-                                <picture class="fg-crop absolute inset-0 z-10 w-full h-full block origin-center pointer-events-none">
-                                    <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
-                                    <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
-                                    <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover" alt="" />
-                                </picture>
-                                <picture class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
-                                    <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
-                                    <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
-                                    <img src="${img.fileNameBase}_sm.avif" alt="${img.boxTitle}" class="w-full h-full object-contain drop-shadow-2xl origin-center" />
-                                </picture>`
+                            ${(() => {
+                            // QA Logic: Eager load the first two sections, lazy load the rest with async decoding
+                            const loadStrategy = index <= 1
+                                ? 'loading="eager" fetchpriority="high"'
+                                : 'loading="lazy" decoding="async"';
+
+                            if (img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i)) {
+                                return `
+                                        <div class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
+                                            <img src="${img.fileNameBase}" class="w-full h-full object-cover scale-125 md:blur-3xl opacity-40" alt="" ${loadStrategy} />
+                                        </div>
+                                        <img src="${img.fileNameBase}" class="fg-crop absolute inset-0 z-10 w-full h-full object-cover block origin-center pointer-events-none" alt="" ${loadStrategy} />
+                                        <div class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
+                                            <img src="${img.fileNameBase}" alt="${img.boxTitle}" class="w-full h-full object-contain shadow-2xl md:drop-shadow-2xl origin-center" ${loadStrategy} />
+                                        </div>`;
+                            } else {
+                                return `
+                                        <picture class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
+                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
+                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
+                                            <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover scale-125 md:blur-3xl opacity-40" alt="" ${loadStrategy} />
+                                        </picture>
+                                        <picture class="fg-crop absolute inset-0 z-10 w-full h-full block origin-center pointer-events-none">
+                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
+                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
+                                            <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover" alt="" ${loadStrategy} />
+                                        </picture>
+                                        <picture class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
+                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
+                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
+                                            <img src="${img.fileNameBase}_sm.avif" alt="${img.boxTitle}" class="w-full h-full object-contain shadow-2xl md:drop-shadow-2xl origin-center" ${loadStrategy} />
+                                        </picture>`;
+                            }
+                        })()}
                         }
                                 
                             
@@ -1370,7 +1404,7 @@
 
                     ${section.image
                         ? `<div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
-                               <img alt="${section.title}" class="w-full h-full object-cover ${section.isIntro ? 'animate-slow-zoom opacity-90' : 'opacity-80'}" src="${section.image}" />
+                               <img alt="${section.title}" class="w-full h-full object-cover ${section.isIntro ? 'animate-slow-zoom opacity-90' : 'opacity-80'}" src="${section.image}" ${index <= 1 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy" decoding="async"'} />
                                ${section.isIntro ? `<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_10%,rgba(0,0,0,0.85)_100%)]"></div>` : ''}
                                 
                         
