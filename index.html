@@ -289,6 +289,61 @@
             /* Ensures smooth scaling without pixel snapping */
             image-rendering: -webkit-optimize-contrast;
         }
+
+        /* Horizontal Custom Context Scroll Layer */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(232, 165, 93, 0.3);
+            border-radius: 2px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(232, 165, 93, 0.6);
+        }
+
+        /* Add hardware acceleration to horizontal tracking and cards */
+        .horizontal-track {
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        .text-card {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            /* On very old devices, backdrop-filter is a frame-killer. 
+            This fallback ensures it degrades gracefully without lagging. */
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            /* Add the standard property here */
+        }
+
+        /* --- MOBILE PERFORMANCE OVERRIDES --- */
+        @media (max-width: 700px) {
+
+            /* Kill backdrop blur on moving text cards */
+            .text-card {
+                -webkit-backdrop-filter: none !important;
+                backdrop-filter: none !important;
+                background-color: rgba(10, 25, 49, 0.98) !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+            }
+
+            /* Kill heavy background blurs - targets ONLY the scaled ambient backgrounds */
+            .pin-bg img.scale-125,
+            .horizontal-slide img.scale-125 {
+                filter: none !important;
+                -webkit-filter: none !important;
+                opacity: 0.15 !important;
+            }
+        }
     </style>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -482,8 +537,8 @@
 
                         boxText: ' In an age of AI-generated art and NFTs, one cannot help but appreciate how intensely manual the craft is – the sharp bite of a burin into copper, the pressure of wood against paper, the persistence of ink-stained hands, and the slow emergence of an image from absence.',
 
-                        sourceCredit: 'Maya’s Dream (1986), etching by Monirul Islam at the Kala Kendra exhibition. Photo: Orchid Chakma',
-                        enableReveal: false
+                        sourceCredit: 'Maya’s Dream (1986), etching by Monirul Islam at the Kala Kendra exhibition. Photo: Orchid Chakma'
+
 
                     },
                     {
@@ -544,7 +599,8 @@
                                 fileNameBase: 'assets/3_major_relief_1',
 
                                 boxText: 'The artist carves away the negative space, leaving the raised design to hold ink and print.',
-                                sourceCredit: 'Woodcut by Rafiqun Nabi'
+                                sourceCredit: 'Woodcut by Rafiqun Nabi',
+                                enableReveal: true
 
                             },
                             {
@@ -562,7 +618,8 @@
                                 fileNameBase: 'assets/3_major_intaglio_1',
 
                                 boxText: 'The image is incised into a metal plate (such as copper or zinc), and ink settles into the grooves while the surface is wiped clean before printing.',
-                                sourceCredit: 'Bono-Bibi-1, aquatint by Rokeya Sultana'
+                                sourceCredit: 'Bono-Bibi-1, aquatint by Rokeya Sultana',
+                                enableReveal: true
                             },
                             {
                                 fileNameBase: 'assets/3_major_intaglio_2',
@@ -580,7 +637,8 @@
                                 fileNameBase: 'assets/3_major_planography_1',
 
                                 boxTitle: 'The image is drawn on a flat surface, typically limestone or metal, using a greasy medium',
-                                sourceCredit: 'Lithography by Safiuddin'
+                                sourceCredit: 'Lithography by Safiuddin',
+                                enableReveal: true
                             },
                             {
                                 fileNameBase: 'assets/3_major_planography_2',
@@ -604,7 +662,8 @@
                                 fileNameBase: 'assets/3_major_serography_1',
                                 boxTitle: '<i>Also known as screen printing.</i>',
 
-                                sourceCredit: 'Andy Warhol’s 1984 screen print of Botticelli’s The Birth of Venus'
+                                sourceCredit: 'Andy Warhol’s 1984 screen print of Botticelli’s The Birth of Venus',
+                                enableReveal: true
                             },
                             {
                                 fileNameBase: 'assets/3_major_serography_2',
@@ -647,8 +706,8 @@
 
 
                                 boxText: 'Long before it was ever framed on a gallery wall, printmaking was born out of pure human necessity. Humans pressed clay seals and carved stone stamps — not as art, but out of pure necessity: marking ownership, sealing deals. Then came wooden blocks, dragged across cloth to leave patterns. The Chinese formalised it all — paper invented in AD 105, prints following almost immediately after.',
-                                sourceCredit: 'Wilkins’ Letters, 1778.',
-                                enableReveal: false
+                                sourceCredit: 'Wilkins’ Letters, 1778.'
+
 
                             },
                             {
@@ -703,9 +762,12 @@
                             {
                                 fileNameBase: 'assets/4_pre_partition_cahrles_taj',
                                 boxTitle: '<i>One of the earliest depictions of the Taj Mahal in print.</i>',
-                                caption: '<b>A View of the Fort of Agra on the River Jumna, with the Taj Mahal appearing faintly in the background; drawn on site and engraved by William Hodges.</b>',
+                                caption: '<b>Hodges’ collection also included the first printed depiction of the Taj Mahal, published as Plate 15 in Select Views in India. Curiously, the monument that would later become one of the world’s most recognisable landmarks is almost an afterthought here, relegated to the background as a distant, ghost-like silhouette.</b>',
+                                boxtext2: 'Hodges instead centred his attention on Agra Fort, completed by Emperor Akbar in 1573 and then the dominant seat of Mughal power. Even so, he paused to admire the Taj, describing it as “the most perfect remains of eastern taste in architecture”, built by Emperor Shah Jahan in memory of his wife. It is a wonderfully ironic slice of history: the world\'s ultimate monument to love made its grand debut to the Western world as a mere footnote to a military fort',
 
-                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+
+                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited',
+                                enableReveal: true
 
 
                             },
@@ -1158,9 +1220,10 @@
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             direction: 'vertical',
             gestureDirection: 'vertical',
-            smooth: !isTouchDevice, // <--- Disables JS smooth scrolling on phones
+            smooth: true,          // Allow Lenis to run everywhere
+            smoothTouch: false,    // Keep the native "feel" of touch scrolling...
+            syncTouch: true,       // ...BUT force it to sync with GSAP's requestAnimationFrame
             mouseMultiplier: 1,
-            smoothTouch: false,
             touchMultiplier: 2,
             infinite: false,
         });
@@ -1194,7 +1257,7 @@
                 <div class="grid grid-cols-1 grid-rows-1 w-full relative">
                     ${boxes.map((box, i) => `
                         <div class="text-box col-start-1 row-start-1 w-full bg-[#0A1931]/85 backdrop-blur-[20px] border border-[#E8A55D]/30 rounded-sm p-6 md:p-10 shadow-[inset_0_0_30px_rgba(4,11,28,0.6),0_24px_50px_rgba(0,0,0,0.5)] translate-y-24 opacity-0 max-h-[85vh] overflow-hidden flex flex-col justify-center">                            
-                            ${box.title ? `<h2 class="font-display-md text-2xl md:text-3xl text-[#F4F1EA] mb-4 md:mb-5 leading-[1.1] tracking-tight border-b border-white/10 pb-3">${box.title}</h2>` : ''}
+                            ${box.title ? `<h2 class="font-display-md text-3xl md:text-3xl text-[#F4F1EA] mb-4 md:mb-5 leading-[1.1] tracking-tight border-b border-white/10 pb-3">${box.title}</h2>` : ''}
                             
                             ${box.text ? `<div class="font-body-md text-[clamp(13.5px,1.8vh,17px)] text-stone-300 leading-[1.6] md:leading-[1.65] font-light mix-blend-plus-lighter">${box.text}</div>` : ''}
                             
@@ -1235,98 +1298,131 @@
             }
 
             if (section.subSections) {
-                // Nested Section Logic
-                // Nested Section Logic
                 section.subSections.forEach((subSection, subIndex) => {
-                    // Create an array of subtle gradient accents to cycle through
                     const accentGradients = [
-                        'from-[#3D1E14]/95 to-[#1A0B09]/95', /* Burnt Copper / Terracotta */
-                        'from-[#5C1A24]/95 to-[#24050A]/95', /* Madder Red */
-                        'from-[#0F382E]/95 to-[#04120E]/95', /* Printmaker's Green */
-                        'from-[#1F3C4D]/95 to-[#0A1A24]/95'  /* Blueprint Teal */
+                        'from-[#3D1E14]/95 to-[#1A0B09]/95',
+                        'from-[#5C1A24]/95 to-[#24050A]/95',
+                        'from-[#0F382E]/95 to-[#04120E]/95',
+                        'from-[#1F3C4D]/95 to-[#0A1A24]/95'
                     ];
                     const currentGradient = accentGradients[subIndex % accentGradients.length];
 
-                    htmlContent += `<div class="w-full relative subsection-container">`;
+                    // 1. Calculate dynamic scroll height based on images AND text boxes
+                    let timelineSteps = 0;
+                    const parsedImages = subSection.images.map(img => {
+                        let boxes = [];
+                        if (img.boxTitle || img.boxText || img.caption) boxes.push({ title: img.boxTitle, text: img.boxText, caption: img.caption });
+                        if (img.boxTitle2 || img.boxText2 || img.caption2) boxes.push({ title: img.boxTitle2, text: img.boxText2, caption: img.caption2 });
+                        if (img.boxTitle3 || img.boxText3 || img.caption3) boxes.push({ title: img.boxTitle3, text: img.boxText3, caption: img.caption3 });
+                        if (img.boxTitle4 || img.boxText4 || img.caption4) boxes.push({ title: img.boxTitle4, text: img.boxText4, caption: img.caption4 });
+                        if (img.boxtext2) boxes.push({ title: '', text: img.boxtext2, caption: '' }); // Fallback for typos
 
-                    htmlContent += `
-                        <div class="sticky top-0 w-full z-40 bg-gradient-to-r ${currentGradient} backdrop-blur-lg border-b border-white/10 px-6 py-4 md:py-5 shadow-lg flex items-center gap-4 transition-all">
-                            <div class="w-1.5 h-6 bg-surface-tint rounded-full opacity-60"></div>
-                            <h3 class="font-display-md text-2xl md:text-3xl text-primary tracking-wide drop-shadow-sm">${subSection.categoryName}</h3>
-                        </div>
-                    `;
-
-                    subSection.images.forEach((img, imgIndex) => {
-                        const { sectionHeight, boxesHTML } = generateTextBoxesHTML(img);
-                        htmlContent += `
-                        <section class="relative w-full dual-phase-section" data-enable-reveal="${img.enableReveal !== false}" style="height: ${sectionHeight}vh;">
-                            <div class="sticky top-[64px] md:top-[76px] w-full h-[calc(100vh-64px)] md:h-[calc(100vh-76px)] overflow-hidden bg-surface-container-lowest pin-bg">
-                                
-                                <div class="info-reveal-group absolute top-6 left-6 z-50 flex items-center gap-3">
-                                    
-                                    <div class="info-btn-trigger flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-neutral-900/60 backdrop-blur-md border border-white/20 text-white font-serif italic text-[15px] leading-none shadow-[0_4px_12px_rgba(0,0,0,0.4)] cursor-pointer relative z-10 hover:bg-neutral-800/80">
-                                        <span class="mt-[2px]">i</span>
-                                    </div>
-                                                                    
-                                    <div class="info-text-mask flex items-center">
-                                        <div class="info-credit-text text-xs font-body-md font-medium leading-[1.6] tracking-wide select-none">
-                                            ${img.sourceCredit}
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                ${(() => {
-                                // QA Logic: Eager load the first two sections, lazy load the rest with async decoding
-                                const loadStrategy = index <= 1
-                                    ? 'loading="eager" fetchpriority="high"'
-                                    : 'loading="lazy" decoding="async"';
-
-                                if (img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i)) {
-                                    return `
-                                        <div class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
-                                            <img src="${img.fileNameBase}" class="w-full h-full object-cover scale-125 md:blur-3xl opacity-40" alt="" ${loadStrategy} />
-                                        </div>
-                                        <img src="${img.fileNameBase}" class="fg-crop absolute inset-0 z-10 w-full h-full object-cover block origin-center pointer-events-none" alt="" ${loadStrategy} />
-                                        <div class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
-                                            <img src="${img.fileNameBase}" alt="${img.boxTitle}" class="w-full h-full object-contain shadow-2xl md:drop-shadow-2xl origin-center" ${loadStrategy} />
-                                        </div>`;
-                                } else {
-                                    return `
-                                        <picture class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
-                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
-                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
-                                            <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover scale-125 md:blur-3xl opacity-40" alt="" ${loadStrategy} />
-                                        </picture>
-                                        <picture class="fg-crop absolute inset-0 z-10 w-full h-full block origin-center pointer-events-none">
-                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
-                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
-                                            <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover" alt="" ${loadStrategy} />
-                                        </picture>
-                                        <picture class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
-                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
-                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
-                                            <img src="${img.fileNameBase}_sm.avif" alt="${img.boxTitle}" class="w-full h-full object-contain shadow-2xl md:drop-shadow-2xl origin-center" ${loadStrategy} />
-                                        </picture>`;
-                                }
-                            })()}
-                            }
-                                
-                                
-                            </div>
-                            
-                            <div class="sticky top-[64px] md:top-[76px] w-full h-[calc(100vh-64px)] md:h-[calc(100vh-76px)] flex flex-col items-center justify-center pb-margin-mobile md:pb-[15vh] z-20 pointer-events-none px-4 md:px-0 md:flex-row md:items-end ${imgIndex % 2 === 0 ? 'md:justify-start md:pl-margin-desktop' : 'md:justify-end md:pr-margin-desktop'}">
-                                <div class="relative w-[90%] max-w-[500px] md:w-5/12 pointer-events-auto">
-                                    ${boxesHTML}
-                                </div>
-                            </div>
-                        </section>
-                        `;
+                        timelineSteps += 1; // 1 step to view the image
+                        if (img.enableReveal) timelineSteps += 1; // NEW: 1 step for the reveal animation
+                        timelineSteps += boxes.length; // 1 step per text box to read
+                        return { ...img, boxes };
                     });
 
-                    htmlContent += `</div>`;
+                    // Optimized scroll depth: Faster pacing, less physical thumb fatigue
+                    const scrollHeightVp = (timelineSteps * 60) + 40;
+
+                    htmlContent += `
+                    <div class="horizontal-subsection-wrapper relative w-full" style="height: ${scrollHeightVp}vh;">
+                        <div class="sticky-viewport sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col bg-background">
+                            
+                            <div class="w-full z-40 bg-gradient-to-r ${currentGradient} backdrop-blur-lg border-b border-white/10 px-6 py-4 md:py-5 shadow-lg flex items-center gap-4 flex-shrink-0">
+                                <div class="w-1.5 h-6 bg-surface-tint rounded-full opacity-60"></div>
+                                <h3 class="font-display-md text-2xl md:text-3xl text-primary tracking-wide drop-shadow-sm">${subSection.categoryName}</h3>
+                            </div>
+                            
+                            <div class="horizontal-track flex flex-row flex-nowrap h-full w-full min-h-0 will-change-transform">
+                                ${parsedImages.map((img, imgIndex) => `
+                                    <div class="horizontal-slide w-full h-full flex-shrink-0 flex relative overflow-hidden">
+    
+                                        <div class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none transform-gpu">
+                                            ${(() => {
+                            // CRITICAL OPTIMIZATION: Use the smallest image for the blur to save massive memory/VRAM
+                            const bgSrc = img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i)
+                                ? img.fileNameBase
+                                : `${img.fileNameBase}_sm.avif`;
+
+                            // Always lazy load backgrounds so they don't block the main image
+                            return `<img src="${bgSrc}" class="w-full h-full object-cover scale-125 blur-2xl opacity-30 transform-gpu" style="backface-visibility: hidden;" alt="" loading="lazy" decoding="async" />`;
+                        })()}
+                                        </div>
+
+                                        <div class="info-reveal-group absolute top-4 left-6 z-50 flex items-center gap-3">
+                                            <div class="info-btn-trigger flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-neutral-900/60 backdrop-blur-md border border-white/20 text-white font-serif italic text-[15px] leading-none shadow-[0_4px_12px_rgba(0,0,0,0.4)] cursor-pointer relative z-10 hover:bg-neutral-800/80">
+                                                <span class="mt-[2px]">i</span>
+                                            </div>
+                                            <div class="info-text-mask flex items-center">
+                                                <div class="info-credit-text text-xs font-body-md font-medium leading-[1.6] tracking-wide select-none">
+                                                    ${img.sourceCredit || 'Collected'}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="absolute inset-0 w-full h-full flex items-center justify-center p-6 md:p-16 z-10">
+                                            ${(() => {
+                            const loadStrategy = (imgIndex <= 1) ? 'loading="eager" fetchpriority="high"' : 'loading="lazy" decoding="async"';
+                            // 1. Store the tag in a variable instead of returning it immediately
+                            let imageTag = '';
+                            if (img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i)) {
+                                imageTag = `<img src="${img.fileNameBase}" class="w-full h-full object-contain pointer-events-none drop-shadow-2xl origin-center" alt="" ${loadStrategy} />`;
+                            } else {
+                                imageTag = `
+                                    <picture class="w-full h-full flex items-center justify-center pointer-events-none drop-shadow-2xl origin-center">
+                                        <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
+                                        <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
+                                        <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-contain" alt="" ${loadStrategy} />
+                                    </picture>`;
+                            }
+
+                            // 2. Now return the correct DOM structure based on the flag
+                            if (img.enableReveal) {
+                                const cropSrc = img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i) ? img.fileNameBase : `${img.fileNameBase}_sm.avif`;
+                                return `
+                                    <div class="hz-fg-crop absolute inset-0 z-10 w-full h-full pointer-events-none transform-gpu will-change-transform will-change-opacity">
+                                        <img src="${cropSrc}" class="w-full h-full object-cover origin-center" alt="" ${loadStrategy} />
+                                    </div>
+                                    <div class="hz-fg-full absolute inset-0 w-full h-full flex items-center justify-center p-6 md:p-16 z-20 opacity-0 pointer-events-none transform-gpu will-change-transform will-change-opacity">
+                                        ${imageTag}
+                                    </div>
+                                `;
+                            } else {
+                                return `
+                                    <div class="absolute inset-0 w-full h-full flex items-center justify-center p-6 md:p-16 z-10 transform-gpu">
+                                        ${imageTag}
+                                    </div>
+                                `;
+                            }
+                        })()}
+                                        </div>
+
+                                        <div class="absolute z-20 bottom-6 md:bottom-auto md:top-1/2 md:-translate-y-1/2 left-[5%] right-[5%] md:left-auto md:right-[8%] md:w-[420px] h-[50vh] md:h-[60vh] flex items-end md:items-center justify-center pointer-events-none">
+                                            ${img.boxes.map((box) => `
+                                                <div class="text-card absolute bottom-0 md:bottom-auto w-full bg-[#0A1931]/95 backdrop-blur-[20px] border border-[#E8A55D]/30 rounded-sm p-6 md:p-8 shadow-2xl opacity-0 pointer-events-auto flex flex-col gap-4">
+                                                    ${box.title ? `<h4 class="font-display-md text-xl md:text-2xl text-[#F4F1EA] mb-1 leading-[1.1] tracking-tight">${box.title}</h4>` : ''}
+                                                    ${box.text ? `<div class="font-body-md text-sm md:text-[15px] text-stone-300 leading-[1.65] font-light mix-blend-plus-lighter">${box.text}</div>` : ''}
+                                                    ${box.caption ? `
+                                                        <div class="mt-2 border-t border-[#D4AF37]/20 pt-3 flex items-start gap-2">
+                                                            <span class="text-[#D4AF37] opacity-60 text-sm leading-none pt-0.5">⸎</span>
+                                                            <p class="font-sans text-[10px] md:text-xs uppercase tracking-[0.12em] text-stone-400 font-semibold">${box.caption}</p>
+                                                        </div>
+                                                    ` : ''}
+                                                </div>
+                                            `).join('')}
+                                        </div>
+
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                        </div>
+                    </div>`;
                 });
-            } else if (section.images) {
+            }
+            else if (section.images) {
                 // Section with multiple images but NO subsections (like Segment 2)
                 section.images.forEach((img, imgIndex) => {
                     const { sectionHeight, boxesHTML } = generateTextBoxesHTML(img);
@@ -1482,21 +1578,120 @@
 
         // Setup animations
         setTimeout(() => {
-            // Pin sub-headers to the top while scrolling through their respective subsection-containers
-            const subContainers = document.querySelectorAll('.subsection-container');
-            subContainers.forEach(container => {
-                const header = container.querySelector('.sticky.top-0.z-40');
-                if (header) {
-                    ScrollTrigger.create({
-                        trigger: container,
+            // 1. DYNAMIC HORIZONTAL TRACKS GENERATION (Staggered Execution)
+            const horizontalWrappers = document.querySelectorAll('.horizontal-subsection-wrapper');
+
+            horizontalWrappers.forEach((wrapper) => {
+                const track = wrapper.querySelector('.horizontal-track');
+                const slides = gsap.utils.toArray(wrapper.querySelectorAll('.horizontal-slide'));
+                const infoPills = wrapper.querySelectorAll('.info-reveal-group');
+
+
+
+                // Create the master timeline for this specific track
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: wrapper,
                         start: "top top",
-                        end: "bottom top",
-                        pin: header,
-                        pinSpacing: false
-                    });
-                }
+                        end: "bottom bottom",
+                        scrub: 1.2, // Adds a 1.2-second smoothing effect to catch up to native scroll
+                        invalidateOnRefresh: true,
+                        anticipatePin: 1, // Prevents mobile browsers from flashing when sticky engages
+                        fastScrollEnd: true // Prevents getting stuck if the user flicks really fast
+                    }
+                });
+
+                slides.forEach((slide, index) => {
+                    // A. Move the track to the current slide
+                    if (index > 0) {
+                        tl.to(track, {
+                            xPercent: -(100 * index), // Uses percentages instead of pixels, completely immune to resize thrashing
+                            ease: "none",
+                            duration: 1
+                        });
+                    }
+                    const hzCrop = slide.querySelector('.hz-fg-crop');
+                    const hzFull = slide.querySelector('.hz-fg-full');
+
+                    if (hzCrop && hzFull) {
+                        // The ">" tells GSAP to start this strictly AFTER the horizontal sliding finishes
+                        tl.to(hzCrop, { opacity: 0, duration: 0.8, ease: "power1.inOut" }, ">");
+                        tl.fromTo(hzFull,
+                            { scale: 1.15, opacity: 0 },
+                            { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" },
+                            "<" // The "<" syncs the full image scale-in exactly with the crop fade-out
+                        );
+                        // Add a slight scroll pause so the user can digest the image before cards appear
+                        tl.to({}, { duration: 0.5 });
+                    }
+                    // Trigger the info pill horizontally for this specific slide
+                    const pill = slide.querySelector('.info-reveal-group');
+                    if (pill) {
+                        ScrollTrigger.create({
+                            trigger: slide,
+                            horizontal: true,
+                            containerAnimation: tl, // Ties the trigger to your horizontal timeline
+                            start: "left 30%", // Triggers when the slide is 70% into the view from the right
+                            onEnter: () => {
+                                pill.classList.add('force-open');
+                                setTimeout(() => pill.classList.remove('force-open'), 1500);
+                            },
+                            onEnterBack: () => {
+                                pill.classList.add('force-open');
+                                setTimeout(() => pill.classList.remove('force-open'), 1500);
+                            }
+                        });
+                    }
+
+                    // B. Fetch the text cards
+                    const cards = gsap.utils.toArray(slide.querySelectorAll('.text-card'));
+
+                    if (cards.length === 0) {
+                        // Reduced empty pause so the user doesn't hit a "dead zone" while scrolling
+                        tl.to({}, { duration: 0.4 });
+                    } else {
+                        tl.to({}, { duration: 1.0 });
+                        // C. Loop through cards and animate them with standardized, snappier math
+                        cards.forEach((card, cIdx) => {
+                            tl.fromTo(card, {
+                                opacity: 0,
+                                x: () => window.innerWidth >= 768 ? 100 : 0, // Increased travel distance
+                                y: () => window.innerWidth < 768 ? 100 : 0,  // Increased travel distance
+                                scale: 0.95
+                            }, {
+                                opacity: 1,
+                                x: 0,
+                                y: 0,
+                                scale: 1,
+                                duration: 1, // Matched with vertical smoothness
+                                ease: "power1.out" // Matched easing
+                            });
+
+                            // Standardized reading pause
+                            tl.to({}, { duration: 0.8 });
+
+                            // Slide out logic
+                            if (cIdx < cards.length - 1) {
+                                // Fade out to make room for the next card in this same slide
+                                tl.to(card, {
+                                    opacity: 0,
+                                    y: -15,
+                                    duration: 0.25,
+                                    ease: "power2.in"
+                                });
+                            } else if (index < slides.length - 1) {
+                                // Final card fades out as track begins moving to the next image
+                                tl.to(card, {
+                                    opacity: 0,
+                                    duration: 0.25
+                                });
+                            }
+                        });
+                    }
+                });
             });
 
+            // 2. STANDARD VERTICAL SCROLLYTELLING ENGINE (For Independent Sections)
             const sections = document.querySelectorAll('.dual-phase-section');
 
             sections.forEach((sec) => {
@@ -1506,29 +1701,21 @@
                 const fgFull = sec.querySelector('.fg-full');
                 const infoPill = sec.querySelector('.info-reveal-group');
 
-                // Auto-reveal the info pill for 1.5 seconds when the image enters the viewport
                 if (infoPill) {
                     ScrollTrigger.create({
                         trigger: sec,
-                        start: "top 70%", // Triggers when the top of the image hits the middle of the screen
+                        start: "top 70%",
                         onEnter: () => {
                             infoPill.classList.add('force-open');
-                            setTimeout(() => {
-                                infoPill.classList.remove('force-open');
-                            }, 1500);
+                            setTimeout(() => infoPill.classList.remove('force-open'), 1500);
                         },
-                        onEnterBack: () => { // Do it again if they scroll backwards up the page!
+                        onEnterBack: () => {
                             infoPill.classList.add('force-open');
-                            setTimeout(() => {
-                                infoPill.classList.remove('force-open');
-                            }, 1500);
+                            setTimeout(() => infoPill.classList.remove('force-open'), 1500);
                         }
                     });
                 }
 
-                // --- NEW GSAP LOGIC START ---
-
-                // 1. Create timeline unconditionally for every section
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: sec,
@@ -1538,98 +1725,58 @@
                     }
                 });
 
-                // 2. If this is the Intro, fade out the giant title FIRST
                 if (introTitle) {
                     tl.to(introTitle, { opacity: 0, y: -80, duration: 0.8 }, 0);
                 }
 
-                // 3. Crossfade Magic (Image reveals) - ALWAYS RUNS
                 const shouldReveal = sec.getAttribute('data-enable-reveal') !== 'false';
-
-                if (fgCrop && fgFull) {
-                    if (shouldReveal) {
-                        tl.to(fgCrop, { opacity: 0, duration: 0.7 }, 0);
-                        tl.fromTo(fgFull, { scale: 1.15, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7 }, 0);
-                    }
+                if (fgCrop && fgFull && shouldReveal) {
+                    tl.to(fgCrop, { opacity: 0, duration: 0.7 }, 0);
+                    tl.fromTo(fgFull, { scale: 1.15, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7 }, 0);
                 }
 
-                // 4. Text Box Animations - ONLY RUNS IF TEXTBOXES EXIST
                 if (textBoxes.length > 0) {
-
-                    // Hide subsequent boxes initially
                     for (let i = 1; i < textBoxes.length; i++) {
                         gsap.set(textBoxes[i], { autoAlpha: 0, y: 96 });
                     }
 
-                    // Sequential Animation Logic
                     for (let i = 0; i < textBoxes.length; i++) {
                         const startPosition = (i === 0 && introTitle) ? ">" : (i === 0 ? 0 : ">");
-
-                        // Phase 1: ENTER
                         tl.fromTo(textBoxes[i],
                             { autoAlpha: 0, y: 100 },
                             { autoAlpha: 1, y: 0, duration: 1, ease: "power1.out" },
                             startPosition
                         );
-
-                        // Phase 2: HOLD & DRIFT
-                        tl.to(textBoxes[i], {
-                            y: -30,
-                            duration: 1.5,
-                            ease: "none"
-                        });
-
-                        // Phase 3: EXIT
+                        tl.to(textBoxes[i], { y: -30, duration: 1.5, ease: "none" });
                         if (i < textBoxes.length - 1) {
-                            tl.to(textBoxes[i], {
-                                autoAlpha: 0,
-                                y: -150,
-                                duration: 1,
-                                ease: "power1.in"
-                            });
+                            tl.to(textBoxes[i], { autoAlpha: 0, y: -150, duration: 1, ease: "power1.in" });
                         }
                     }
                 } else {
-                    // 5. If no text boxes, add a dummy duration so the user can still scrub 
-                    // smoothly through the image crossfade before hitting the next section.
                     tl.to({}, { duration: 2 });
                 }
-
-                // --- NEW GSAP LOGIC END ---
             });
 
-            // Chapter Transition Typography Animation
+            // 3. CHAPTER TRANSITION TYPOGRAPHY LAYER
             const chapterTransitions = document.querySelectorAll('.chapter-transition');
             chapterTransitions.forEach(transition => {
                 const title = transition.querySelector('.chapter-title-deboss');
-                const dot = transition.querySelector('.rounded-full'); // The little decorative dot below the text
+                const dot = transition.querySelector('.rounded-full');
 
                 if (title) {
-                    // Set initial state
                     gsap.set(title, { autoAlpha: 0, y: 60, scale: 0.95 });
                     if (dot) gsap.set(dot, { autoAlpha: 0, scale: 0 });
 
-                    // Animate on scroll
                     const tl = gsap.timeline({
                         scrollTrigger: {
                             trigger: transition,
-                            start: "top 75%", // Triggers when the section is 25% into the viewport
-                            toggleActions: "play reverse play reverse" // Animates in and out as you scroll past
+                            start: "top 75%",
+                            toggleActions: "play reverse play reverse"
                         }
                     });
 
-                    tl.to(title, {
-                        autoAlpha: 1,
-                        y: 0,
-                        scale: 1,
-                        duration: 1.2,
-                        ease: "expo.out"
-                    }).to(dot, {
-                        autoAlpha: 1,
-                        scale: 1,
-                        duration: 0.8,
-                        ease: "back.out(1.5)"
-                    }, "-=0.8"); // Overlap the dot animation with the text
+                    tl.to(title, { autoAlpha: 1, y: 0, scale: 1, duration: 1.2, ease: "expo.out" })
+                        .to(dot, { autoAlpha: 1, scale: 1, duration: 0.8, ease: "back.out(1.5)" }, "-=0.8");
                 }
             });
         }, 100);
@@ -1710,12 +1857,21 @@
 
         // 4. Up/Down Arrow Logic (Viewport Panning)
         // Since it's a scrollytelling piece with scrubs, scrolling by viewport height is safer than snapping to IDs so you don't miss animations.
+        // 4. Up/Down Arrow Logic (Viewport Panning)
+        // Calibrated to 0.55 to match the 50vh/60vh step height of the GSAP timelines.
+        // This ensures one click equals roughly one animation step, preventing skipping.
         document.getElementById('scroll-down').addEventListener('click', () => {
-            lenis.scrollTo(window.scrollY + (window.innerHeight * 0.85), { duration: 1.2 });
+            lenis.scrollTo(window.scrollY + (window.innerHeight * 0.55), {
+                duration: 0.9, // Slightly sped up to feel responsive with the shorter distance
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
         });
 
         document.getElementById('scroll-up').addEventListener('click', () => {
-            lenis.scrollTo(window.scrollY - (window.innerHeight * 0.85), { duration: 1.2 });
+            lenis.scrollTo(window.scrollY - (window.innerHeight * 0.55), {
+                duration: 0.9,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
         });
 
     </script>
