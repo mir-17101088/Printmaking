@@ -1222,7 +1222,7 @@
             gestureDirection: 'vertical',
             smooth: true,          // Allow Lenis to run everywhere
             smoothTouch: false,    // Keep the native "feel" of touch scrolling...
-            syncTouch: true,       // ...BUT force it to sync with GSAP's requestAnimationFrame
+            syncTouch: false,       // ...BUT force it to sync with GSAP's requestAnimationFrame
             mouseMultiplier: 1,
             touchMultiplier: 2,
             infinite: false,
@@ -1256,7 +1256,7 @@
             const boxesHTML = `
                 <div class="grid grid-cols-1 grid-rows-1 w-full relative">
                     ${boxes.map((box, i) => `
-                        <div class="text-box col-start-1 row-start-1 w-full bg-[#0A1931]/85 backdrop-blur-[20px] border border-[#E8A55D]/30 rounded-sm p-6 md:p-10 shadow-[inset_0_0_30px_rgba(4,11,28,0.6),0_24px_50px_rgba(0,0,0,0.5)] translate-y-24 opacity-0 max-h-[85vh] overflow-hidden flex flex-col justify-center">                            
+                        <div class="text-box col-start-1 row-start-1 w-full bg-[#0A1931]/95 backdrop-blur-[20px] border border-[#E8A55D]/30 rounded-sm p-6 md:p-10 shadow-[inset_0_0_30px_rgba(4,11,28,0.6),0_24px_50px_rgba(0,0,0,0.5)] translate-y-24 opacity-0 max-h-[85vh] overflow-hidden flex flex-col justify-center">                            
                             ${box.title ? `<h2 class="font-display-md text-3xl md:text-3xl text-[#F4F1EA] mb-4 md:mb-5 leading-[1.1] tracking-tight border-b border-white/10 pb-3">${box.title}</h2>` : ''}
                             
                             ${box.text ? `<div class="font-body-md text-[clamp(13.5px,1.8vh,17px)] text-stone-300 leading-[1.6] md:leading-[1.65] font-light mix-blend-plus-lighter">${box.text}</div>` : ''}
@@ -1347,7 +1347,7 @@
                                 : `${img.fileNameBase}_sm.avif`;
 
                             // Always lazy load backgrounds so they don't block the main image
-                            return `<img src="${bgSrc}" class="w-full h-full object-cover scale-125 blur-2xl opacity-30 transform-gpu" style="backface-visibility: hidden;" alt="" loading="lazy" decoding="async" />`;
+                            return `<img src="${bgSrc}" class="w-full h-full object-cover scale-125 md:blur-2xl opacity-30 transform-gpu" style="backface-visibility: hidden;" alt="" loading="lazy" decoding="async" />`;
                         })()}
                                         </div>
 
@@ -1382,10 +1382,10 @@
                             if (img.enableReveal) {
                                 const cropSrc = img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i) ? img.fileNameBase : `${img.fileNameBase}_sm.avif`;
                                 return `
-                                    <div class="hz-fg-crop absolute inset-0 z-10 w-full h-full pointer-events-none transform-gpu will-change-transform will-change-opacity">
+                                    <div class="hz-fg-crop absolute inset-0 z-10 w-full h-full pointer-events-none transform-gpu">
                                         <img src="${cropSrc}" class="w-full h-full object-cover origin-center" alt="" ${loadStrategy} />
                                     </div>
-                                    <div class="hz-fg-full absolute inset-0 w-full h-full flex items-center justify-center p-6 md:p-16 z-20 opacity-0 pointer-events-none transform-gpu will-change-transform will-change-opacity">
+                                    <div class="hz-fg-full absolute inset-0 w-full h-full flex items-center justify-center p-6 md:p-16 z-20 opacity-0 pointer-events-none transform-gpu">
                                         ${imageTag}
                                     </div>
                                 `;
@@ -1594,7 +1594,7 @@
                         trigger: wrapper,
                         start: "top top",
                         end: "bottom bottom",
-                        scrub: 1.2, // Adds a 1.2-second smoothing effect to catch up to native scroll
+                        scrub: 0.6, // Adds a 1.2-second smoothing effect to catch up to native scroll
                         invalidateOnRefresh: true,
                         anticipatePin: 1, // Prevents mobile browsers from flashing when sticky engages
                         fastScrollEnd: true // Prevents getting stuck if the user flicks really fast
