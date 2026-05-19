@@ -287,7 +287,7 @@
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             /* Ensures smooth scaling without pixel snapping */
-            image-rendering: -webkit-optimize-contrast;
+
         }
 
         /* Horizontal Custom Context Scroll Layer */
@@ -313,6 +313,7 @@
             will-change: transform;
             transform: translateZ(0);
             backface-visibility: hidden;
+
         }
 
         .text-card {
@@ -325,18 +326,49 @@
             /* Add the standard property here */
         }
 
-        /* --- MOBILE PERFORMANCE OVERRIDES --- */
-        @media (max-width: 700px) {
+        /* --- MOBILE PERFORMANCE OVERRIDES (All phones up to 768px) --- */
+        @media (max-width: 768px) {
 
-            /* Kill backdrop blur on moving text cards */
+            /* Kill backdrop blur + free VRAM: idle cards no longer hold compositor layers */
             .text-card {
                 -webkit-backdrop-filter: none !important;
                 backdrop-filter: none !important;
                 background-color: rgba(10, 25, 49, 0.98) !important;
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+                will-change: auto !important;
             }
 
-            /* Kill heavy background blurs - targets ONLY the scaled ambient backgrounds */
+            /* scale-125 wastes GPU fill-rate across all slides during horizontal pan;
+               1.02 is enough to cover edge-bleed without the overhead */
+            .horizontal-slide .scale-125 {
+                --tw-scale-x: 1.02 !important;
+                --tw-scale-y: 1.02 !important;
+            }
+
+            /* 32px circle, undetectable visually, no reason to composite a blur layer */
+            .info-btn-trigger {
+                -webkit-backdrop-filter: none !important;
+                backdrop-filter: none !important;
+                background: rgba(30, 30, 30, 0.9) !important;
+            }
+
+            /* Forces a separate alpha-compositing pass per frame — the silent frame-killer */
+            .mix-blend-plus-lighter {
+                mix-blend-mode: normal !important;
+            }
+
+            /* drop-shadow traces alpha channels per frame; box-shadow is compositor-free */
+            .horizontal-slide .drop-shadow-2xl,
+            .horizontal-slide picture {
+                filter: none !important;
+                -webkit-filter: none !important;
+            }
+        }
+
+        /* --- AGGRESSIVE OVERRIDES for narrow phones (< 700px) --- */
+        @media (max-width: 700px) {
+
+            /* Kill heavy background blurs on vertical sections */
             .pin-bg img.scale-125,
             .horizontal-slide img.scale-125 {
                 filter: none !important;
@@ -1224,7 +1256,7 @@
             smoothTouch: false,    // Keep the native "feel" of touch scrolling...
             syncTouch: false,       // ...BUT force it to sync with GSAP's requestAnimationFrame
             mouseMultiplier: 1,
-            touchMultiplier: 2,
+            touchMultiplier: 1.5,
             infinite: false,
         });
 
@@ -1594,7 +1626,7 @@
                         trigger: wrapper,
                         start: "top top",
                         end: "bottom bottom",
-                        scrub: 0.6, // Adds a 1.2-second smoothing effect to catch up to native scroll
+                        scrub: isTouchDevice ? 0.3 : 0.6,
                         invalidateOnRefresh: true,
                         anticipatePin: 1, // Prevents mobile browsers from flashing when sticky engages
                         fastScrollEnd: true // Prevents getting stuck if the user flicks really fast
@@ -1655,16 +1687,16 @@
                         cards.forEach((card, cIdx) => {
                             tl.fromTo(card, {
                                 opacity: 0,
-                                x: () => window.innerWidth >= 768 ? 100 : 0, // Increased travel distance
-                                y: () => window.innerWidth < 768 ? 100 : 0,  // Increased travel distance
-                                scale: 0.95
+                                x: () => window.innerWidth >= 768 ? 100 : 0,
+                                y: () => window.innerWidth < 768 ? 80 : 0,
+                                scale: () => window.innerWidth < 768 ? 1 : 0.95
                             }, {
                                 opacity: 1,
                                 x: 0,
                                 y: 0,
                                 scale: 1,
-                                duration: 1, // Matched with vertical smoothness
-                                ease: "power1.out" // Matched easing
+                                duration: 1,
+                                ease: "power1.out"
                             });
 
                             // Standardized reading pause
