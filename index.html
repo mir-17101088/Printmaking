@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>THE ART OF PRINT</title>
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        html.lenis,
+        html.lenis body {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        /* Intro Page Animations */
+        @keyframes slowZoom {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.15);
+            }
+        }
+
+        .animate-slow-zoom {
+            animation: slowZoom 30s ease-out forwards;
+        }
+
+        @keyframes scrollLine {
+            0% {
+                transform: scaleY(0);
+                transform-origin: top;
+            }
+
+            50% {
+                transform: scaleY(1);
+                transform-origin: top;
+            }
+
+            50.1% {
+                transform: scaleY(1);
+                transform-origin: bottom;
+            }
+
+            100% {
+                transform: scaleY(0);
+                transform-origin: bottom;
+            }
+        }
+
+        .animate-scroll-line {
+            animation: scrollLine 2.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+        }
+
+        /* --- REPLACE ALL PREVIOUS .info-pill CSS WITH THIS --- */
+
+        .info-reveal-group {
+            /* Ensures the group stays anchored properly */
+            pointer-events: none;
+        }
+
+        .info-btn-trigger {
+            pointer-events: auto;
+            transition: background-color 0.3s ease;
+        }
+
+        .info-text-mask {
+            /* The invisible window the text slides out from */
+            overflow: hidden;
+            /* Extra padding prevents the text's drop-shadow from being clipped */
+            padding: 8px 12px 8px 0;
+            margin: -8px -12px -8px 0;
+            pointer-events: none;
+        }
+
+        .info-credit-text {
+            /* Hardware-accelerated sliding */
+            transform: translateX(-110%);
+            opacity: 0;
+            will-change: transform, opacity;
+            /* Cubic-bezier for a snappy out, smooth settle motion */
+            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.4s ease 0.05s;
+            /* Slight delay on opacity */
+
+            /* Typography styling for a transparent background */
+            width: max-content;
+            max-width: 300px;
+            white-space: normal;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.8), 0px 1px 3px rgba(0, 0, 0, 0.9);
+        }
+
+        /* Hover & Force-Open States */
+        .info-reveal-group:hover .info-credit-text,
+        .info-reveal-group.force-open .info-credit-text {
+            transform: translateX(0);
+            opacity: 1;
+            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.3s ease;
+        }
+
+        /* --- PREMIUM NAVIGATION UI --- */
+        .glass-nav-btn {
+            background: rgba(19, 19, 19, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            will-change: transform, background-color;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .glass-nav-btn:hover {
+            background: rgba(35, 35, 35, 0.8);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.08);
+        }
+
+        .menu-link {
+            will-change: transform, opacity, color;
+        }
+
+        /* --- STICKY LOGO PREMIUM WHITE CONTAINER STYLING --- */
+        #sticky-logo-container {
+            will-change: transform, opacity;
+            transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #sticky-logo-container a {
+            display: block;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Intro Slide: Hero Size & Full Visibility */
+        #sticky-logo-container.logo-big {
+            opacity: 1;
+        }
+
+        #sticky-logo-container.logo-big img {
+            height: 38px;
+            width: auto;
+            transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* --- SLOW READS LOGO --- */
+        #slow-reads-logo-container {
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 1;
+        }
+
+        #slow-reads-logo-container.faded {
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+
+        #slow-reads-logo-container a {
+            display: block;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #slow-reads-logo-container img {
+            height: 35px;
+            width: auto;
+            transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @media (max-width: 768px) {
+            #sticky-logo-container.logo-big img {
+                height: 35px;
+            }
+
+            #slow-reads-logo-container img {
+                height: 28px;
+            }
+        }
+
+        /* Other Slides: Smaller & Ghost/Translucent Visibility */
+        #sticky-logo-container.logo-small {
+            opacity: 0.4;
+            /* fades smoothly out of focal path */
+        }
+
+        #sticky-logo-container.logo-small img {
+            height: 28px;
+            width: auto;
+            transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @media (max-width: 768px) {
+            #sticky-logo-container.logo-small img {
+                height: 24px;
+            }
+        }
+
+        /* Dynamic Hover States */
+        #sticky-logo-container.logo-small:hover {
+            opacity: 1;
+            /* returns to full visibility when hovered */
+        }
+
+        #sticky-logo-container a:hover,
+        #slow-reads-logo-container a:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- PRINTMAKING MATERIAL EFFECTS --- */
+
+        /* The Inked Emboss for Chapter Transitions */
+        .chapter-title-deboss {
+            color: #F4F1EA;
+            /* High contrast ivory paper color */
+            text-shadow:
+                0px 8px 30px rgba(4, 11, 28, 0.95),
+                /* Deep navy shadow instead of black */
+                0px 2px 5px rgba(232, 165, 93, 0.6);
+            /* Warm gold/copper highlight */
+            will-change: transform, opacity;
+            /* Hardware acceleration for smooth GSAP animation */
+        }
+
+        /* The Editorial Drop-Cap (Replaces your inline styles) */
+        .editorial-dropcap {
+            color: #A62B2B;
+            /* Madder Red */
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2em;
+            line-height: 0.8;
+            float: left;
+            margin-right: 8px;
+            margin-top: 4px;
+            font-style: normal;
+            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        /* The Ink Roll Navigation Hover */
+        .menu-link {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 4px;
+        }
+
+        .menu-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: currentColor;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .menu-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* --- HARDWARE ACCELERATION FOR GSAP IMAGE ANIMATIONS --- */
+        .fg-crop,
+        .fg-full {
+            will-change: transform, opacity;
+            /* Forces a dedicated compositor layer to prevent paint-flashing on mobile */
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            /* Ensures smooth scaling without pixel snapping */
+
+        }
+
+        /* Horizontal Custom Context Scroll Layer */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(232, 165, 93, 0.3);
+            border-radius: 2px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(232, 165, 93, 0.6);
+
+        }
+
+        /* Add hardware acceleration to horizontal tracking and cards */
+        .horizontal-track {
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+
+        }
+
+        .text-card {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            /* On very old devices, backdrop-filter is a frame-killer. 
+            This fallback ensures it degrades gracefully without lagging. */
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            /* Add the standard property here */
+        }
+
+        /* --- MOBILE PERFORMANCE OVERRIDES (All phones up to 768px) --- */
+        @media (max-width: 768px) {
+
+            /* Kill backdrop blur + free VRAM: idle cards no longer hold compositor layers */
+            .text-card {
+                -webkit-backdrop-filter: none !important;
+                backdrop-filter: none !important;
+                background-color: rgba(10, 25, 49, 0.98) !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+                will-change: auto !important;
+            }
+
+            /* scale-125 wastes GPU fill-rate across all slides during horizontal pan;
+               1.02 is enough to cover edge-bleed without the overhead */
+            .horizontal-slide .scale-125 {
+                --tw-scale-x: 1.02 !important;
+                --tw-scale-y: 1.02 !important;
+            }
+
+            /* 32px circle, undetectable visually, no reason to composite a blur layer */
+            .info-btn-trigger {
+                -webkit-backdrop-filter: none !important;
+                backdrop-filter: none !important;
+                background: rgba(30, 30, 30, 0.9) !important;
+            }
+
+            /* Forces a separate alpha-compositing pass per frame — the silent frame-killer */
+            .mix-blend-plus-lighter {
+                mix-blend-mode: normal !important;
+            }
+
+            /* drop-shadow traces alpha channels per frame; box-shadow is compositor-free */
+            .horizontal-slide .drop-shadow-2xl,
+            .horizontal-slide picture {
+                filter: none !important;
+                -webkit-filter: none !important;
+            }
+        }
+
+        /* --- AGGRESSIVE OVERRIDES for narrow phones (< 700px) --- */
+        @media (max-width: 700px) {
+
+            /* Kill heavy background blurs on vertical sections */
+            .pin-bg img.scale-125,
+            .horizontal-slide img.scale-125 {
+                filter: none !important;
+                -webkit-filter: none !important;
+                opacity: 0.15 !important;
+            }
+        }
+
+        /* --- RESPONSIVE INTRO FOR SHORT VIEWPORTS --- */
+        @media (max-height: 600px) {
+            .intro-title h1 {
+                font-size: clamp(2rem, 10vmin, 5rem) !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            .intro-title .intro-tagline {
+                font-size: 10px !important;
+                margin-bottom: 0.25rem !important;
+            }
+
+            .intro-title .intro-subtitle {
+                font-size: 14px !important;
+            }
+        }
+
+        @media (max-height: 450px) {
+            .intro-title h1 {
+                font-size: clamp(1.5rem, 8vmin, 3rem) !important;
+                line-height: 0.95 !important;
+            }
+
+            .intro-title .intro-subtitle {
+                display: none !important;
+            }
+        }
+
+        /* --- DESKTOP SIDE PANEL NAVIGATION --- */
+        #desktop-side-panel {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%) translateX(-100%);
+            z-index: 60;
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        #desktop-side-panel.panel-visible {
+            transform: translateY(-50%) translateX(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .side-panel-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 4px;
+            padding: 14px 10px;
+        }
+
+        .side-panel-divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 4px 0;
+        }
+
+        .side-panel-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.35);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: center;
+        }
+
+        .side-panel-arrow:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .side-panel-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 8px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            flex-direction: row;
+        }
+
+        .side-panel-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .side-panel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 0 0 0 transparent;
+            opacity: 0.4;
+        }
+
+        .side-panel-item:hover .side-panel-dot,
+        .side-panel-item.active .side-panel-dot {
+            opacity: 1;
+            transform: scale(1.35);
+        }
+
+        .side-panel-item.active .side-panel-dot {
+            box-shadow: 0 0 10px 3px currentColor;
+        }
+
+        .side-panel-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0);
+            white-space: nowrap;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            max-width: 0;
+            overflow: hidden;
+        }
+
+        .side-panel-inner:hover .side-panel-label {
+            max-width: 180px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .side-panel-item:hover .side-panel-label {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .side-panel-item.active .side-panel-label {
+            max-width: 180px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+    </style>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#8e9192",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-secondary-fixed-variant": "#474646",
+                        "on-primary-container": "#636565",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "tertiary": "#ffffff",
+                        "inverse-primary": "#5d5f5f",
+                        "error": "#ffb4ab",
+                        "on-error-container": "#ffdad6",
+                        "primary-container": "#e2e2e2",
+                        "on-tertiary-container": "#656464",
+                        "surface-variant": "#353535",
+                        "surface-bright": "#393939",
+                        "primary": "#ffffff",
+                        "primary-fixed": "#e2e2e2",
+                        "on-surface": "#e5e2e1",
+                        "error-container": "#93000a",
+                        "surface-dim": "#131313",
+                        "surface-container-highest": "#353535",
+                        "on-secondary": "#313030",
+                        "on-background": "#e5e2e1",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary-fixed": "#e4e2e1",
+                        "primary-fixed-dim": "#c6c6c7",
+                        "on-primary-fixed": "#1a1c1c",
+                        "secondary": "#c9c6c5",
+                        "surface-container-low": "#1c1b1b",
+                        "outline-variant": "#444748",
+                        "background": "#131313",
+                        "secondary-container": "#474646",
+                        "surface-tint": "#c6c6c7",
+                        "secondary-fixed": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "on-primary-fixed-variant": "#454747",
+                        "surface-container": "#20201f",
+                        "tertiary-container": "#e4e2e1",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#c8c6c6",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-primary": "#2f3131",
+                        "on-tertiary": "#303030",
+                        "surface": "#131313",
+                        "on-surface-variant": "#c4c7c8",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "on-secondary-container": "#b7b4b4",
+                        "surface-container-high": "#2a2a2a",
+                        "inverse-surface": "#e5e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "gutter": "32px",
+                        "section-gap": "160px",
+                        "margin-mobile": "24px",
+                        "margin-desktop": "80px",
+                        "unit": "8px",
+                        "margin-tablet": "40px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-md": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "160%", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "100%", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "display-md": ["80px", { "lineHeight": "110%", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "120%", "fontWeight": "600" }],
+                        "display-lg": ["120px", { "lineHeight": "110%", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["20px", { "lineHeight": "160%", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "120%", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Scripts for Scroll & Animation -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link rel="preload" href="assets/1_intro_landing_1_md.avif" as="image" fetchpriority="high" />
+</head>
+
+<body class="bg-background text-on-background antialiased selection:bg-primary selection:text-on-primary">
+    <div
+        class="hidden md:block pointer-events-none fixed inset-0 z-50 h-full w-full opacity-[0.02] mix-blend-overlay bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')]">
+    </div>
+    <!-- Sticky Logo in a Premium White Container -->
+    <div id="sticky-logo-container" class="fixed right-6 top-6 z-[60] pointer-events-auto origin-top-right logo-big">
+        <a href="https://www.thedailystar.net/" target="_blank" rel="noopener noreferrer">
+            <img src="logo.svg" alt="Logo"
+                class="h-auto transition-all duration-700 ease-in-out filter brightness-0 invert drop-shadow-md" />
+        </a>
+    </div>
+
+    <!-- Slow Reads Logo -->
+    <div id="slow-reads-logo-container" class="fixed left-6 top-6 z-[60] pointer-events-auto origin-top-left">
+        <a href="https://www.thedailystar.net/slow-reads" target="_blank" rel="noopener noreferrer">
+            <img src="slow-reads.png" alt="Slow Reads" class="filter brightness-0 invert drop-shadow-md" />
+        </a>
+    </div>
+    <!-- Main Content Canvas -->
+    <main class="w-full" id="main-content">
+        <!-- Segments will be injected here by JS -->
+    </main>
+    <div id="side-arrows"
+        class="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-[60] flex flex-col gap-2 pointer-events-none opacity-0 invisible transition-all duration-500">
+        <button id="scroll-up"
+            class="glass-nav-btn pointer-events-auto w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white shadow-[0_2px_12px_rgba(0,0,0,0.4)] group">
+            <span
+                class="material-symbols-outlined text-[18px] group-hover:-translate-y-0.5 transition-transform duration-300">arrow_upward</span>
+        </button>
+        <button id="scroll-down"
+            class="glass-nav-btn pointer-events-auto w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white shadow-[0_2px_12px_rgba(0,0,0,0.4)] group">
+            <span
+                class="material-symbols-outlined text-[18px] group-hover:translate-y-0.5 transition-transform duration-300">arrow_downward</span>
+        </button>
+    </div>
+    <div id="desktop-side-panel" class="hidden md:block">
+        <div class="side-panel-inner">
+            <div id="side-panel-nav"></div>
+        </div>
+    </div>
+    <div id="scroll-hint"
+        style="position:fixed; bottom:96px; left:0; right:0; margin:auto; width:fit-content; z-index:55; pointer-events:none; opacity:0;"
+        class="flex items-center gap-2 bg-black/80 border border-white/15 rounded-full px-4 py-2.5 text-white/90 text-xs tracking-widest font-medium shadow-lg">
+        <span>SCROLL DOWN</span>
+        <span class="material-symbols-outlined text-[13px]">arrow_downward</span>
+    </div>
+
+    <button id="menu-toggle"
+        class="glass-nav-btn pointer-events-auto fixed bottom-6 right-6 z-[70] w-14 h-14 rounded-full flex md:hidden flex-col items-center justify-center gap-[5px] shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+        <div class="line-1 w-6 h-[2px] bg-white transition-transform duration-400 origin-center"></div>
+        <div class="line-2 w-6 h-[2px] bg-white transition-transform duration-400 origin-center"></div>
+    </button>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="glass-nav-btn pointer-events-auto fixed bottom-[100px] md:bottom-6 right-6 z-[70] w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center opacity-0 invisible transition-all duration-500 shadow-[0_8px_32px_rgba(0,0,0,0.6)] group">
+        <span
+            class="material-symbols-outlined text-[20px] md:text-[24px] text-white/70 group-hover:text-white group-hover:-translate-y-1 transition-all duration-300">vertical_align_top</span>
+    </button>
+
+    <div id="fullscreen-menu"
+        class="fixed inset-0 z-[65] bg-background/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center">
+        <nav id="menu-nav" class="flex flex-col gap-6 md:gap-8 text-center px-4 w-full max-w-3xl">
+        </nav>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-lowest border-t border-white/10 py-margin-desktop">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center px-6 md:px-margin-desktop w-full max-w-container-max mx-auto gap-8 text-center md:text-left">
+            <div
+                class="font-display-md text-3xl md:text-headline-lg-mobile text-primary w-full md:w-1/3 text-center md:text-left">
+                BENGAL'S PRINTMAKING LEGACY
+            </div>
+
+            <div
+                class="flex items-center justify-center gap-6 w-full md:w-1/3 bg-white/5 rounded-xl p-4 border border-white/10 shadow-lg backdrop-blur-md">
+                <a href="https://www.thedailystar.net/" target="_blank" rel="noopener noreferrer"
+                    class="hover:scale-105 transition-transform">
+                    <img src="logo.svg" alt="The Daily Star"
+                        class="h-8 md:h-10 w-auto filter brightness-0 invert opacity-90" />
+                </a>
+                <div class="w-px h-10 bg-white/20"></div>
+                <a href="https://www.thedailystar.net/slow-reads" target="_blank" rel="noopener noreferrer"
+                    class="hover:scale-105 transition-transform">
+                    <img src="slow-reads.png" alt="Slow Reads"
+                        class="h-6 md:h-8 w-auto filter brightness-0 invert opacity-90" />
+                </a>
+            </div>
+
+            <div class="w-full md:w-1/3 flex flex-col items-center md:items-end gap-3 text-center md:text-right">
+                <div class="font-body-md text-sm md:text-body-md text-on-surface-variant">
+                    ALL RIGHTS RESERVED &copy; 2026
+                </div>
+                <div
+                    class="font-label-caps text-[11px] tracking-[0.2em] uppercase text-white/60 border border-white/15 rounded-full px-5 py-2 mt-1 bg-white/5 backdrop-blur-sm shadow-md">
+                    Visual: Mir Rownak
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Project Data
+        const PROJECT_DATA = [
+            {
+                id: 'intro',
+                fig: '01',
+                tag: 'THE PLATE',
+                title: 'PRINTMAKING <br/>LEGACY',
+                subtitle: 'An art of pressure, patience, and process',
+
+                boxText: '<b><span class="editorial-dropcap">P</span></b>rintmaking is a unique visual art form rooted in indirect creation. Images are carved, etched, pressed, and pulled into existence through labour and repetition. In an age of AI-generated art and NFTs, the true beauty of printmaking lies in its intensely manual craft – the sharp bite of a burin into copper, the pressure of wood against paper, the persistence of ink-stained hands, and the slow emergence of an image from absence.',
+
+                image: 'assets/1_intro_landing_1_lg.avif',
+
+
+                isIntro: true
+            },
+            {
+                id: 'post-intro-visual',
+                hideChapterTransition: true, // We will use this flag to skip the black title screen
+                images: [
+                    {
+                        fileNameBase: 'assets/1_intro_landing_2', // Include extension for standard images, or leave off for your <picture> avif structure
+
+                        boxText: ' Printmaking in Bengal carries a long history. More than an artistic medium, it has carried history, ideas, and collective memory across generations. Because prints could be reproduced and circulated widely, they became powerful tools for social commentary, giving artists a way to challenge power, document struggle, and make art accessible beyond galleries and elite spaces. This project traces that history through images, textures, tools, and the artists, who spent patient hours in the process and in doing so, left lasting impressions on Bangladesh’s artistic landscape.',
+
+                        sourceCredit: 'Maya’s Dream (1986), etching by Monirul Islam at the Kala Kendra exhibition. Photo: Orchid Chakma',
+                        enableReveal: false
+
+
+                    }
+
+                ]
+            },
+
+            {
+                id: 'what-is',
+                fig: '02',
+                tag: 'THE STUDIO',
+                title: '<i>WHAT IS PRINTMAKING <br/> AND <br/>HOW IT IS DONE?</i>',
+                images: [
+                    {
+                        fileNameBase: 'assets/2_what_is_2',
+
+
+                        boxText: '<span style="color: red !important; font-style: italic !important; font-size: 2em; line-height: 1;">P</span>rintmaking is a unique technique of creating an artwork by transferring an image from one surface onto another, most often paper. The initial working surface, often called a plate, can be made from a range of materials.',
+                        sourceCredit: 'Kazi Tahsin Agaz Apurbo',
+                        enableReveal: false
+
+                    },
+                    {
+                        fileNameBase: 'assets/2_what_is_1',
+
+                        boxText: 'Artists carve into wood, bite metal with acid, scratch a drypoint needle, or press ink into paper, creating grooves, cuts, and textured impressions. Unlike painting, where the hand touches the final surface directly, printmaking works through mediation.',
+                        sourceCredit: 'Kazi Tahsin Agaz Apurbo',
+                        enableReveal: false
+
+
+                    },
+                    {
+                        fileNameBase: 'assets/2_what_is_7',
+
+                        boxText: 'The artist creates an absence, pressure, incision, or texture somewhere else first, and only then does the image appear. In a way, the final image is always a trace of another surface. The image must be imagined in reverse, translated across surfaces, and revealed only after the press lifts or the paper peels away. <i>There is always an element of surprise.</i>',
+                        sourceCredit: 'Kazi Tahsin Agaz Apurbo'
+
+
+
+                    }
+
+                ]
+            },
+            {
+                id: 'mediums',
+                fig: '03',
+                tag: 'THE TOOLS',
+                title: '<i>THERE ARE FOUR MAJOR <br/> TECHNIQUES OF PRINTMAKING</i>',
+                subSections: [
+                    {
+                        categoryName: '<i>1. Relief</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/3_major_relief_1',
+
+                                boxText: 'The artist carves away the negative space, leaving the raised design to hold ink and print. Common forms include woodcut and wood engraving.',
+                                sourceCredit: 'Woodcut by Rafiqun Nabi',
+                                enableReveal: true
+
+                            },
+                            {
+                                fileNameBase: 'assets/3_major_relief_2',
+
+
+                                sourceCredit: 'Wood engraving by Safiuddin Ahmed'
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>2. Intaglio</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/3_major_intaglio_1',
+
+                                boxText: 'The image is incised into a metal plate (such as copper or zinc), and ink settles into the grooves while the surface is wiped clean before printing.',
+                                sourceCredit: 'Bono-Bibi-1, aquatint by Rokeya Sultana',
+                                enableReveal: true
+                            },
+                            {
+                                fileNameBase: 'assets/3_major_intaglio_2',
+                                boxText: '<i>Common techniques include etching, aquatint, drypoint and collography.</i>',
+
+                                sourceCredit: 'Fisherman\'s dream, copper engraving by Safiuddin Ahmed'
+
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>3. Planography</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/3_major_planography_1',
+
+                                boxText: 'The image is drawn on a flat surface, typically limestone or metal, using a greasy medium',
+                                sourceCredit: 'Lithography by Safiuddin',
+                                enableReveal: true
+                            },
+                            {
+                                fileNameBase: 'assets/3_major_planography_2',
+
+                                boxText: 'Through a chemical process, ink adheres only to the drawn areas while water repels it elsewhere',
+                                sourceCredit: 'Lithograph print by Rabindranath'
+                            },
+                            {
+                                fileNameBase: 'assets/3_major_planography_3',
+                                boxText: '<i>Lithography is the most common form, along with offset lithography, monotype, and monoprint.</i>',
+
+                                sourceCredit: 'Lithograph by Rafiqun Nabi'
+
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>4. Serography</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/3_major_serography_1',
+                                boxText: '<i>Also known as screen printing.</i>',
+
+                                sourceCredit: 'Andy Warhol’s 1984 screen print of Botticelli’s The Birth of Venus',
+                                enableReveal: true
+                            },
+                            {
+                                fileNameBase: 'assets/3_major_serography_2',
+
+                                boxText: 'This stencil-based technique forces ink through a fine mesh screen onto surfaces like paper or fabric.',
+                                sourceCredit: 'Andy Warhol’s 1984 screen print of Botticelli’s The Birth of Venus'
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>Digital Printmaking</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/3_major_digital_1',
+
+                                boxText: 'Beyond the traditional four techniques is digital printmaking. The artist creates an image using digital tools, where the work exists as a composition of pixels, colour values, and layers rather than a physical plate. The file is then translated by a printer, which deposits ink or toner onto a surface such as paper or canvas in precise patterns.',
+                                sourceCredit: 'The war file by Ahmed Nazir'
+                            },
+                            {
+                                fileNameBase: 'assets/3_major_digital_2',
+
+                                boxText: 'The artist constructs an image within a digital space, where the work exists as a composition of pixels, colour values, and layers rather than a physical plate. However, it can visually emulate the effects of the four traditional methods and achieve a level of intricacy comparable to them. Although not much used in Bangladesh, this technique is now widely used and immensely popular in Europe.',
+
+                                sourceCredit: 'Bioscope by Ahmed Nazir'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'pre-partition',
+                fig: '04',
+                tag: 'THE ARCHIVE',
+                title: '<i>EARLY ROOTS OF PRINTMAKING <br/> IN BENGAL</i>',
+                subSections: [
+                    {
+                        categoryName: '<i>Early Roots in Bengal</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/4_kolkata_1',
+
+
+                                boxText: 'Long before it was ever framed on a gallery wall, printmaking was born out of pure human necessity. Humans pressed clay seals and carved stone stamps — not as art, but out of pure necessity: marking ownership, sealing deals. Then came wooden blocks, dragged across cloth to leave patterns. The Chinese formalised it all — paper invented in AD 105, prints following almost immediately after.',
+                                sourceCredit: 'Wilkins’ Letters, 1778.'
+
+
+                            },
+                            {
+                                fileNameBase: 'assets/4_strangers',
+                                boxTitle: '<i>THE STRANGERS ARRIVE</i>',
+
+                                boxText: 'Bengal had no printing tradition of its own. Then, in 1498, the Portuguese docked at Goa — and with them, at the turn of the sixteenth century, came the first printing machinery on Indian soil. Their motive? Converting locals to Christianity through the printed word. Commerce dressed as salvation.',
+                                caption: 'In the background Vasco da Gama is seen arriving in India in May 1498, bearing the arms of Portugal and the Cross of the Order of Christ, symbols of the maritime expansion movement initiated by Henry the Navigator',
+                                sourceCredit: 'Wikimedia Commons',
+
+                                boxText2: ''
+                            },
+                            {
+                                fileNameBase: 'assets/4_kolkata_4',
+                                boxTitle: '<i>Kolkata emerges as the heart of printmaking</i>',
+
+                                boxText: 'By 1778, Kolkata was declared the capital of British India, and the city flooded with Europeans. A linguist named Nathaniel Halhed needed a book to teach Bengali to fresh British officials. To print it, Charles Wilkins carved the first Bengali type — and for the first time, words in the Bengali script appeared on a printed page.',
+                                sourceCredit: 'Nathaniel Brassey Halhead’s A Grammar of the Bengal Language, printed in Hoogly in 1778',
+                                caption: 'Sir Charles Wilkins (1749 – 1836) was an English typographer and Orientalist',
+
+                                boxText2: ''
+                            },
+                            {
+                                fileNameBase: 'assets/4_serampore',
+                                boxTitle: '<i>Serampore and the missionaries</i>',
+
+                                boxText: 'Three English missionaries, led by the soon-to-be-famous William Carey, set up a press at Serampore with one goal: print the Bible in Bengali. But something unplanned happened too. Their printer, John Lawson, who had lived in India since 1787, engraved illustrations into wood and metal plates. Bengali craftsmen watched. They learned. A craft transferred.',
+                                sourceCredit: 'Serampore Missionary Press'
+
+
+                            },
+                            {
+                                fileNameBase: 'assets/4_pre_partition_TW_8',
+                                boxTitle: '<i>Artists with an agenda</i>',
+
+                                boxText: 'Between 1769 and 1820, sixty artists arrived in Kolkata. Some carried a purely aesthetic ambition — European engraving ideals born in Renaissance Italy, filtered through England, landing in Bengal. The important artists of the print medium of that time were William Hodges (1780-83), two artists named Thomas and William Daniell, and Charles D\'Oyly.',
+                                sourceCredit: 'Thomas & William Daniell'
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>Hodges’s realistic engravings of colonial India</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/4_pre_partition_hodges_1',
+
+                                boxText: "William Hodges' Select Views in India (published between 1786-1788) features a seminal collection of 48 aquatint prints that offered European audiences their first detailed visual glimpses of the Indian landscape and architecture.",
+                                caption: '<b>A View of the Gaut at Etawa, on the Banks of the River Jumna, 20 May 1787. Aquatint.</b>',
+                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+
+                            },
+
+                            {
+                                fileNameBase: 'assets/4_pre_partition_hodges_2',
+                                caption: '<b>A View of Tombs at Gázipoor, 4 October 1785. Aquatint.</b>',
+
+                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+
+
+                            },
+                            {
+                                fileNameBase: 'assets/4_pre_partition_hodges_3',
+                                caption: '<b>A View of a Musjid, i.e. Tomb at Jionpoor, 15 September 1786. Aquatint with soft-ground etching.</b>',
+
+                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+
+                            },
+                            {
+                                fileNameBase: 'assets/4_pre_partition_hodges_4',
+                                caption: '<b>A View of a Farm-yard in the Kingdom of Bengal, 1 August 1786. Aquatint.</b>',
+
+                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+
+                            },
+                            {
+                                fileNameBase: 'assets/4_pre_partition_hodges_5',
+                                caption: '<b>A View of a Mosque, at Rajemahel, 15 September 1786. Aquatint</b>',
+
+                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+
+                            },
+                            {
+                                fileNameBase: 'assets/4_pre_partition_hodges_6',
+                                caption: '<b>A View of the Pagodas at Deogur, 25 March 1787. Aquatint with soft-ground etching.</b>',
+                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+
+                            },
+                            {
+                                fileNameBase: 'assets/4_pre_partition_hodges_7',
+                                caption: '<b>A View of a Hindoo Monument, 27 April 1788. Aquatint</b>',
+
+                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>Earliest depiction of the Taj Mahal</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/4_pre_partition_cahrles_taj',
+
+                                boxText: '<b>Hodges’ collection also included the first printed depiction of the Taj Mahal, published as Plate 15 in Select Views in India. Curiously, the monument that would later become one of the world’s most recognisable landmarks is almost an afterthought here, relegated to the background as a distant, ghost-like silhouette.</b>',
+                                boxtext2: 'Hodges instead centred his attention on Agra Fort, completed by Emperor Akbar in 1573 and then the dominant seat of Mughal power. Even so, he paused to admire the Taj, describing it as “the most perfect remains of eastern taste in architecture”, built by Emperor Shah Jahan in memory of his wife. It is a wonderfully ironic slice of history: the world\'s ultimate monument to love made its grand debut to the Western world as a mere footnote to a military fort',
+                                caption: '<b>View of Taj Mahal and part of the city of Agra from the river, 2 October 1783. Aquatint.</b>',
+
+                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited',
+                                enableReveal: true
+
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: "<i>Daniell duo published Oriental Scenery</i>",
+                        images: [{
+                            fileNameBase: 'assets/4_pre_partition_TW_1',
+
+                            boxText: 'Following the footsteps of William Hodges came Thomas Daniell and William Daniell, the British landscape painters who travelled across India from 1786 to 1793. Pioneers of the picturesque depiction of the subcontinent, they produced masterful aquatint prints that helped shape an exotic and romanticised visual image of India for European audiences.',
+                            caption: '<b>Eastern gate of the Jami Masjid at Delhi, India.</b>',
+                            sourceCredit: 'Source: Collected'
+
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_TW_2',
+
+                            boxText: "Thomas Daniell and William Daniell's landmark series Oriental Scenery became especially influential — and notably, the duo engraved and printed every single plate themselves.",
+                            sourceCredit: 'Source: Collected',
+                            caption: '<b>The Cotsea Bhaug, on the River Jumna, at Delhi.</b>'
+
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_TW_3',
+
+                            caption: '<b>Ruins of the ancient City of Gour.</b>',
+                            sourceCredit: 'Source: Collected'
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_TW_4',
+                            caption: '<b>The Chalees Satoon, on the Jumna side of the Fort of Allahabad</b>',
+                            sourceCredit: 'Source: Collected'
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_TW_5',
+
+                            caption: '<b>Remains of an ancient building, near Firoz Shah\'s Cotillah, at Delhi.</b>',
+                            sourceCredit: 'Source: Collected'
+
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_TW_6',
+
+                            caption: '<b>The Gate leading to the Mausoleum of the Emperor Akbar, at Secundra, near Agra.</b>',
+                            sourceCredit: 'Source: Collected'
+
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_TW_7',
+                            caption: '<b>Part of the City of Patna, on the River Ganges.</b>',
+
+                            sourceCredit: 'Source: Collected'
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_TW_11',
+                            caption: '<b>South East View of Fort St George, Madras</b>',
+
+
+                            sourceCredit: 'Source: Collected'
+                        }
+                        ]
+                    },
+                    {
+                        categoryName: "Charles D'Oyly’s artistic chronicle of Bengal",
+                        images: [{
+                            fileNameBase: 'assets/4_pre_partition_charles_1',
+
+                            boxText: 'Charles D\'Oyly sketched Dhaka and Kolkata obsessively. His engravings were finished by the Royal Engraver back in London — but that wasn\'t enough for him.',
+                            sourceCredit: 'Source: Collected',
+                            caption: '<b>Bastion of the Lal Bagh, Dacca 1816 </b>'
+
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_charles_3',
+
+                            boxText: 'In 1831, at Patna, he set up his own lithography machine and ran it himself. A colonial official, printing his own art, in India. The medium had gone from foreign import to personal passion.',
+                            sourceCredit: 'Source: Collected',
+                            caption: '<b>A tantee or weaver, etching taken from plate 16 of "Antiquities of Dacca"</b>'
+                        },
+
+                        {
+                            fileNameBase: 'assets/4_pre_partition_charles_4',
+                            caption: '<b>Remains of a Bridge near the Tantee Bazar, Dhaka</b>',
+
+                            sourceCredit: 'Source: Collected'
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_charles_5',
+                            caption: '<b>Ruins of Tongi Bridge, 1825</b>',
+
+                            sourceCredit: 'Source: Collected'
+
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_charles_6',
+                            caption: '<b>Paugla Pool, with part of Dacca in the extreme distance, 1817</b>',
+
+                            sourceCredit: 'Source: Collected'
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_charles_7',
+                            caption: '<b>Part of the Interior of the City of Dacca (1814), depicting a structure built to record Dhaka’s monsoon flood levels. The pool surrounding it used served as a storm shelter for small boats, with the ruins of a footbridge visible in the foreground.</b>',
+
+                            sourceCredit: 'Source: Collected'
+                        }
+                        ]
+                    },
+                    {
+                        categoryName: "<i>Printmaking Practices Pre-Partition</i>",
+                        images: [{
+                            fileNameBase: 'assets/4_pre_partion_battala',
+                            boxTitle: '<i>Bat-tala prints</i>',
+                            boxText: 'Around 1816–17, in the lanes of north Kolkata — Bat-tala, Haatkhola, Darjipara — Bengali-owned presses began to sprout. The books they printed were earthy: folk poetry, Puranas, one-act plays, Vedanta. At first, just text. Then someone decided to add pictures. Those pictures — woodcut and metal-plate engravings — became the first prints made by Bengalis.',
+                            sourceCredit: 'Battala woodcut print depicting Durga slaying Mahishasura'
+
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partion_anonymous',
+                            boxTitle: '<i>The anonymous hands</i>',
+                            boxText: "Who made the earlier prints? Mostly we don't know. They worked like craftsmen, not artists — paid for the job, unnamed on the page. The names of quite a few artists were recorded later when the practice of engraving the artist's name with the original picture became the custom. The surnames told the story: Swarnakar (goldsmith), Karmakar (blacksmith). The people who already knew how to work metal — to cut, engrave, shape — simply turned those hands to printing plates. Art arrived through the tradesman's door.",
+                            sourceCredit: 'Jatayu (Rama\'s Mythical Bird) Hinders Ravana\'s Chariot'
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_style',
+                            boxTitle: '<i>A style entirely their own</i>',
+                            boxText: "These early Bengal prints were very different from those made by foreign artists. Where English engravings chased naturalism and proportion, the Bat-tala images breathed fantasy. The influence of patachitra, Bengal's ancient scroll-painting tradition, ran through them like a spine. Mughal narrative sensibility added another layer. The result was completely Indian in character, with vivid storytelling.",
+                            sourceCredit: 'Rama and Sita in a Royal Palace, illustrating the vibrant use of colour in Battala woodcut prints.'
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_TW_9',
+                            boxTitle: '<i>The schools arrive, and change everything</i>',
+                            boxText: 'In 1854, the Calcutta School of Industrial Art opened its doors. Under teacher Thomas Francis Fowler, thirty students practiced wood engraving together, illustrating English books. Four graduates — Dinnath Das, Nabinchandra Ghosh, Hiralal Das, Teen Kari Majumdar — did something remarkable: they pooled resources and founded the Royal Lithographic Press in Zig Zag Lane. The first art studio run by Bengali artists. Then in 1878, Annada Prasad Bagchi took it further, founding the Calcutta Art Studio — printmaking as profession, as business, as identity.',
+                            sourceCredit: 'Thomas Daniell and William Daniell\'s landmark series Oriental Scenery'
+
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_jorasanko',
+                            boxTitle: '<i>Jorasanko, where printmaking becomes art</i>',
+                            boxText: 'The Neo-Bengal School was late to recognise prints, arriving at it around 1916. But when it did, it arrived through Gaganendranath Tagore. Working from the Bichitra Sabha in the Jorasanko Thakur Bari, he set up a litho press to circulate his fierce social and political caricatures. His Adbhut Lok (1917) came off this press.',
+                            sourceCredit: 'Lithographed by Hari Om Mandal.',
+                            caption: '<b>Cover of Adbhut Lok (Realm of the Absurd), featuring The Offending Shadow, a cartoon by Gaganendranath Tagore</b>',
+                            boxTitle2: '<i>Santiniketan, three artists build a movement</i>',
+                            boxText2: 'The Bichitra Sabha press moved to Santiniketan. Nandalal Bose joined Kala Bhavana in 1920 and pushed printmaking alongside every other medium. Then the 1922 exhibition of German Expressionists, 55 prints, landed like a shock. Artists who had doubted the medium suddenly saw what it could do. Three figures built the foundation: Nandalal, Ramkinkar, Binode Behari. Woodcut, linocut, etching, drypoint — they worked all of it, relentlessly.'
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_TW_10',
+                            boxTitle: '<i>Meanwhile, outside Kolkata</i>',
+                            boxText: 'Dhaka was considered the largest town after Kolkata and was celebrated for its muslin, jamdani, and craftsmanship, though not for its print culture. Dhaka lagged behind; its first Bengali-run press did not open until 1860 (Rangpur had already surpassed it by publishing a weekly newspaper in 1847).',
+                            sourceCredit: 'Thomas Daniell and William Daniell\'s landmark series Oriental Scenery',
+
+                            boxText2: 'Block-making was also scarcely developed in Dhaka, with most such work having to be sent to Kolkata. Even by 1949, Mizanur Rahman (the editor of Mizanur Rahmaner Troimasik Patrika) recalled that there was only one notable block-making establishment in Dhaka, where blocks were manually carved on hot lead using hammer and chisel.',
+                            boxText3: 'Yet Dhaka did nurture a modest lithographic culture. From the late colonial period until the 1980s, several litho presses in the city produced film posters, magazine illustrations, and coloured images before gradually disappearing with the rise of offset printing.'
+                        }
+
+                        ]
+                    },
+                    {
+                        categoryName: "<i>The Famine of 1943</i>",
+                        images: [{
+                            fileNameBase: 'assets/4_pre_partition_famine_1',
+                            boxTitle: '<i>When prints became witness</i>',
+                            boxText: 'The famine cracked something open among the artists, giving rise to figures such as Zainul Abedin, Chittaprasad Bhattacharya, and Somnath Hore. Zainul’s Famine Series became one of the most powerful reflections of social reality. Although he produced relatively little work in printmaking, a striking linocut on the famine theme survives as an important example of his engagement with the medium.',
+                            sourceCredit: 'Source: P.C. Joshi Collections, Dr B.R. Ambedkar Central Library, JNU, Delhi.'
+
+                        },
+                        {
+                            fileNameBase: 'assets/4_pre_partition_famine_2',
+                            boxText: "Chittaprasad and Somnath Hore, meanwhile, embraced printmaking more extensively. They used it as a medium of political expression and mass dissemination, drawn both by its accessibility and its expressive force. A print could be reproduced, distributed, pressed into many hands. The medium's democratic nature was now its moral force.",
+
+                            sourceCredit: 'Somnath Hore’s woodcut depicting the 1943 Bengal famine. Photo: Collected'
+
+                        }
+
+
+                        ]
+                    },
+                    {
+                        categoryName: "<i>Printmaking in East Pakistan</i>",
+                        images: [{
+                            fileNameBase: 'assets/4_pre_partition_abedin',
+                            boxTitle: '<i>A new capital inherits an old craft </i>',
+                            boxText: 'The Partition of 1947 redrew more than borders, it reshuffled an entire cultural geography. Calcutta, the beating heart of Bengal\'s print world, stayed behind in India. Dhaka, long the quiet cousin celebrated for its muslin rather than its manuscripts, was suddenly thrust into the role of cultural capital of East Pakistan.',
+                            boxText2: "But 1948 changed everything. Zainul Abedin returned and founded the Government Institute of Arts in Dhaka, now the Faculty of Fine Arts at the University of Dhaka. Printmaking was built in as a core discipline from day one. Safiuddin Ahmed, trained at the Calcutta Government Art School, became its chief architect, teaching technical rigour under conditions of profound scarcity. Copper plates were rare, quality paper rarer still. Students learned to reuse, improvise, fabricate. Out of that scarcity came discipline. And out of that discipline, eventually, a tradition entirely its own.",
+
+                            sourceCredit: 'Collected.',
+                            caption: '<i>Zainul Abedin in 1950</i>'
+
+                        }
+
+
+                        ]
+                    }
+
+
+                ]
+            },
+            {
+                id: 'early-pioneers',
+                fig: '05',
+                tag: 'THE MASTERS',
+                title: '<i>EARLY PIONEERS OF BENGAL</i>',
+                subSections: [
+                    {
+                        categoryName: '<i>Safiuddin Ahmed (1922 - 2012)</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_14',
+                                boxTitle: '<i>The Foundation</i>',
+                                boxText: 'Trained at Kolkata Government School of Art, where principal Ramendranath Chakravarty taught him printmaking outside the official syllabus. He later deepened his practice in London at the Central School of Arts and Crafts. After Partition, he moved to Dhaka and co-founded what became the Faculty of Fine Arts, University of Dhaka — heading its printmaking department from 1948 to 1979. He was the institutional beginning of printmaking in Bangladesh.',
+                                sourceCredit: 'The Cry Copeng by Safiuddin Ahmed'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_3',
+                                boxTitle: '<i>Working Style</i>',
+                                boxText: "Safiuddin's prints are lyrical and rooted, exploring rural landscapes, floods, fishermen, farmers, the Santal community, memories of 1971. He called black 'the queen of colours' and used it with a sculptor's control, building nocturnal depth in works like Receding Flood (1959). His lines are fine-drawn and kinetic, precise yet full of momentum.",
+                                sourceCredit: 'Face of a farmer woodeng',
+
+                                boxText2: 'He did not simply absorb folk tradition: he studied it, took inspiration, then built his own language from it, blending European technique with a local sensibility without sacrificing either. Over his career he moved toward thicker, more forceful lines, but always kept his fundamental commitment to emotional restraint and technical rigour.'
+                            },
+
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_22',
+                                boxTitle: '<i>Legacy</i>',
+                                boxText: 'He was the first dedicated printmaker to teach in Bangladesh, the one who gave the medium a home and a discipline. Without Safiuddin, there is no lineage and no next generation of Bangladeshi printmakers',
+                                sourceCredit: 'Receding flood etching aquatint'
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>On the Way to the Fair (1947)</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_version_1',
+                                boxTitle: '<i>The Devotion</i>',
+                                boxText: 'There is a story that says everything about Safiuddin Ahmed. In 1947, he completed a wood engraving titled On the Way to the Fair. By every measure, it was a work of stunning craftsmanship. Yet he discarded it and began again from scratch. Because the light could not capture the time of day he wanted, because the mood had not settled the way he intended, because “almost” was never enough for him',
+                                sourceCredit: 'On the way to the Fair - first edition by Safiuddin Ahmed'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_version_2',
+                                boxTitle: '<i>The Pursuit</i>',
+                                boxText: 'He went on to make a second version. The devotion he brought to his work is almost unimaginable. For him, a print was not complete when the technique was correct, but only when the atmosphere felt true. That he would abandon something beautiful in pursuit of something honest tells us more about his artistic practice than any formal analysis ever could.',
+                                sourceCredit: 'On the way to the Fair - second edition by Safiuddin Ahmed'
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>Mohammad Kibria (1929 - 2011 )</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/5_early_kibria_1',
+                                boxTitle: '<i>The Abstractionist</i>',
+                                boxText: "Kibria graduated from the Calcutta College of Arts and Crafts (1950) as a figurative painter — influenced by the Impressionists and Post-Impressionists. He joined the Dhaka Art College in 1954 on Zainul Abedin's personal invitation. Then in 1959 he left for Tokyo University of Fine Arts on a government scholarship, where he studied printmaking under Hideo Hagiwara. Japan fundamentally changed him.",
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_kibria_2',
+                                boxTitle: '<i>Working style & the pivot</i>',
+                                boxText: 'In Japan, Kibria encountered the minimalism of Japanese aesthetics and the cool rigour of mid-century abstract expressionism. He abandoned figuration entirely. His mature prints and paintings are non-representative — composed of delicate gradations of tone, texture, and space that seem to breathe with stillness but are, on close inspection, alive with quiet energy.',
+                                sourceCredit: 'Source: Collected'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_kibria_3',
+
+                                sourceCredit: 'Source: Collected',
+                                boxText: ' His printmaking was described as "very delicate, prolonged and technique-based." Where his contemporaries were building a nationalist figurative language rooted in the land, Kibria was voiding content — showing only "the faintest hint of context." It was a radical departure.'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_kibria_4',
+                                boxTitle: '<i>Significant shift</i>',
+                                boxText: 'Kibria introduced abstraction into Bangladeshi printmaking and painting. He was the first in this lineage to break entirely from the figurative tradition — not as rebellion but as a genuine philosophical position about what art could hold. He became the measure of modernism for a generation of Bangladeshi artists.',
+                                sourceCredit: 'Source: Collected'
+
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>Monirul Islam (b. 1943)</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/5_early_monirul_12',
+                                boxTitle: '<i>The International Voice</i>',
+                                boxText: 'Trained at the Faculty of Fine Arts in Dhaka (1966–69), Monirul left for Madrid on a Spanish government scholarship in 1969 — and the Liberation War kept him from returning. He stayed, studied fresco at the Royal Academy of Fine Arts of San Fernando, and found his medium: etching. He worked alongside the vanguard of European printmaking in the Grupo Quince in the early 1970s — alongside Antonio Saura, Antoni Tàpies, and others — and carved out a position entirely his own.',
+                                sourceCredit: 'Source: Collected'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_monirul_2',
+                                boxTitle: '<i>Working style</i>',
+                                boxText: "Monirul's prints are built on balance — between empty space and delicate mark, between Eastern memory and Western technique. His signature is the 'free-bite' etching method, which treats the plate with an unusual freedom, allowing the acid to work in ways that produce textures closer to watercolour washes than traditional hard line.",
+                                sourceCredit: 'Source: Collected'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_monirul_4',
+
+                                sourceCredit: 'Source: Collected',
+                                boxText: 'He uses unconventional materials — coffee, brick dust, handmade paper — to evoke memory, nature, interior emotion. Geometric motifs, lyrical lines, and subtle colour applied in thin layers create a sober, poetic language. His work speaks of human memory and distress without ever becoming expressionistic.'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_monirul_8',
+                                boxTitle: '<i>Notable contribution</i>',
+                                boxText: 'His free-bite etching technique became known in Spain as "Escuela de Monir" — a named school of practice. He was the first non-Spanish artist to win the Calcografia Nacional Award of Spain (1997). Monirul took Bangladeshi printmaking into international art circuits at the highest level, while keeping it rooted in something unmistakably personal.',
+                                sourceCredit: 'Source: Collected'
+
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>Rafiqun Nabi (b. 1943)</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/5_early_rafique_2',
+                                boxTitle: '<i>The Figurative Woodcutter</i>',
+                                boxText: "Rafiqun Nabi, known as Ranabi, graduated from the East Pakistan College of Arts and Crafts and began teaching there in 1964. He studied printmaking at the Athens School of Fine Arts (1973–76) on a Greek government scholarship, and later became the first Dean of the Faculty of Fine Arts at Dhaka University. His formation was shaped by Zainul Abedin and Quamrul Hassan, and his practice by a cartoonist's precision of line — he was also drawing the satirical character Tokai from 1977, one of Bangladesh's most recognisable cultural icons.",
+                                sourceCredit: 'Source: Collected'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_rafique_4',
+                                boxTitle: '<i>Working style & the shift in woodcut</i>',
+                                boxText: "Woodcut in the Bengal tradition, from Santiniketan through to mid-century Bangladesh, was predominantly a reductive medium: stark contrasts, bold black masses, abstracted or expressionistic form. Rafiqun Nabi moved it somewhere different. His woodcuts are emphatically figurative and lush – animals, working people, nature — built with bold, expressive lines and a vibrant sense of colour that carries his watercolourist's eye into the print.",
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_rafique_5',
+
+                                sourceCredit: 'Source: Collected',
+
+                                boxText: 'He described himself as practising "experimental realism," combining romanticism and impressionism through subcontinent motifs and a uniquely personal line quality. The woodcut, in his hands, became capable of the warmth and human presence more often associated with painting, not a medium of reduction but of richness.'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_rafique_8',
+                                boxTitle: '<i>Significant shift</i>',
+                                boxText: "Rafiqun Nabi expanded what woodcut could depict. By fusing a cartoonist's command of figurative line with a painter's feel for colour and composition, he brought a new life and legibility to the medium, pulling it away from abstraction and toward the everyday world. His prints and his cartoons are formally different, but morally the same: always turning toward the lives of ordinary people.",
+                                sourceCredit: 'Source: Collected'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'bangla-bidroho',
+                fig: '06',
+                tag: 'THE MOVEMENT',
+                title: '<i>Banglay Bidroho Prints</i>',
+                images: [
+                    {
+                        fileNameBase: 'assets/6_bangla_bidroho_series_3',
+                        boxTitle: '<i>Plates before guns</i>',
+                        boxText: 'Beyond pure aesthetics, printmaking in Bengal has long served as a vehicle for political and social consciousness — from Gaganendranath’s political lithographs to Zainul’s famine sketches. When 1971 arrived, the medium responded once again.',
+                        sourceCredit: 'Credit: Devdas Chakraborty'
+
+                    },
+                    {
+                        fileNameBase: 'assets/6_bangla_bidroho_series_6',
+                        boxTitle: '<i>On 8 March 1971</i>',
+                        boxText: 'Artists, writers and cultural figures gathered in Chattogram and formed the Artists–Writers–Cultural Activists Resistance Association. Their first act was a folio of prints. Six artists from the newly founded Fine Arts Department of Chittagong University — Rashid Choudhury, Devdas Chakraborty, Sabih-ul Alam, Syed Abdullah Khalid, Ansar Ali, and Mizanur Rahim — each made one image on lithographic plates, printed in black, brown, and maroon. Each print measured 51 by 39 centimetres. On 15 March, at a public gathering at Laldighi Maidan, the folios sold for five taka each.',
+                        sourceCredit: 'Credit: Ansar Ali'
+                    },
+                    {
+                        fileNameBase: 'assets/6_bangla_bidroho_series_2',
+                        boxTitle: '<i>The Liberation War had not yet formally begun.</i>',
+                        boxText: 'That is what makes Banglay Bidroho remarkable, it was created in real time, in the weeks of maximum uncertainty, before the outcome was known. Today the folio is preserved at the Liberation War Museum. What cost five taka on a Chattogram maidan is now an irreplaceable document of resistance',
+                        sourceCredit: 'Credit: Rashid Chowdhury'
+                    }
+
+
+                ]
+            },
+            {
+                id: 'current',
+                fig: '07',
+                tag: 'THE PRESENT',
+                title: '<i>Printmaking today<br/>What are young artists doing? <br/>Where is it heading?</i>',
+                images: [
+                    {
+                        fileNameBase: 'assets/7_current_situation_1',
+
+                        boxText: 'Today, printmaking in Bangladesh continues to expand quietly within the broader art scene. Once largely confined to specialist studios and academic circles, the medium is now gradually reaching wider audiences through dedicated initiatives, exhibitions, and festivals',
+                        sourceCredit: 'Source: Collected'
+
+                    },
+                    {
+                        fileNameBase: 'assets/7_current_situation_2',
+
+                        boxText: 'Events such as the month-long printmaking festival at Kala Kendra in Lalmatia — including the Kibria Printmaking Fair which is being held every year since 2012— have played a key role in this shift. Bringing together studios, institutions, and artists from across the country, the fair has grown into an important platform for both established names and emerging practitioners. This year, works by pioneers such as Safiuddin Ahmed and Mohammad Kibria are being shown alongside newer experiments, creating a dialogue between generations',
+                        sourceCredit: 'Source: Collected'
+                    },
+                    {
+                        fileNameBase: 'assets/7_current_situation_3',
+
+                        boxText: 'A notable feature of these recent initiatives is their openness — printmaking is being presented not only as a refined artistic practice but also as an accessible medium for younger collectors and audiences. Workshops, artist talks, and curated exhibitions have further strengthened this ecosystem, encouraging experimentation across techniques and themes, from personal memory and urban observation to abstraction and social reflection.',
+                        sourceCredit: 'Source: Collected'
+                    },
+                    {
+                        fileNameBase: 'assets/7_current_situation_4',
+
+                        boxText: 'Alongside spaces like Kala Kendra, institutions such as Bengal Foundation and Safiuddin Shilpalay continue to support printmaking through exhibitions, archival work, and training initiatives. What emerges today is a medium in transition, which is still rooted in its disciplined, labour-intensive traditions, yet increasingly shaped by young artists who are expanding its visual language.',
+                        sourceCredit: 'Source: Collected'
+                    },
+                    {
+                        fileNameBase: 'assets/7_current_situation_5',
+                        boxTitle: '<i>New Generation</i>',
+                        boxText: "As new generations experiment with form, process, and subject, printmaking in Bangladesh is slowly moving beyond its “lesser-explored” status, finding renewed relevance in contemporary practice and the argument for the medium remains as old as Bengal's print tradition itself, and just as persuasive.",
+                        sourceCredit: 'Source: Collected'
+                    },
+                    {
+                        fileNameBase: 'assets/7_current_situation_6',
+                        boxTitle: '<i>A print is democratic by nature</i>',
+                        boxText: 'if an artist values a work at one lakh taka and creates ten editions, each print costs ten thousand — making it accessible in a way a single painting never can be. From the five-taka folios sold at Laldighi Maidan in 1971 to the editions now going into private collections, that logic has never changed. The plate gets inked. The paper gets pressed. The image goes out into the world, and the art finds more homes than a painting ever could.',
+                        sourceCredit: 'Source: Collected'
+
+                    }
+
+                ]
+            }
+        ];
+
+        // Initialize Lenis
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,          // Allow Lenis to run everywhere
+            smoothTouch: false,    // Keep the native "feel" of touch scrolling...
+            syncTouch: false,       // ...BUT force it to sync with GSAP's requestAnimationFrame
+            mouseMultiplier: 1,
+            touchMultiplier: 1.5,
+            infinite: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Render HTML
+        const mainContainer = document.getElementById('main-content');
+
+        let htmlContent = '';
+
+        const generateTextBoxesHTML = (item) => {
+            const boxes = [];
+            if (item.boxTitle || item.boxText || item.caption) boxes.push({ title: item.boxTitle, text: item.boxText, caption: item.caption });
+            if (item.boxTitle2 || item.boxText2 || item.caption2) boxes.push({ title: item.boxTitle2, text: item.boxText2, caption: item.caption2 });
+            if (item.boxTitle3 || item.boxText3 || item.caption3) boxes.push({ title: item.boxTitle3, text: item.boxText3, caption: item.caption3 });
+            if (item.boxTitle4 || item.boxText4 || item.caption4) boxes.push({ title: item.boxTitle4, text: item.boxText4, caption: item.caption4 });
+
+            const numBoxes = Math.max(1, boxes.length);
+            const timelineSteps = (numBoxes * 2) + Math.max(0, numBoxes - 1);
+            const sectionHeight = (timelineSteps * 50) + 90;
+
+            /* Grid Stacking replaces absolute positioning.
+               Upgraded glassmorphism, typography, and copper accents.
+            */
+            const boxesHTML = `
+                <div class="grid grid-cols-1 grid-rows-1 w-full relative">
+                    ${boxes.map((box, i) => `
+                        <div class="text-box col-start-1 row-start-1 w-full bg-[#0A1931]/95 backdrop-blur-[20px] border border-[#E8A55D]/30 rounded-sm p-6 md:p-10 shadow-[inset_0_0_30px_rgba(4,11,28,0.6),0_24px_50px_rgba(0,0,0,0.5)] translate-y-24 opacity-0 max-h-[85vh] overflow-hidden flex flex-col justify-center">                            
+                            ${box.title ? `<h2 class="font-display-md text-3xl md:text-3xl text-[#F4F1EA] mb-4 md:mb-5 leading-[1.1] tracking-tight border-b border-white/10 pb-3">${box.title}</h2>` : ''}
+                            
+                            ${box.text ? `<div class="font-body-md text-[clamp(13.5px,1.8vh,17px)] text-stone-300 leading-[1.6] md:leading-[1.65] font-light mix-blend-plus-lighter">${box.text}</div>` : ''}
+                            
+                            ${box.caption ? `
+                                <div class="mt-5 md:mt-6 border-t border-[#D4AF37]/20 pt-3 flex items-start gap-3">
+                                    <span class="text-[#D4AF37] opacity-60 text-lg leading-none pt-1">⸎</span>
+                                    <p class="font-sans text-[10px] md:text-xs uppercase tracking-[0.15em] text-stone-400 font-semibold">${box.caption}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            return { sectionHeight, boxesHTML };
+        };
+
+        PROJECT_DATA.forEach((section, index) => {
+            htmlContent += `<div id="nav-anchor-${section.id}" class="w-full h-0 pointer-events-none"></div>`;
+            // Optional Chapter Transition before section (except intro or specifically hidden sections)
+            if (index > 0 && !section.hideChapterTransition) {
+                htmlContent += `
+                <section class="w-full py-32 md:py-40 bg-gradient-to-b from-[#1A0B1C] via-[#2F1033] to-[#1A0B1C] flex flex-col items-center justify-center px-6 md:px-margin-desktop border-y border-white/10 chapter-transition relative overflow-hidden">                    
+                    <div class="absolute top-0 w-[1px] h-16 bg-gradient-to-b from-[#D4AF37]/40 to-transparent"></div>
+                    
+                    <div class="flex flex-col items-center gap-6 z-10">
+                        <h2 class="font-display-md text-5xl md:text-7xl text-center tracking-tighter leading-[0.85] chapter-title-deboss uppercase">
+                            ${section.title}
+                        </h2>
+                        <div class="w-3 h-3 border border-[#D4AF37]/30 rounded-full flex items-center justify-center mt-4">
+                            <div class="w-1 h-1 bg-[#D4AF37]/50 rounded-full"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute bottom-0 w-[1px] h-16 bg-gradient-to-t from-[#D4AF37]/40 to-transparent"></div>
+                </section>
+                `;
+            }
+
+            if (section.subSections) {
+                section.subSections.forEach((subSection, subIndex) => {
+                    const accentGradients = [
+                        'from-[#3D1E14]/95 to-[#1A0B09]/95',
+                        'from-[#5C1A24]/95 to-[#24050A]/95',
+                        'from-[#0F382E]/95 to-[#04120E]/95',
+                        'from-[#1F3C4D]/95 to-[#0A1A24]/95'
+                    ];
+                    const currentGradient = accentGradients[subIndex % accentGradients.length];
+
+                    // 1. Calculate dynamic scroll height based on images AND text boxes
+                    let timelineSteps = 0;
+                    const parsedImages = subSection.images.map(img => {
+                        let boxes = [];
+                        if (img.boxTitle || img.boxText || img.caption) boxes.push({ title: img.boxTitle, text: img.boxText, caption: img.caption });
+                        if (img.boxTitle2 || img.boxText2 || img.caption2) boxes.push({ title: img.boxTitle2, text: img.boxText2, caption: img.caption2 });
+                        if (img.boxTitle3 || img.boxText3 || img.caption3) boxes.push({ title: img.boxTitle3, text: img.boxText3, caption: img.caption3 });
+                        if (img.boxTitle4 || img.boxText4 || img.caption4) boxes.push({ title: img.boxTitle4, text: img.boxText4, caption: img.caption4 });
+                        if (img.boxtext2) boxes.push({ title: '', text: img.boxtext2, caption: '' }); // Fallback for typos
+
+                        timelineSteps += 1; // 1 step to view the image
+                        if (img.enableReveal) timelineSteps += 1; // NEW: 1 step for the reveal animation
+                        timelineSteps += boxes.length; // 1 step per text box to read
+                        return { ...img, boxes };
+                    });
+
+                    // Optimized scroll depth: Faster pacing, less physical thumb fatigue
+                    const scrollHeightVp = (timelineSteps * 60) + 40;
+
+                    htmlContent += `
+                    <div class="horizontal-subsection-wrapper relative w-full" style="height: ${scrollHeightVp}vh;">
+                        <div class="sticky-viewport sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col bg-background">
+                            
+                            <div class="relative overflow-hidden w-full z-40 bg-gradient-to-r ${currentGradient} backdrop-blur-lg border-b border-white/10 px-6 py-4 md:py-5 shadow-lg flex items-center gap-4 flex-shrink-0">
+                                <div class="w-1.5 h-6 bg-surface-tint rounded-full opacity-60"></div>
+                                <h3 class="font-display-md text-2xl md:text-3xl text-primary tracking-wide drop-shadow-sm">${subSection.categoryName}</h3>
+                                <div class="hz-progress-bar absolute bottom-0 left-0 h-[2px] w-full bg-[#E8A55D]/60 origin-left" style="transform: scaleX(0);"></div>
+                            </div>
+                            
+                            <div class="horizontal-track flex flex-row flex-nowrap h-full w-full min-h-0 will-change-transform">
+                                ${parsedImages.map((img, imgIndex) => `
+                                    <div class="horizontal-slide w-full h-full flex-shrink-0 flex relative overflow-hidden">
+    
+                                        <div class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none transform-gpu">
+                                            ${(() => {
+                            // CRITICAL OPTIMIZATION: Use the smallest image for the blur to save massive memory/VRAM
+                            const bgSrc = img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i)
+                                ? img.fileNameBase
+                                : `${img.fileNameBase}_sm.avif`;
+
+                            // Always lazy load backgrounds so they don't block the main image
+                            return `<img src="${bgSrc}" class="w-full h-full object-cover scale-125 md:blur-2xl opacity-30 transform-gpu" style="backface-visibility: hidden;" alt="" loading="lazy" decoding="async" />`;
+                        })()}
+                                        </div>
+
+                                        <div class="info-reveal-group absolute top-4 left-6 z-50 flex items-center gap-3">
+                                            <div class="info-btn-trigger flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-neutral-900/60 backdrop-blur-md border border-white/20 text-white font-serif italic text-[15px] leading-none shadow-[0_4px_12px_rgba(0,0,0,0.4)] cursor-pointer relative z-10 hover:bg-neutral-800/80">
+                                                <span class="mt-[2px]">i</span>
+                                            </div>
+                                            <div class="info-text-mask flex items-center">
+                                                <div class="info-credit-text text-xs font-body-md font-medium leading-[1.6] tracking-wide select-none">
+                                                    ${img.sourceCredit || 'Collected'}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="absolute inset-0 w-full h-full flex items-center justify-center p-6 md:p-16 z-10">
+                                            ${(() => {
+                            const loadStrategy = (imgIndex <= 1) ? 'loading="eager" fetchpriority="high"' : 'loading="lazy" decoding="async"';
+                            // 1. Store the tag in a variable instead of returning it immediately
+                            let imageTag = '';
+                            if (img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i)) {
+                                imageTag = `<img src="${img.fileNameBase}" class="w-full h-full object-contain pointer-events-none drop-shadow-2xl origin-center" alt="" ${loadStrategy} />`;
+                            } else {
+                                imageTag = `
+                                    <picture class="w-full h-full flex items-center justify-center pointer-events-none drop-shadow-2xl origin-center">
+                                        <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
+                                        <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
+                                        <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-contain" alt="" ${loadStrategy} />
+                                    </picture>`;
+                            }
+
+                            // 2. Now return the correct DOM structure based on the flag
+                            if (img.enableReveal) {
+                                const cropSrc = img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i) ? img.fileNameBase : `${img.fileNameBase}_sm.avif`;
+                                return `
+                                    <div class="hz-fg-crop absolute inset-0 z-10 w-full h-full pointer-events-none transform-gpu">
+                                        <img src="${cropSrc}" class="w-full h-full object-cover origin-center" alt="" ${loadStrategy} />
+                                    </div>
+                                    <div class="hz-fg-full absolute inset-0 w-full h-full flex items-center justify-center p-6 md:p-16 z-20 opacity-0 pointer-events-none transform-gpu">
+                                        ${imageTag}
+                                    </div>
+                                `;
+                            } else {
+                                return `
+                                    <div class="absolute inset-0 w-full h-full flex items-center justify-center p-6 md:p-16 z-10 transform-gpu">
+                                        ${imageTag}
+                                    </div>
+                                `;
+                            }
+                        })()}
+                                        </div>
+
+                                        <div class="absolute z-20 bottom-6 md:bottom-auto md:top-1/2 md:-translate-y-1/2 left-[5%] right-[5%] md:left-auto md:right-[8%] md:w-[420px] h-[50vh] md:h-[60vh] flex items-end md:items-center justify-center pointer-events-none">
+                                            ${img.boxes.map((box) => `
+                                                <div class="text-card absolute bottom-0 md:bottom-auto w-full bg-[#0A1931]/95 backdrop-blur-[20px] border border-[#E8A55D]/30 rounded-sm p-6 md:p-8 shadow-2xl opacity-0 pointer-events-auto flex flex-col gap-4">
+                                                    ${box.title ? `<h4 class="font-display-md text-xl md:text-2xl text-[#F4F1EA] mb-1 leading-[1.1] tracking-tight">${box.title}</h4>` : ''}
+                                                    ${box.text ? `<div class="font-body-md text-sm md:text-[15px] text-stone-300 leading-[1.65] font-light mix-blend-plus-lighter">${box.text}</div>` : ''}
+                                                    ${box.caption ? `
+                                                        <div class="mt-2 border-t border-[#D4AF37]/20 pt-3 flex items-start gap-2">
+                                                            <span class="text-[#D4AF37] opacity-60 text-sm leading-none pt-0.5">⸎</span>
+                                                            <p class="font-sans text-[10px] md:text-xs uppercase tracking-[0.12em] text-stone-400 font-semibold">${box.caption}</p>
+                                                        </div>
+                                                    ` : ''}
+                                                </div>
+                                            `).join('')}
+                                        </div>
+
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                        </div>
+                    </div>`;
+                });
+            }
+            else if (section.images) {
+                // Section with multiple images but NO subsections (like Segment 2)
+                section.images.forEach((img, imgIndex) => {
+                    const { sectionHeight, boxesHTML } = generateTextBoxesHTML(img);
+                    htmlContent += `
+                    <section class="relative w-full dual-phase-section" data-enable-reveal="${img.enableReveal !== false}" style="height: ${sectionHeight}vh;">
+                        <div class="sticky top-0 w-full h-screen overflow-hidden bg-surface-container-lowest pin-bg">
+                            
+                            <div class="info-reveal-group absolute top-6 left-6 z-50 flex items-center gap-3">
+                                    
+                                <div class="info-btn-trigger flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-neutral-900/60 backdrop-blur-md border border-white/20 text-white font-serif italic text-[15px] leading-none shadow-[0_4px_12px_rgba(0,0,0,0.4)] cursor-pointer relative z-10 hover:bg-neutral-800/80">
+                                    <span class="mt-[2px]">i</span>
+                                </div>
+                                                                
+                                <div class="info-text-mask flex items-center">
+                                    <div class="info-credit-text text-xs font-body-md font-medium leading-[1.6] tracking-wide select-none">
+                                        ${img.sourceCredit}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            ${(() => {
+                            // QA Logic: Eager load the first two sections, lazy load the rest with async decoding
+                            const loadStrategy = index <= 1
+                                ? 'loading="eager" fetchpriority="high"'
+                                : 'loading="lazy" decoding="async"';
+
+                            if (img.fileNameBase.match(/\.(jpg|jpeg|png|gif|avif|webp)$/i)) {
+                                return `
+                                        <div class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
+                                            <img src="${img.fileNameBase}" class="w-full h-full object-cover scale-125 md:blur-3xl opacity-40" alt="" ${loadStrategy} />
+                                        </div>
+                                        <img src="${img.fileNameBase}" class="fg-crop absolute inset-0 z-10 w-full h-full object-cover block origin-center pointer-events-none" alt="" ${loadStrategy} />
+                                        <div class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
+                                            <img src="${img.fileNameBase}" alt="${img.boxTitle}" class="w-full h-full object-contain shadow-2xl md:drop-shadow-2xl origin-center" ${loadStrategy} />
+                                        </div>`;
+                            } else {
+                                return `
+                                        <picture class="absolute inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
+                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
+                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
+                                            <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover scale-125 md:blur-3xl opacity-40" alt="" ${loadStrategy} />
+                                        </picture>
+                                        <picture class="fg-crop absolute inset-0 z-10 w-full h-full block origin-center pointer-events-none">
+                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
+                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
+                                            <img src="${img.fileNameBase}_sm.avif" class="w-full h-full object-cover" alt="" ${loadStrategy} />
+                                        </picture>
+                                        <picture class="fg-full absolute inset-0 z-20 w-full h-full flex items-center justify-center opacity-0 p-4 md:p-12 pointer-events-none">
+                                            <source media="(min-width: 1600px)" srcset="${img.fileNameBase}_lg.avif">
+                                            <source media="(min-width: 800px)" srcset="${img.fileNameBase}_md.avif">
+                                            <img src="${img.fileNameBase}_sm.avif" alt="${img.boxTitle}" class="w-full h-full object-contain shadow-2xl md:drop-shadow-2xl origin-center" ${loadStrategy} />
+                                        </picture>`;
+                            }
+                        })()}
+                        
+                                
+                            
+                        </div>
+                        
+                        <div class="sticky top-0 w-full h-screen flex flex-col items-center justify-center pb-margin-mobile md:pb-[15vh] z-20 pointer-events-none px-4 md:px-0 md:flex-row md:items-end ${imgIndex % 2 === 0 ? 'md:justify-start md:pl-margin-desktop' : 'md:justify-end md:pr-margin-desktop'}">
+                            <div class="relative w-[90%] max-w-[500px] md:w-5/12 pointer-events-auto">
+                                ${boxesHTML}
+                            </div>
+                        </div>
+                    </section>
+                    `;
+                });
+            } else {
+                // Flat Section Logic
+                const { sectionHeight, boxesHTML } = generateTextBoxesHTML(section);
+                htmlContent += `
+            <section class="relative w-full dual-phase-section" data-enable-reveal="${section.enableReveal !== false}" style="height: ${sectionHeight}vh;">
+                <div class="sticky top-0 w-full h-screen overflow-hidden bg-[#050505] pin-bg">
+
+                    ${section.image
+                        ? `<div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
+                               <img alt="${section.title}" class="w-full h-full object-cover ${section.isIntro ? 'animate-slow-zoom opacity-90' : 'opacity-80'}" src="${section.image}" ${index <= 1 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy" decoding="async"'} />
+                               ${section.isIntro ? `<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_10%,rgba(0,0,0,0.85)_100%)]"></div>` : ''}
+                                
+                        
+                           </div>`
+                        : `<div class="w-full h-full bg-surface-container flex items-center justify-center px-6"><div class="font-body-lg text-center text-on-surface-variant">Image Placeholder: ${section.imagePlaceholder}</div></div>`
+                    }
+                    
+                    
+
+                    ${section.isIntro ? `
+                    <div class="absolute inset-0 flex flex-col justify-center items-center text-center z-10 px-8 md:px-margin-desktop intro-title pointer-events-none">
+                        
+                        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.65)_0%,transparent_50%)] z-[-1]"></div>
+
+                        <span class="intro-tagline font-label-caps text-label-caps tracking-[0.3em] text-primary mb-[clamp(0.5rem,1.5vh,2rem)] uppercase drop-shadow-md">A Visual Journey Through Bengal's</span>
+                        
+                        <h1 class="font-display-lg text-[clamp(2.5rem,10vmin,7.5rem)] text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/90 mb-[clamp(0.75rem,2vh,2.5rem)] leading-[0.9] tracking-tighter drop-shadow-2xl">
+                            ${section.title}
+                        </h1>
+                        
+                        <p class="intro-subtitle font-body-md text-[clamp(0.875rem,2.2vmin,1.25rem)] text-primary max-w-2xl font-light tracking-wide drop-shadow-lg">
+                            ${section.subtitle}
+                        </p>
+
+                        <div class="intro-byline flex flex-col items-center gap-[clamp(0.5rem,1.5vh,1rem)] mt-[clamp(1.5rem,5vh,3rem)]">
+                            <span class="font-label-caps text-[clamp(9px,1.5vmin,12px)] tracking-[0.4em] text-primary/90">By Miftahul Jannat</span>
+                            <div class="w-[2px] h-[clamp(1.5rem,5vh,4rem)] bg-white/20 overflow-hidden">
+                                <div class="w-full h-full bg-white origin-top animate-scroll-line"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="absolute bottom-4 left-6 z-20 pointer-events-none">
+                        <span class="font-label-caps text-[10px] tracking-[0.15em] text-white/70 drop-shadow-md">Rafiqun Nabi</span>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <div class="sticky top-0 w-full h-screen flex flex-col items-center justify-center pb-margin-mobile md:pb-[15vh] z-20 pointer-events-none px-4 md:px-0 md:flex-row md:items-end ${index % 2 === 0 ? 'md:justify-start md:pl-margin-desktop' : 'md:justify-end md:pr-margin-desktop'}">
+                    <div class="relative w-[90%] max-w-[500px] md:w-5/12 pointer-events-auto">
+                        ${boxesHTML}
+                    </div>
+                </div>
+            </section>
+            `;
+            }
+        });
+
+        mainContainer.innerHTML = htmlContent;
+
+        // GSAP ScrollTrigger setup
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Sync ScrollTrigger with Lenis, handle side-arrows visibility and sticky logo scaling
+        const sideArrows = document.getElementById('side-arrows');
+        const stickyLogoContainer = document.getElementById('sticky-logo-container');
+        const desktopPanel = document.getElementById('desktop-side-panel');
+        const slowReadsLogo = document.getElementById('slow-reads-logo-container');
+        const backToTop = document.getElementById('back-to-top');
+        lenis.on('scroll', (e) => {
+            ScrollTrigger.update(e);
+
+            const scrollPos = e.scroll !== undefined ? e.scroll : window.scrollY;
+            if (scrollPos > 80) {
+                sideArrows.classList.remove('opacity-0', 'invisible');
+                sideArrows.classList.add('opacity-100');
+                if (stickyLogoContainer) {
+                    stickyLogoContainer.classList.remove('logo-big');
+                    stickyLogoContainer.classList.add('logo-small');
+                }
+                if (slowReadsLogo) slowReadsLogo.classList.add('faded');
+                if (desktopPanel) desktopPanel.classList.add('panel-visible');
+                if (backToTop) {
+                    backToTop.classList.remove('opacity-0', 'invisible');
+                    backToTop.classList.add('opacity-100');
+                }
+            } else {
+                sideArrows.classList.remove('opacity-100');
+                sideArrows.classList.add('opacity-0', 'invisible');
+                if (stickyLogoContainer) {
+                    stickyLogoContainer.classList.remove('logo-small');
+                    stickyLogoContainer.classList.add('logo-big');
+                }
+                if (slowReadsLogo) slowReadsLogo.classList.remove('faded');
+                if (desktopPanel) desktopPanel.classList.remove('panel-visible');
+                if (backToTop) {
+                    backToTop.classList.remove('opacity-100');
+                    backToTop.classList.add('opacity-0', 'invisible');
+                }
+            }
+        });
+
+        if (backToTop) {
+            backToTop.addEventListener('click', () => {
+                lenis.scrollTo(0, {
+                    duration: 1.5,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                });
+            });
+        }
+        gsap.ticker.lagSmoothing(0);
+
+        // Setup animations
+        setTimeout(() => {
+            // 1. DYNAMIC HORIZONTAL TRACKS GENERATION (Staggered Execution)
+            const horizontalWrappers = document.querySelectorAll('.horizontal-subsection-wrapper');
+            let hintShown = false;
+
+            horizontalWrappers.forEach((wrapper) => {
+                const track = wrapper.querySelector('.horizontal-track');
+                const slides = gsap.utils.toArray(wrapper.querySelectorAll('.horizontal-slide'));
+                const infoPills = wrapper.querySelectorAll('.info-reveal-group');
+
+
+
+                // Create the master timeline for this specific track
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: wrapper,
+                        start: "top top",
+                        end: "bottom bottom",
+                        scrub: isTouchDevice ? 0.3 : 0.6,
+                        invalidateOnRefresh: true,
+                        anticipatePin: 1, // Prevents mobile browsers from flashing when sticky engages
+                        fastScrollEnd: true // Prevents getting stuck if the user flicks really fast
+                    }
+                });
+                // Progress bar: scrub:true = instant sync to scroll position, zero lag
+                const progressBar = wrapper.querySelector('.hz-progress-bar');
+                if (progressBar) {
+                    gsap.fromTo(progressBar,
+                        { scaleX: 0 },
+                        {
+                            scaleX: 1,
+                            ease: "none",
+                            scrollTrigger: {
+                                trigger: wrapper,
+                                start: "top top",
+                                end: "bottom bottom",
+                                scrub: true
+                            }
+                        }
+                    );
+                }
+
+                // Hint: fires once on the first horizontal section only
+                if (!hintShown) {
+                    hintShown = true;
+                    ScrollTrigger.create({
+                        trigger: wrapper,
+                        start: "top 60%",
+                        onEnter: () => {
+                            const hint = document.getElementById('scroll-hint');
+                            gsap.fromTo(hint,
+                                { opacity: 0, y: 10 },
+                                {
+                                    opacity: 1, y: 0, duration: 0.5, ease: "power2.out",
+                                    onComplete: () => {
+                                        gsap.to(hint, { opacity: 0, y: -6, duration: 0.4, delay: 2, ease: "power2.in" });
+                                    }
+                                }
+                            );
+                        }
+                    });
+                }
+
+                slides.forEach((slide, index) => {
+                    // A. Move the track to the current slide
+                    if (index > 0) {
+                        tl.to(track, {
+                            xPercent: -(100 * index), // Uses percentages instead of pixels, completely immune to resize thrashing
+                            ease: "none",
+                            duration: 1
+                        });
+                    }
+                    const hzCrop = slide.querySelector('.hz-fg-crop');
+                    const hzFull = slide.querySelector('.hz-fg-full');
+
+                    if (hzCrop && hzFull) {
+                        // The ">" tells GSAP to start this strictly AFTER the horizontal sliding finishes
+                        tl.to(hzCrop, { opacity: 0, duration: 0.8, ease: "power1.inOut" }, ">");
+                        tl.fromTo(hzFull,
+                            { scale: 1.15, opacity: 0 },
+                            { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out" },
+                            "<" // The "<" syncs the full image scale-in exactly with the crop fade-out
+                        );
+                        // Add a slight scroll pause so the user can digest the image before cards appear
+                        tl.to({}, { duration: 0.5 });
+                    }
+                    // Trigger the info pill horizontally for this specific slide
+                    const pill = slide.querySelector('.info-reveal-group');
+                    if (pill) {
+                        ScrollTrigger.create({
+                            trigger: slide,
+                            horizontal: true,
+                            containerAnimation: tl, // Ties the trigger to your horizontal timeline
+                            start: "left 30%", // Triggers when the slide is 70% into the view from the right
+                            onEnter: () => {
+                                pill.classList.add('force-open');
+                                setTimeout(() => pill.classList.remove('force-open'), 4000);
+                            },
+                            onEnterBack: () => {
+                                pill.classList.add('force-open');
+                                setTimeout(() => pill.classList.remove('force-open'), 4000);
+                            }
+                        });
+                    }
+
+                    // B. Fetch the text cards
+                    const cards = gsap.utils.toArray(slide.querySelectorAll('.text-card'));
+
+                    if (cards.length === 0) {
+                        // Reduced empty pause so the user doesn't hit a "dead zone" while scrolling
+                        tl.to({}, { duration: 0.4 });
+                    } else {
+                        tl.to({}, { duration: 1.0 });
+                        // C. Loop through cards and animate them with standardized, snappier math
+                        cards.forEach((card, cIdx) => {
+                            tl.fromTo(card, {
+                                opacity: 0,
+                                x: () => window.innerWidth >= 768 ? 100 : 0,
+                                y: () => window.innerWidth < 768 ? 80 : 0,
+                                scale: () => window.innerWidth < 768 ? 1 : 0.95
+                            }, {
+                                opacity: 1,
+                                x: 0,
+                                y: 0,
+                                scale: 1,
+                                duration: 1,
+                                ease: "power1.out"
+                            });
+
+                            // Standardized reading pause
+                            tl.to({}, { duration: 0.8 });
+
+                            // Slide out logic
+                            if (cIdx < cards.length - 1) {
+                                // Fade out to make room for the next card in this same slide
+                                tl.to(card, {
+                                    opacity: 0,
+                                    y: -15,
+                                    duration: 0.25,
+                                    ease: "power2.in"
+                                });
+                            } else if (index < slides.length - 1) {
+                                // Final card fades out as track begins moving to the next image
+                                tl.to(card, {
+                                    opacity: 0,
+                                    duration: 0.25
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
+            // 2. STANDARD VERTICAL SCROLLYTELLING ENGINE (For Independent Sections)
+            const sections = document.querySelectorAll('.dual-phase-section');
+
+            sections.forEach((sec) => {
+                const introTitle = sec.querySelector('.intro-title');
+                const textBoxes = sec.querySelectorAll('.text-box');
+                const fgCrop = sec.querySelector('.fg-crop');
+                const fgFull = sec.querySelector('.fg-full');
+                const infoPill = sec.querySelector('.info-reveal-group');
+
+                if (infoPill) {
+                    ScrollTrigger.create({
+                        trigger: sec,
+                        start: "top 70%",
+                        onEnter: () => {
+                            infoPill.classList.add('force-open');
+                            setTimeout(() => infoPill.classList.remove('force-open'), 4000);
+                        },
+                        onEnterBack: () => {
+                            infoPill.classList.add('force-open');
+                            setTimeout(() => infoPill.classList.remove('force-open'), 4000);
+                        }
+                    });
+                }
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: sec,
+                        start: "top top",
+                        end: "bottom bottom",
+                        scrub: 1
+                    }
+                });
+
+                if (introTitle) {
+                    tl.to(introTitle, { opacity: 0, y: -80, duration: 0.8 }, 0);
+                }
+
+                const shouldReveal = sec.getAttribute('data-enable-reveal') !== 'false';
+                if (fgCrop && fgFull && shouldReveal) {
+                    tl.to(fgCrop, { opacity: 0, duration: 0.7 }, 0);
+                    tl.fromTo(fgFull, { scale: 1.15, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7 }, 0);
+                }
+
+                if (textBoxes.length > 0) {
+                    for (let i = 1; i < textBoxes.length; i++) {
+                        gsap.set(textBoxes[i], { autoAlpha: 0, y: 96 });
+                    }
+
+                    for (let i = 0; i < textBoxes.length; i++) {
+                        const startPosition = (i === 0 && introTitle) ? ">" : (i === 0 ? 0 : ">");
+                        tl.fromTo(textBoxes[i],
+                            { autoAlpha: 0, y: 100 },
+                            { autoAlpha: 1, y: 0, duration: 1, ease: "power1.out" },
+                            startPosition
+                        );
+                        tl.to(textBoxes[i], { y: -30, duration: 1.5, ease: "none" });
+                        if (i < textBoxes.length - 1) {
+                            tl.to(textBoxes[i], { autoAlpha: 0, y: -150, duration: 1, ease: "power1.in" });
+                        }
+                    }
+                } else {
+                    tl.to({}, { duration: 2 });
+                }
+            });
+
+            // 3. CHAPTER TRANSITION TYPOGRAPHY LAYER
+            const chapterTransitions = document.querySelectorAll('.chapter-transition');
+            chapterTransitions.forEach(transition => {
+                const title = transition.querySelector('.chapter-title-deboss');
+                const dot = transition.querySelector('.rounded-full');
+
+                if (title) {
+                    gsap.set(title, { autoAlpha: 0, y: 60, scale: 0.95 });
+                    if (dot) gsap.set(dot, { autoAlpha: 0, scale: 0 });
+
+                    const tl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: transition,
+                            start: "top 75%",
+                            toggleActions: "play reverse play reverse"
+                        }
+                    });
+
+                    tl.to(title, { autoAlpha: 1, y: 0, scale: 1, duration: 1.2, ease: "expo.out" })
+                        .to(dot, { autoAlpha: 1, scale: 1, duration: 0.8, ease: "back.out(1.5)" }, "-=0.8");
+                }
+            });
+        }, 100);
+
+        // --- NAVIGATION & MENU LOGIC ---
+
+        // 1. Menu Configuration (Customize Names & Colors here)
+        const MENU_CONFIG = [
+            { label: "The Plate", target: "#nav-anchor-intro", color: "#e5e2e1" }, // Base White
+            { label: "What is Printmaking?", target: "#nav-anchor-what-is", color: "#D4AF37" }, // Premium Gold Accent
+            { label: "Major Techniques", target: "#nav-anchor-mediums", color: "#E8A55D" }, // Warm Gold
+            { label: "Early Roots", target: "#nav-anchor-pre-partition", color: "#4A90E2" }, // Archival Blue
+            { label: "Pioneers of Bengal", target: "#nav-anchor-early-pioneers", color: "#9B59B6" }, // Deep Purple
+            { label: "Banglay Bidroho", target: "#nav-anchor-bangla-bidroho", color: "#E74C3C" }, // Resistance Red
+            { label: "The Present", target: "#nav-anchor-current", color: "#1ABC9C" } // Modern Teal
+        ];
+
+        // 2. Build the Menu dynamically
+        const menuNav = document.getElementById('menu-nav');
+
+        MENU_CONFIG.forEach((item) => {
+            const btn = document.createElement('button');
+            btn.className = `menu-link font-display-md text-3xl md:text-5xl lg:text-6xl tracking-wide opacity-0 translate-y-8 hover:scale-[1.03] transition-transform duration-300 drop-shadow-lg`;
+            btn.style.color = item.color;
+            btn.innerHTML = `<i>${item.label}</i>`; // Using italics to match your premium aesthetic
+
+            btn.onclick = () => {
+                toggleMenu(); // Close the menu
+
+                // Wait for the menu fade-out, then fire Lenis for an ultra-smooth ride
+                setTimeout(() => {
+                    lenis.scrollTo(item.target, {
+                        offset: 0,
+                        duration: 1.8, // Slightly longer duration for a cinematic sweep
+                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                    });
+                }, 450);
+            };
+            menuNav.appendChild(btn);
+        });
+
+        // 2b. Build Desktop Side Panel Navigation
+        const sidePanelNav = document.getElementById('side-panel-nav');
+        if (sidePanelNav) {
+            MENU_CONFIG.forEach((item, idx) => {
+                const navItem = document.createElement('div');
+                navItem.className = 'side-panel-item';
+                navItem.dataset.index = idx;
+                navItem.innerHTML = `
+                    <span class="side-panel-label">${item.label}</span>
+                    <span class="side-panel-dot" style="background-color: ${item.color}; color: ${item.color};"></span>
+                `;
+                navItem.addEventListener('click', () => {
+                    lenis.scrollTo(item.target, {
+                        offset: 0,
+                        duration: 1.8,
+                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                    });
+                });
+                sidePanelNav.appendChild(navItem);
+            });
+
+            // Active section tracking
+            const panelItems = sidePanelNav.querySelectorAll('.side-panel-item');
+            function setActivePanel(activeIdx) {
+                panelItems.forEach((item, idx) => {
+                    item.classList.toggle('active', idx === activeIdx);
+                });
+            }
+
+            MENU_CONFIG.forEach((item, idx) => {
+                const anchor = document.querySelector(item.target);
+                if (anchor) {
+                    ScrollTrigger.create({
+                        trigger: anchor,
+                        start: 'top 50%',
+                        onEnter: () => setActivePanel(idx),
+                        onLeaveBack: () => setActivePanel(Math.max(0, idx - 1))
+                    });
+                }
+            });
+        }
+
+        // 3. Hamburger Toggle Logic with GSAP Stagger
+        let menuOpen = false;
+        const menuToggle = document.getElementById('menu-toggle');
+        const fullscreenMenu = document.getElementById('fullscreen-menu');
+        const line1 = menuToggle.querySelector('.line-1');
+        const line2 = menuToggle.querySelector('.line-2');
+
+        function toggleMenu() {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                // Open State
+                fullscreenMenu.classList.remove('opacity-0', 'pointer-events-none');
+                fullscreenMenu.classList.add('opacity-100', 'pointer-events-auto');
+                line1.style.transform = 'translateY(3.5px) rotate(45deg)';
+                line2.style.transform = 'translateY(-3.5px) rotate(-45deg)';
+
+                // Pause Lenis so the background doesn't scroll while menu is open
+                lenis.stop();
+
+                // Animate links in sequentially
+                gsap.fromTo('.menu-link',
+                    { y: 40, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.6, stagger: 0.06, ease: 'power3.out', delay: 0.2 }
+                );
+            } else {
+                // Close State
+                fullscreenMenu.classList.add('opacity-0', 'pointer-events-none');
+                fullscreenMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                line1.style.transform = 'none';
+                line2.style.transform = 'none';
+
+                // Resume scrolling
+                lenis.start();
+            }
+        }
+        menuToggle.addEventListener('click', toggleMenu);
+
+        // 4. Up/Down Arrow Logic (Viewport Panning)
+        // Since it's a scrollytelling piece with scrubs, scrolling by viewport height is safer than snapping to IDs so you don't miss animations.
+        // 4. Up/Down Arrow Logic (Viewport Panning)
+        // Calibrated to 0.55 to match the 50vh/60vh step height of the GSAP timelines.
+        // This ensures one click equals roughly one animation step, preventing skipping.
+        document.getElementById('scroll-down').addEventListener('click', () => {
+            lenis.scrollTo(window.scrollY + (window.innerHeight * 0.55), {
+                duration: 0.9, // Slightly sped up to feel responsive with the shorter distance
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
+        });
+
+        document.getElementById('scroll-up').addEventListener('click', () => {
+            lenis.scrollTo(window.scrollY - (window.innerHeight * 0.55), {
+                duration: 0.9,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
+        });
+
+    </script>
+</body>
+
+</html>
