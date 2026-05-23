@@ -175,13 +175,48 @@
             padding: 12px 18px;
         }
 
+        /* --- SLOW READS LOGO --- */
+        #slow-reads-logo-container {
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 1;
+        }
+
+        #slow-reads-logo-container.faded {
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+
+        #slow-reads-logo-container a {
+            background-color: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            display: block;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0, 0, 0, 0.06);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            padding: 12px 18px;
+        }
+
+        #slow-reads-logo-container img {
+            width: 130px;
+            height: auto;
+            transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
         @media (max-width: 768px) {
             #sticky-logo-container.logo-big img {
-                width: 105px;
+                width: 75px;
             }
 
             #sticky-logo-container.logo-big a {
-                padding: 8px 12px;
+                padding: 8px 10px;
+            }
+
+            #slow-reads-logo-container img {
+                width: 70px;
+            }
+
+            #slow-reads-logo-container a {
+                padding: 8px 10px;
             }
         }
 
@@ -377,6 +412,150 @@
                 opacity: 0.15 !important;
             }
         }
+
+        /* --- RESPONSIVE INTRO FOR SHORT VIEWPORTS --- */
+        @media (max-height: 600px) {
+            .intro-title h1 {
+                font-size: clamp(2rem, 10vmin, 5rem) !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            .intro-title .intro-tagline {
+                font-size: 10px !important;
+                margin-bottom: 0.25rem !important;
+            }
+
+            .intro-title .intro-subtitle {
+                font-size: 14px !important;
+            }
+        }
+
+        @media (max-height: 450px) {
+            .intro-title h1 {
+                font-size: clamp(1.5rem, 8vmin, 3rem) !important;
+                line-height: 0.95 !important;
+            }
+
+            .intro-title .intro-subtitle {
+                display: none !important;
+            }
+        }
+
+        /* --- DESKTOP SIDE PANEL NAVIGATION --- */
+        #desktop-side-panel {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%) translateX(-100%);
+            z-index: 60;
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        #desktop-side-panel.panel-visible {
+            transform: translateY(-50%) translateX(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .side-panel-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 4px;
+            padding: 14px 10px;
+        }
+
+        .side-panel-divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 4px 0;
+        }
+
+        .side-panel-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.35);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: center;
+        }
+
+        .side-panel-arrow:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .side-panel-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 8px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            flex-direction: row;
+        }
+
+        .side-panel-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .side-panel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 0 0 0 transparent;
+            opacity: 0.4;
+        }
+
+        .side-panel-item:hover .side-panel-dot,
+        .side-panel-item.active .side-panel-dot {
+            opacity: 1;
+            transform: scale(1.35);
+        }
+
+        .side-panel-item.active .side-panel-dot {
+            box-shadow: 0 0 10px 3px currentColor;
+        }
+
+        .side-panel-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0);
+            white-space: nowrap;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            max-width: 0;
+            overflow: hidden;
+        }
+
+        .side-panel-inner:hover .side-panel-label {
+            max-width: 180px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .side-panel-item:hover .side-panel-label {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .side-panel-item.active .side-panel-label {
+            max-width: 180px;
+            color: rgba(255, 255, 255, 0.85);
+        }
     </style>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -495,6 +674,13 @@
             <img src="logo.svg" alt="Logo" class="h-auto transition-all duration-700 ease-in-out" />
         </a>
     </div>
+
+    <!-- Slow Reads Logo -->
+    <div id="slow-reads-logo-container" class="fixed left-6 top-6 z-[60] pointer-events-auto origin-top-left">
+        <a href="https://www.thedailystar.net/slow-reads" target="_blank" rel="noopener noreferrer">
+            <img src="slow-reads.png" alt="Slow Reads" />
+        </a>
+    </div>
     <!-- Main Content Canvas -->
     <main class="w-full" id="main-content">
         <!-- Segments will be injected here by JS -->
@@ -512,6 +698,11 @@
                 class="material-symbols-outlined text-[18px] group-hover:translate-y-0.5 transition-transform duration-300">arrow_downward</span>
         </button>
     </div>
+    <div id="desktop-side-panel" class="hidden md:block">
+        <div class="side-panel-inner">
+            <div id="side-panel-nav"></div>
+        </div>
+    </div>
     <div id="scroll-hint"
         style="position:fixed; bottom:96px; left:0; right:0; margin:auto; width:fit-content; z-index:55; pointer-events:none; opacity:0;"
         class="flex items-center gap-2 bg-black/80 border border-white/15 rounded-full px-4 py-2.5 text-white/90 text-xs tracking-widest font-medium shadow-lg">
@@ -520,7 +711,7 @@
     </div>
 
     <button id="menu-toggle"
-        class="glass-nav-btn pointer-events-auto fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[70] w-14 h-14 rounded-full flex flex-col items-center justify-center gap-[5px] shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+        class="glass-nav-btn pointer-events-auto fixed bottom-6 right-6 z-[70] w-14 h-14 rounded-full flex md:hidden flex-col items-center justify-center gap-[5px] shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
         <div class="line-1 w-6 h-[2px] bg-white transition-transform duration-400 origin-center"></div>
         <div class="line-2 w-6 h-[2px] bg-white transition-transform duration-400 origin-center"></div>
     </button>
@@ -535,18 +726,34 @@
     <footer class="bg-surface-container-lowest border-t border-white/10 py-margin-desktop">
         <div
             class="flex flex-col md:flex-row justify-between items-center px-6 md:px-margin-desktop w-full max-w-container-max mx-auto gap-8 text-center md:text-left">
-            <div class="font-display-md text-3xl md:text-headline-lg-mobile text-primary">
+            <div
+                class="font-display-md text-3xl md:text-headline-lg-mobile text-primary w-full md:w-1/3 text-center md:text-left">
                 BENGAL'S PRINTMAKING LEGACY
             </div>
-            <nav class="flex flex-wrap justify-center gap-6">
 
-                <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors"
-                    href="#">Technical Specs: Anxiety Pills</a>
-                <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors"
-                    href="#">Contribution: Stack Overflow</a>
-            </nav>
-            <div class="font-body-md text-sm md:text-body-md text-on-surface-variant">
-                © 2026 WORLD OF PRINTMAKING. ALL RIGHTS RESERVED.
+            <div
+                class="flex items-center justify-center gap-6 w-full md:w-1/3 bg-white/5 rounded-xl p-4 border border-white/10 shadow-lg backdrop-blur-md">
+                <a href="https://www.thedailystar.net/" target="_blank" rel="noopener noreferrer"
+                    class="hover:scale-105 transition-transform">
+                    <img src="logo.svg" alt="The Daily Star"
+                        class="h-8 md:h-10 w-auto filter brightness-0 invert opacity-90" />
+                </a>
+                <div class="w-px h-10 bg-white/20"></div>
+                <a href="https://www.thedailystar.net/slow-reads" target="_blank" rel="noopener noreferrer"
+                    class="hover:scale-105 transition-transform">
+                    <img src="slow-reads.png" alt="Slow Reads"
+                        class="h-6 md:h-8 w-auto filter brightness-0 invert opacity-90" />
+                </a>
+            </div>
+
+            <div class="w-full md:w-1/3 flex flex-col items-center md:items-end gap-3 text-center md:text-right">
+                <div class="font-body-md text-sm md:text-body-md text-on-surface-variant">
+                    ALL RIGHTS RESERVED
+                </div>
+                <div
+                    class="font-label-caps text-[11px] tracking-[0.2em] uppercase text-white/60 border border-white/15 rounded-full px-5 py-2 mt-1 bg-white/5 backdrop-blur-sm shadow-md">
+                    Visual: Mir Rownak
+                </div>
             </div>
         </div>
     </footer>
@@ -795,18 +1002,7 @@
                                 sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
 
                             },
-                            {
-                                fileNameBase: 'assets/4_pre_partition_cahrles_taj',
-                                boxTitle: '<i>One of the earliest depictions of the Taj Mahal in print.</i>',
-                                caption: '<b>Hodges’ collection also included the first printed depiction of the Taj Mahal, published as Plate 15 in Select Views in India. Curiously, the monument that would later become one of the world’s most recognisable landmarks is almost an afterthought here, relegated to the background as a distant, ghost-like silhouette.</b>',
-                                boxtext2: 'Hodges instead centred his attention on Agra Fort, completed by Emperor Akbar in 1573 and then the dominant seat of Mughal power. Even so, he paused to admire the Taj, describing it as “the most perfect remains of eastern taste in architecture”, built by Emperor Shah Jahan in memory of his wife. It is a wonderfully ironic slice of history: the world\'s ultimate monument to love made its grand debut to the Western world as a mere footnote to a military fort',
 
-
-                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited',
-                                enableReveal: true
-
-
-                            },
                             {
                                 fileNameBase: 'assets/4_pre_partition_hodges_2',
                                 caption: '<b>A View of Tombs at Gázipoor, 4 October 1785. Aquatint.</b>',
@@ -847,6 +1043,22 @@
                                 caption: '<b>A View of a Hindoo Monument, 27 April 1788. Aquatint</b>',
 
                                 sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>Earliest depiction of the Taj Mahal</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/4_pre_partition_cahrles_taj',
+
+                                boxText: '<b>Hodges’ collection also included the first printed depiction of the Taj Mahal, published as Plate 15 in Select Views in India. Curiously, the monument that would later become one of the world’s most recognisable landmarks is almost an afterthought here, relegated to the background as a distant, ghost-like silhouette.</b>',
+                                boxtext2: 'Hodges instead centred his attention on Agra Fort, completed by Emperor Akbar in 1573 and then the dominant seat of Mughal power. Even so, he paused to admire the Taj, describing it as “the most perfect remains of eastern taste in architecture”, built by Emperor Shah Jahan in memory of his wife. It is a wonderfully ironic slice of history: the world\'s ultimate monument to love made its grand debut to the Western world as a mere footnote to a military fort',
+                                caption: '<b>View of Taj Mahal and part of the city of Agra from the river, 2 October 1783. Aquatint.</b>',
+
+                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited',
+                                enableReveal: true
 
                             }
                         ]
@@ -1026,17 +1238,13 @@
                     {
                         categoryName: "<i>Printmaking in East Pakistan</i>",
                         images: [{
-                            fileNameBase: 'assets/4_pre_partition_famine_1',
+                            fileNameBase: 'assets/4_pre_partition_abedin',
                             boxTitle: '<i>A new capital inherits an old craft </i>',
                             boxText: 'The Partition of 1947 redrew more than borders, it reshuffled an entire cultural geography. Calcutta, the beating heart of Bengal\'s print world, stayed behind in India. Dhaka, long the quiet cousin celebrated for its muslin rather than its manuscripts, was suddenly thrust into the role of cultural capital of East Pakistan.',
-                            sourceCredit: 'Source: P.C. Joshi Collections, Dr B.R. Ambedkar Central Library, JNU, Delhi.'
+                            boxText2: "But 1948 changed everything. Zainul Abedin returned and founded the Government Institute of Arts in Dhaka, now the Faculty of Fine Arts at the University of Dhaka. Printmaking was built in as a core discipline from day one. Safiuddin Ahmed, trained at the Calcutta Government Art School, became its chief architect, teaching technical rigour under conditions of profound scarcity. Copper plates were rare, quality paper rarer still. Students learned to reuse, improvise, fabricate. Out of that scarcity came discipline. And out of that discipline, eventually, a tradition entirely its own.",
 
-                        },
-                        {
-                            fileNameBase: 'assets/4_pre_partition_famine_2',
-                            boxText: "But 1948 changed everything. Zainul Abedin returned and founded the Government Institute of Arts in Dhaka, now the Faculty of Fine Arts at the University of Dhaka. Printmaking was built in as a core discipline from day one. Safiuddin Ahmed, trained at the Calcutta Government Art School, became its chief architect, teaching technical rigour under conditions of profound scarcity. Copper plates were rare, quality paper rarer still. Students learned to reuse, improvise, fabricate. Out of that scarcity came discipline. And out of that discipline, eventually, a tradition entirely its own.",
-
-                            sourceCredit: 'Somnath Hore’s woodcut depicting the 1943 Bengal famine. Photo: Collected'
+                            sourceCredit: 'Collected.',
+                            caption: '<i>Zainul Abedin in 1950</i>'
 
                         }
 
@@ -1071,24 +1279,30 @@
 
                                 boxText2: 'He did not simply absorb folk tradition: he studied it, took inspiration, then built his own language from it, blending European technique with a local sensibility without sacrificing either. Over his career he moved toward thicker, more forceful lines, but always kept his fundamental commitment to emotional restraint and technical rigour.'
                             },
-                            {
-                                fileNameBase: 'assets/5_early_safiuddin_version_1',
-                                boxTitle: '<i>On the Way to the Fair (1947)</i>',
-                                boxText: 'There is a story that says everything about Safiuddin Ahmed. In 1947, he completed a wood engraving titled On the Way to the Fair. By every measure, it was a work of stunning craftsmanship. Yet he discarded it and began again from scratch. Because the light could not capture the time of day he wanted, because the mood had not settled the way he intended, because “almost” was never enough for him',
-                                sourceCredit: 'On the way to fair - first edition'
 
-                            },
-                            {
-                                fileNameBase: 'assets/5_early_safiuddin_version_2',
-                                boxTitle: '<i>Another Version</i>',
-                                boxText: 'He went on to make a second version. The devotion he brought to his work is almost unimaginable. For him, a print was not complete when the technique was correct, but only when the atmosphere felt true. That he would abandon something beautiful in pursuit of something honest tells us more about his artistic practice than any formal analysis ever could.',
-                                sourceCredit: 'On the way to fair - two versions side by side'
-                            },
                             {
                                 fileNameBase: 'assets/5_early_safiuddin_22',
                                 boxTitle: '<i>Legacy</i>',
                                 boxText: 'He was the first dedicated printmaker to teach in Bangladesh, the one who gave the medium a home and a discipline. Without Safiuddin, there is no lineage and no next generation of Bangladeshi printmakers',
                                 sourceCredit: 'Receding flood etching aquatint'
+                            }
+                        ]
+                    },
+                    {
+                        categoryName: '<i>On the Way to the Fair (1947)</i>',
+                        images: [
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_version_1',
+                                boxTitle: '<i>The Devotion</i>',
+                                boxText: 'There is a story that says everything about Safiuddin Ahmed. In 1947, he completed a wood engraving titled On the Way to the Fair. By every measure, it was a work of stunning craftsmanship. Yet he discarded it and began again from scratch. Because the light could not capture the time of day he wanted, because the mood had not settled the way he intended, because “almost” was never enough for him',
+                                sourceCredit: 'On the way to the Fair - first edition by Safiuddin Ahmed'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_version_2',
+                                boxTitle: '<i>The Pursuit</i>',
+                                boxText: 'He went on to make a second version. The devotion he brought to his work is almost unimaginable. For him, a print was not complete when the technique was correct, but only when the atmosphere felt true. That he would abandon something beautiful in pursuit of something honest tells us more about his artistic practice than any formal analysis ever could.',
+                                sourceCredit: 'On the way to the Fair - second edition by Safiuddin Ahmed'
                             }
                         ]
                     },
@@ -1568,23 +1782,26 @@
                         
                         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.65)_0%,transparent_50%)] z-[-1]"></div>
 
-                        <span class="font-label-caps text-label-caps tracking-[0.3em] text-primary/80 mb-4 md:mb-8 uppercase drop-shadow-md">A Visual Journey Through Bengal’s</span>
+                        <span class="intro-tagline font-label-caps text-label-caps tracking-[0.3em] text-primary mb-[clamp(0.5rem,1.5vh,2rem)] uppercase drop-shadow-md">A Visual Journey Through Bengal's</span>
                         
-                        <h1 class="font-display-lg text-6xl md:text-[120px] text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/60 mb-6 md:mb-10 leading-[0.9] tracking-tighter drop-shadow-2xl">
+                        <h1 class="font-display-lg text-[clamp(2.5rem,10vmin,7.5rem)] text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/90 mb-[clamp(0.75rem,2vh,2.5rem)] leading-[0.9] tracking-tighter drop-shadow-2xl">
                             ${section.title}
                         </h1>
                         
-                        <p class="font-body-md text-lg md:text-xl text-primary/80 max-w-2xl font-light tracking-wide drop-shadow-lg">
+                        <p class="intro-subtitle font-body-md text-[clamp(0.875rem,2.2vmin,1.25rem)] text-primary max-w-2xl font-light tracking-wide drop-shadow-lg">
                             ${section.subtitle}
                         </p>
 
-                        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-150">
-                            <span class="font-label-caps text-[12px] tracking-[0.4em] text-primary/60">By Miftahul Jannat</span>
-                            <div class="w-[2px] h-16 bg-white/20 overflow-hidden">
+                        <div class="intro-byline absolute bottom-[clamp(0.75rem,4vh,3rem)] left-1/2 -translate-x-1/2 flex flex-col items-center gap-[clamp(0.5rem,1.5vh,1rem)]">
+                            <span class="font-label-caps text-[clamp(9px,1.5vmin,12px)] tracking-[0.4em] text-primary/90">By Miftahul Jannat</span>
+                            <div class="w-[2px] h-[clamp(1.5rem,5vh,4rem)] bg-white/20 overflow-hidden">
                                 <div class="w-full h-full bg-white origin-top animate-scroll-line"></div>
                             </div>
                         </div>
 
+                    </div>
+                    <div class="absolute bottom-4 left-6 z-20 pointer-events-none">
+                        <span class="font-label-caps text-[10px] tracking-[0.15em] text-white/70 drop-shadow-md">Rafiqun Nabi</span>
                     </div>
                     ` : ''}
                 </div>
@@ -1607,6 +1824,8 @@
         // Sync ScrollTrigger with Lenis, handle side-arrows visibility and sticky logo scaling
         const sideArrows = document.getElementById('side-arrows');
         const stickyLogoContainer = document.getElementById('sticky-logo-container');
+        const desktopPanel = document.getElementById('desktop-side-panel');
+        const slowReadsLogo = document.getElementById('slow-reads-logo-container');
         lenis.on('scroll', (e) => {
             ScrollTrigger.update(e);
 
@@ -1618,6 +1837,8 @@
                     stickyLogoContainer.classList.remove('logo-big');
                     stickyLogoContainer.classList.add('logo-small');
                 }
+                if (slowReadsLogo) slowReadsLogo.classList.add('faded');
+                if (desktopPanel) desktopPanel.classList.add('panel-visible');
             } else {
                 sideArrows.classList.remove('opacity-100');
                 sideArrows.classList.add('opacity-0', 'invisible');
@@ -1625,6 +1846,8 @@
                     stickyLogoContainer.classList.remove('logo-small');
                     stickyLogoContainer.classList.add('logo-big');
                 }
+                if (slowReadsLogo) slowReadsLogo.classList.remove('faded');
+                if (desktopPanel) desktopPanel.classList.remove('panel-visible');
             }
         });
         gsap.ticker.lagSmoothing(0);
@@ -1726,11 +1949,11 @@
                             start: "left 30%", // Triggers when the slide is 70% into the view from the right
                             onEnter: () => {
                                 pill.classList.add('force-open');
-                                setTimeout(() => pill.classList.remove('force-open'), 1500);
+                                setTimeout(() => pill.classList.remove('force-open'), 4000);
                             },
                             onEnterBack: () => {
                                 pill.classList.add('force-open');
-                                setTimeout(() => pill.classList.remove('force-open'), 1500);
+                                setTimeout(() => pill.classList.remove('force-open'), 4000);
                             }
                         });
                     }
@@ -1799,11 +2022,11 @@
                         start: "top 70%",
                         onEnter: () => {
                             infoPill.classList.add('force-open');
-                            setTimeout(() => infoPill.classList.remove('force-open'), 1500);
+                            setTimeout(() => infoPill.classList.remove('force-open'), 4000);
                         },
                         onEnterBack: () => {
                             infoPill.classList.add('force-open');
-                            setTimeout(() => infoPill.classList.remove('force-open'), 1500);
+                            setTimeout(() => infoPill.classList.remove('force-open'), 4000);
                         }
                     });
                 }
@@ -1909,6 +2132,48 @@
             };
             menuNav.appendChild(btn);
         });
+
+        // 2b. Build Desktop Side Panel Navigation
+        const sidePanelNav = document.getElementById('side-panel-nav');
+        if (sidePanelNav) {
+            MENU_CONFIG.forEach((item, idx) => {
+                const navItem = document.createElement('div');
+                navItem.className = 'side-panel-item';
+                navItem.dataset.index = idx;
+                navItem.innerHTML = `
+                    <span class="side-panel-label">${item.label}</span>
+                    <span class="side-panel-dot" style="background-color: ${item.color}; color: ${item.color};"></span>
+                `;
+                navItem.addEventListener('click', () => {
+                    lenis.scrollTo(item.target, {
+                        offset: 0,
+                        duration: 1.8,
+                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                    });
+                });
+                sidePanelNav.appendChild(navItem);
+            });
+
+            // Active section tracking
+            const panelItems = sidePanelNav.querySelectorAll('.side-panel-item');
+            function setActivePanel(activeIdx) {
+                panelItems.forEach((item, idx) => {
+                    item.classList.toggle('active', idx === activeIdx);
+                });
+            }
+
+            MENU_CONFIG.forEach((item, idx) => {
+                const anchor = document.querySelector(item.target);
+                if (anchor) {
+                    ScrollTrigger.create({
+                        trigger: anchor,
+                        start: 'top 50%',
+                        onEnter: () => setActivePanel(idx),
+                        onLeaveBack: () => setActivePanel(Math.max(0, idx - 1))
+                    });
+                }
+            });
+        }
 
         // 3. Hamburger Toggle Logic with GSAP Stagger
         let menuOpen = false;
