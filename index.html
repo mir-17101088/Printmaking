@@ -778,12 +778,12 @@
                 hideChapterTransition: true, // We will use this flag to skip the black title screen
                 images: [
                     {
-                        fileNameBase: 'assets/1_intro_landing_2', // Include extension for standard images, or leave off for your <picture> avif structure
+                        fileNameBase: 'assets/1_intro_landing_4', // Include extension for standard images, or leave off for your <picture> avif structure
 
                         boxText: ' Printmaking in Bengal carries a long history. More than an artistic medium, it has carried history, ideas, and collective memory across generations. Because prints could be reproduced and circulated widely, they became powerful tools for social commentary, giving artists a way to challenge power, document struggle, and make art accessible beyond galleries and elite spaces. This project traces that history through images, textures, tools, and the artists, who spent patient hours in the process and in doing so, left lasting impressions on Bangladesh’s artistic landscape.',
 
-                        sourceCredit: 'Maya’s Dream (1986), etching by Monirul Islam at the Kala Kendra exhibition. Photo: Orchid Chakma',
-                        enableReveal: false
+                        sourceCredit: 'Wood engravings by Safiuddin Ahmed. <br/> Courtesy: Safiuddin Shilpalay',
+                        enableReveal: true
 
 
                     }
@@ -795,7 +795,7 @@
                 id: 'what-is',
                 fig: '02',
                 tag: 'THE STUDIO',
-                title: '<i>WHAT IS PRINTMAKING <br/> AND <br/>HOW IT IS DONE?</i>',
+                title: '<i>WHAT IS PRINTMAKING <br/> AND <br/>HOW IS IT DONE?</i>',
                 images: [
                     {
                         fileNameBase: 'assets/2_what_is_2',
@@ -807,7 +807,7 @@
 
                     },
                     {
-                        fileNameBase: 'assets/2_what_is_1',
+                        fileNameBase: 'assets/1_intro_landing_3',
 
                         boxText: 'Artists carve into wood, bite metal with acid, scratch a drypoint needle, or press ink into paper, creating grooves, cuts, and textured impressions. Unlike painting, where the hand touches the final surface directly, printmaking works through mediation.',
                         sourceCredit: 'Kazi Tahsin Agaz Apurbo',
@@ -831,24 +831,27 @@
                 id: 'mediums',
                 fig: '03',
                 tag: 'THE TOOLS',
-                title: '<i>THERE ARE FOUR MAJOR <br/> TECHNIQUES OF PRINTMAKING</i>',
+                title: '<i>THE CORE FOUR <br/> OF <br/> PRINTMAKING</i>',
                 subSections: [
                     {
                         categoryName: '<i>1. Relief</i>',
                         images: [
                             {
-                                fileNameBase: 'assets/3_major_relief_1',
+                                fileNameBase: 'assets/3_major_relief_2',
 
-                                boxText: 'The artist carves away the negative space, leaving the raised design to hold ink and print. Common forms include woodcut and wood engraving.',
-                                sourceCredit: 'Woodcut by Rafiqun Nabi',
+                                boxText: 'In relief, the artist carves away the negative space, leaving the raised design to hold ink and print.',
+                                sourceCredit: 'Wood engraving by Safiuddin Ahmed',
                                 enableReveal: true
 
                             },
                             {
-                                fileNameBase: 'assets/3_major_relief_2',
+                                fileNameBase: 'assets/3_major_relief_1',
+                                boxText: '<i>Common forms include woodcut and wood engraving.</i>',
+
+                                sourceCredit: 'Woodcut by Rafiqun Nabi'
 
 
-                                sourceCredit: 'Wood engraving by Safiuddin Ahmed'
+
                             }
                         ]
                     },
@@ -858,7 +861,7 @@
                             {
                                 fileNameBase: 'assets/3_major_intaglio_1',
 
-                                boxText: 'The image is incised into a metal plate (such as copper or zinc), and ink settles into the grooves while the surface is wiped clean before printing.',
+                                boxText: 'In this technique, the image is incised into a metal plate (such as copper or zinc), and ink settles into the grooves while the surface is wiped clean before printing.',
                                 sourceCredit: 'Bono-Bibi-1, aquatint by Rokeya Sultana',
                                 enableReveal: true
                             },
@@ -877,15 +880,15 @@
                             {
                                 fileNameBase: 'assets/3_major_planography_1',
 
-                                boxText: 'The image is drawn on a flat surface, typically limestone or metal, using a greasy medium',
-                                sourceCredit: 'Lithography by Safiuddin',
+                                boxText: 'In this technique, the image is drawn on a flat surface, typically limestone or metal, using a greasy medium',
+                                sourceCredit: 'Lithograph by Safiuddin',
                                 enableReveal: true
                             },
                             {
                                 fileNameBase: 'assets/3_major_planography_2',
 
                                 boxText: 'Through a chemical process, ink adheres only to the drawn areas while water repels it elsewhere',
-                                sourceCredit: 'Lithograph print by Rabindranath'
+                                sourceCredit: 'Lithograph by Rabindranath Tagore'
                             },
                             {
                                 fileNameBase: 'assets/3_major_planography_3',
@@ -897,20 +900,20 @@
                         ]
                     },
                     {
-                        categoryName: '<i>4. Serography</i>',
+                        categoryName: '<i>4. Serigraphy</i>',
                         images: [
                             {
                                 fileNameBase: 'assets/3_major_serography_1',
                                 boxText: '<i>Also known as screen printing.</i>',
 
-                                sourceCredit: 'Andy Warhol’s 1984 screen print of Botticelli’s The Birth of Venus',
+                                sourceCredit: 'Andy Warhol’s 1984 screen print of the iconic 15th-century masterpiece The Birth of Venus by Italian Renaissance painter Sandro Botticelli',
                                 enableReveal: true
                             },
                             {
                                 fileNameBase: 'assets/3_major_serography_2',
 
                                 boxText: 'This stencil-based technique forces ink through a fine mesh screen onto surfaces like paper or fabric.',
-                                sourceCredit: 'Andy Warhol’s 1984 screen print of Botticelli’s The Birth of Venus'
+                                sourceCredit: 'Cat on the Fence, serigraph print by Canadian artist Alex Colville from 1956'
                             }
                         ]
                     },
@@ -919,8 +922,8 @@
                         images: [
                             {
                                 fileNameBase: 'assets/3_major_digital_1',
+                                boxText: 'Another contemporary extension beyond the traditional four techniques is digital printmaking. The artist creates an image using digital tools, where the work exists as a composition of pixels, colour values, and layers rather than a physical plate. The file is then translated by a printer, which deposits ink or toner onto a surface such as paper or canvas in precise patterns.',
 
-                                boxText: 'Beyond the traditional four techniques is digital printmaking. The artist creates an image using digital tools, where the work exists as a composition of pixels, colour values, and layers rather than a physical plate. The file is then translated by a printer, which deposits ink or toner onto a surface such as paper or canvas in precise patterns.',
                                 sourceCredit: 'The war file by Ahmed Nazir'
                             },
                             {
@@ -944,11 +947,12 @@
                         categoryName: '<i>Early Roots in Bengal</i>',
                         images: [
                             {
-                                fileNameBase: 'assets/4_kolkata_1',
+                                fileNameBase: 'assets/4_kolkata_3',
 
 
                                 boxText: 'Long before it was ever framed on a gallery wall, printmaking was born out of pure human necessity. Humans pressed clay seals and carved stone stamps — not as art, but out of pure necessity: marking ownership, sealing deals. Then came wooden blocks, dragged across cloth to leave patterns. The Chinese formalised it all — paper invented in AD 105, prints following almost immediately after.',
-                                sourceCredit: 'Wilkins’ Letters, 1778.'
+                                caption: 'Drawings made by Charles Wilkins of Bengali letter forms.',
+                                sourceCredit: 'Source: British Library'
 
 
                             },
@@ -957,7 +961,7 @@
                                 boxTitle: '<i>THE STRANGERS ARRIVE</i>',
 
                                 boxText: 'Bengal had no printing tradition of its own. Then, in 1498, the Portuguese docked at Goa — and with them, at the turn of the sixteenth century, came the first printing machinery on Indian soil. Their motive? Converting locals to Christianity through the printed word. Commerce dressed as salvation.',
-                                caption: 'In the background Vasco da Gama is seen arriving in India in May 1498, bearing the arms of Portugal and the Cross of the Order of Christ, symbols of the maritime expansion movement initiated by Henry the Navigator',
+                                caption: 'In the background Vasco da Gama is seen arriving in India in May 1498, bearing the arms of Portugal and the Cross of the Order of Christ, symbols of the maritime expansion movement initiated by Henry the Navigator.',
                                 sourceCredit: 'Wikimedia Commons',
 
                                 boxText2: ''
@@ -968,7 +972,7 @@
 
                                 boxText: 'By 1778, Kolkata was declared the capital of British India, and the city flooded with Europeans. A linguist named Nathaniel Halhed needed a book to teach Bengali to fresh British officials. To print it, Charles Wilkins carved the first Bengali type — and for the first time, words in the Bengali script appeared on a printed page.',
                                 sourceCredit: 'Nathaniel Brassey Halhead’s A Grammar of the Bengal Language, printed in Hoogly in 1778',
-                                caption: 'Sir Charles Wilkins (1749 – 1836) was an English typographer and Orientalist',
+                                caption: '(L) Sir Charles Wilkins (1749 – 1836) was an English typographer and Orientalist. (R) Nathaniel Brassey Halhead’s A Grammar of the Bengal Language, printed in Hoogly in 1778, is considered the first grammar book of the Bengali language.',
 
                                 boxText2: ''
                             },
@@ -986,7 +990,8 @@
                                 boxTitle: '<i>Artists with an agenda</i>',
 
                                 boxText: 'Between 1769 and 1820, sixty artists arrived in Kolkata. Some carried a purely aesthetic ambition — European engraving ideals born in Renaissance Italy, filtered through England, landing in Bengal. The important artists of the print medium of that time were William Hodges (1780-83), two artists named Thomas and William Daniell, and Charles D\'Oyly.',
-                                sourceCredit: 'Thomas & William Daniell'
+                                sourceCredit: 'Source: Wikimedia Commons',
+                                caption: 'Ramnugur, nearly opposite Bernares, on the River Ganges. Artists: Thomas and William Daniell.'
                             }
                         ]
                     },
@@ -998,7 +1003,7 @@
 
                                 boxText: "William Hodges' Select Views in India (published between 1786-1788) features a seminal collection of 48 aquatint prints that offered European audiences their first detailed visual glimpses of the Indian landscape and architecture.",
                                 caption: '<b>A View of the Gaut at Etawa, on the Banks of the River Jumna, 20 May 1787. Aquatint.</b>',
-                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+                                sourceCredit: 'Photo: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
 
                             },
 
@@ -1006,7 +1011,7 @@
                                 fileNameBase: 'assets/4_pre_partition_hodges_2',
                                 caption: '<b>A View of Tombs at Gázipoor, 4 October 1785. Aquatint.</b>',
 
-                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+                                sourceCredit: 'Photo: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
 
 
                             },
@@ -1014,40 +1019,40 @@
                                 fileNameBase: 'assets/4_pre_partition_hodges_3',
                                 caption: '<b>A View of a Musjid, i.e. Tomb at Jionpoor, 15 September 1786. Aquatint with soft-ground etching.</b>',
 
-                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+                                sourceCredit: 'Photo: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
 
                             },
                             {
                                 fileNameBase: 'assets/4_pre_partition_hodges_4',
                                 caption: '<b>A View of a Farm-yard in the Kingdom of Bengal, 1 August 1786. Aquatint.</b>',
 
-                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+                                sourceCredit: 'Photo: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
 
                             },
                             {
                                 fileNameBase: 'assets/4_pre_partition_hodges_5',
                                 caption: '<b>A View of a Mosque, at Rajemahel, 15 September 1786. Aquatint</b>',
 
-                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+                                sourceCredit: 'Photo: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
 
                             },
                             {
                                 fileNameBase: 'assets/4_pre_partition_hodges_6',
                                 caption: '<b>A View of the Pagodas at Deogur, 25 March 1787. Aquatint with soft-ground etching.</b>',
-                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+                                sourceCredit: 'Photo: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
 
                             },
                             {
                                 fileNameBase: 'assets/4_pre_partition_hodges_7',
                                 caption: '<b>A View of a Hindoo Monument, 27 April 1788. Aquatint</b>',
 
-                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
+                                sourceCredit: 'Photo: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited'
 
                             }
                         ]
                     },
                     {
-                        categoryName: '<i>Earliest depiction of the Taj Mahal</i>',
+                        categoryName: '<i>Taj Mahal\'s first printed debut</i>',
                         images: [
                             {
                                 fileNameBase: 'assets/4_pre_partition_cahrles_taj',
@@ -1056,7 +1061,7 @@
                                 boxtext2: 'Hodges instead centred his attention on Agra Fort, completed by Emperor Akbar in 1573 and then the dominant seat of Mughal power. Even so, he paused to admire the Taj, describing it as “the most perfect remains of eastern taste in architecture”, built by Emperor Shah Jahan in memory of his wife. It is a wonderfully ironic slice of history: the world\'s ultimate monument to love made its grand debut to the Western world as a mere footnote to a military fort',
                                 caption: '<b>View of Taj Mahal and part of the city of Agra from the river, 2 October 1783. Aquatint.</b>',
 
-                                sourceCredit: 'Photos: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited',
+                                sourceCredit: 'Photo: Royal Academy of Arts, London. Photographer: Prudence Cuming Associates Limited',
                                 enableReveal: true
 
                             }
@@ -1069,14 +1074,14 @@
 
                             boxText: 'Following the footsteps of William Hodges came Thomas Daniell and William Daniell, the British landscape painters who travelled across India from 1786 to 1793. Pioneers of the picturesque depiction of the subcontinent, they produced masterful aquatint prints that helped shape an exotic and romanticised visual image of India for European audiences.',
                             caption: '<b>Eastern gate of the Jami Masjid at Delhi, India.</b>',
-                            sourceCredit: 'Source: Collected'
+                            sourceCredit: 'Source: Wikimedia Commons'
 
                         },
                         {
                             fileNameBase: 'assets/4_pre_partition_TW_2',
 
                             boxText: "Thomas Daniell and William Daniell's landmark series Oriental Scenery became especially influential — and notably, the duo engraved and printed every single plate themselves.",
-                            sourceCredit: 'Source: Collected',
+                            sourceCredit: 'Source: Wikimedia Commons',
                             caption: '<b>The Cotsea Bhaug, on the River Jumna, at Delhi.</b>'
 
                         },
@@ -1084,39 +1089,39 @@
                             fileNameBase: 'assets/4_pre_partition_TW_3',
 
                             caption: '<b>Ruins of the ancient City of Gour.</b>',
-                            sourceCredit: 'Source: Collected'
+                            sourceCredit: 'Source: Wikimedia Commons'
                         },
                         {
                             fileNameBase: 'assets/4_pre_partition_TW_4',
                             caption: '<b>The Chalees Satoon, on the Jumna side of the Fort of Allahabad</b>',
-                            sourceCredit: 'Source: Collected'
+                            sourceCredit: 'Source: Wikimedia Commons'
                         },
                         {
                             fileNameBase: 'assets/4_pre_partition_TW_5',
 
                             caption: '<b>Remains of an ancient building, near Firoz Shah\'s Cotillah, at Delhi.</b>',
-                            sourceCredit: 'Source: Collected'
+                            sourceCredit: 'Source: Wikimedia Commons'
 
                         },
                         {
                             fileNameBase: 'assets/4_pre_partition_TW_6',
 
                             caption: '<b>The Gate leading to the Mausoleum of the Emperor Akbar, at Secundra, near Agra.</b>',
-                            sourceCredit: 'Source: Collected'
+                            sourceCredit: 'Source: Wikimedia Commons'
 
                         },
                         {
                             fileNameBase: 'assets/4_pre_partition_TW_7',
                             caption: '<b>Part of the City of Patna, on the River Ganges.</b>',
 
-                            sourceCredit: 'Source: Collected'
+                            sourceCredit: 'Source: Wikimedia Commons'
                         },
                         {
                             fileNameBase: 'assets/4_pre_partition_TW_11',
                             caption: '<b>South East View of Fort St George, Madras</b>',
 
 
-                            sourceCredit: 'Source: Collected'
+                            sourceCredit: 'Source: Wikimedia Commons'
                         }
                         ]
                     },
@@ -1126,7 +1131,7 @@
                             fileNameBase: 'assets/4_pre_partition_charles_1',
 
                             boxText: 'Charles D\'Oyly sketched Dhaka and Kolkata obsessively. His engravings were finished by the Royal Engraver back in London — but that wasn\'t enough for him.',
-                            sourceCredit: 'Source: Collected',
+                            sourceCredit: 'Source: Wikimedia Commons',
                             caption: '<b>Bastion of the Lal Bagh, Dacca 1816 </b>'
 
                         },
@@ -1134,7 +1139,7 @@
                             fileNameBase: 'assets/4_pre_partition_charles_3',
 
                             boxText: 'In 1831, at Patna, he set up his own lithography machine and ran it himself. A colonial official, printing his own art, in India. The medium had gone from foreign import to personal passion.',
-                            sourceCredit: 'Source: Collected',
+                            sourceCredit: 'Source: Wikimedia Commons',
                             caption: '<b>A tantee or weaver, etching taken from plate 16 of "Antiquities of Dacca"</b>'
                         },
 
@@ -1142,26 +1147,26 @@
                             fileNameBase: 'assets/4_pre_partition_charles_4',
                             caption: '<b>Remains of a Bridge near the Tantee Bazar, Dhaka</b>',
 
-                            sourceCredit: 'Source: Collected'
+                            sourceCredit: 'Source: Wikimedia Commons'
                         },
                         {
                             fileNameBase: 'assets/4_pre_partition_charles_5',
                             caption: '<b>Ruins of Tongi Bridge, 1825</b>',
 
-                            sourceCredit: 'Source: Collected'
+                            sourceCredit: 'Source: Wikimedia Commons'
 
                         },
                         {
                             fileNameBase: 'assets/4_pre_partition_charles_6',
                             caption: '<b>Paugla Pool, with part of Dacca in the extreme distance, 1817</b>',
 
-                            sourceCredit: 'Source: Collected'
+                            sourceCredit: 'Source: Wikimedia Commons'
                         },
                         {
                             fileNameBase: 'assets/4_pre_partition_charles_7',
                             caption: '<b>Part of the Interior of the City of Dacca (1814), depicting a structure built to record Dhaka’s monsoon flood levels. The pool surrounding it used served as a storm shelter for small boats, with the ruins of a footbridge visible in the foreground.</b>',
 
-                            sourceCredit: 'Source: Collected'
+                            sourceCredit: 'Source: Wikimedia Commons'
                         }
                         ]
                     },
@@ -1235,6 +1240,23 @@
                         ]
                     },
                     {
+                        categoryName: "<i>Meanwhile, outside Kolkata</i>",
+                        images: [{
+                            fileNameBase: 'assets/4_pre_partition_kolkata',
+
+                            boxText: 'Dhaka was considered the largest town after Kolkata and was celebrated for its muslin, jamdani, and craftsmanship, though not for its print culture. Dhaka lagged behind; its first Bengali-run press did not open until 1860 (Rangpur had already surpassed it by publishing a weekly newspaper in 1847).',
+                            sourceCredit: 'Source: Archive',
+                            caption: 'One of the earliest maps of Dhaka by James Rennell, March 1, 1780.',
+
+                            boxText2: 'Block-making was also scarcely developed in Dhaka, with most such work having to be sent to Kolkata. Even by 1949, Mizanur Rahman (the editor of Mizanur Rahmaner Troimasik Patrika) recalled that there was only one notable block-making establishment in Dhaka, where blocks were manually carved on hot lead using hammer and chisel.',
+                            boxText3: 'Yet Dhaka did nurture a modest lithographic culture. From the late colonial period until the 1980s, several litho presses in the city produced film posters, magazine illustrations, and coloured images before gradually disappearing with the rise of offset printing.'
+
+                        }
+
+
+                        ]
+                    },
+                    {
                         categoryName: "<i>Printmaking in East Pakistan</i>",
                         images: [{
                             fileNameBase: 'assets/4_pre_partition_abedin',
@@ -1267,14 +1289,16 @@
                                 fileNameBase: 'assets/5_early_safiuddin_14',
                                 boxTitle: '<i>The Foundation</i>',
                                 boxText: 'Trained at Kolkata Government School of Art, where principal Ramendranath Chakravarty taught him printmaking outside the official syllabus. He later deepened his practice in London at the Central School of Arts and Crafts. After Partition, he moved to Dhaka and co-founded what became the Faculty of Fine Arts, University of Dhaka — heading its printmaking department from 1948 to 1979. He was the institutional beginning of printmaking in Bangladesh.',
-                                sourceCredit: 'The Cry Copeng by Safiuddin Ahmed'
+                                caption: 'The Cry, Copper engraving',
+                                sourceCredit: 'Safiuddin Shilpalay'
 
                             },
                             {
                                 fileNameBase: 'assets/5_early_safiuddin_3',
                                 boxTitle: '<i>Working Style</i>',
                                 boxText: "Safiuddin's prints are lyrical and rooted, exploring rural landscapes, floods, fishermen, farmers, the Santal community, memories of 1971. He called black 'the queen of colours' and used it with a sculptor's control, building nocturnal depth in works like Receding Flood (1959). His lines are fine-drawn and kinetic, precise yet full of momentum.",
-                                sourceCredit: 'Face of a farmer woodeng',
+                                caption: 'Face of a farmer wood engraving',
+                                sourceCredit: 'Safiuddin Shilpalay',
 
                                 boxText2: 'He did not simply absorb folk tradition: he studied it, took inspiration, then built his own language from it, blending European technique with a local sensibility without sacrificing either. Over his career he moved toward thicker, more forceful lines, but always kept his fundamental commitment to emotional restraint and technical rigour.'
                             },
@@ -1283,8 +1307,38 @@
                                 fileNameBase: 'assets/5_early_safiuddin_22',
                                 boxTitle: '<i>Legacy</i>',
                                 boxText: 'He was the first dedicated printmaker to teach in Bangladesh, the one who gave the medium a home and a discipline. Without Safiuddin, there is no lineage and no next generation of Bangladeshi printmakers',
-                                sourceCredit: 'Receding flood etching aquatint'
+                                caption: 'Receding flood etching aquatint',
+                                sourceCredit: 'Safiuddin Shilpalay'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_2',
+                                sourceCredit: 'Source: Safiuddin Shilpalay'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_12',
+                                sourceCredit: 'Source: Safiuddin Shilpalay'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_17',
+                                sourceCredit: 'Source: Safiuddin Shilpalay'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_10',
+                                sourceCredit: 'Source: Safiuddin Shilpalay'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_18',
+                                sourceCredit: 'Source: Safiuddin Shilpalay'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_19',
+                                sourceCredit: 'Source: Safiuddin Shilpalay'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_safiuddin_20',
+                                sourceCredit: 'Source: Safiuddin Shilpalay'
                             }
+
                         ]
                     },
                     {
@@ -1333,14 +1387,38 @@
                                 boxText: 'Kibria introduced abstraction into Bangladeshi printmaking and painting. He was the first in this lineage to break entirely from the figurative tradition — not as rebellion but as a genuine philosophical position about what art could hold. He became the measure of modernism for a generation of Bangladeshi artists.',
                                 sourceCredit: 'Source: Collected'
 
-                            }
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_kibria_19',
+
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_kibria_18',
+
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_kibria_24',
+
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_kibria_30',
+
+                                sourceCredit: 'Source: Collected'
+
+                            },
                         ]
                     },
                     {
                         categoryName: '<i>Monirul Islam (b. 1943)</i>',
                         images: [
                             {
-                                fileNameBase: 'assets/5_early_monirul_12',
+                                fileNameBase: 'assets/5_early_monirul_1',
                                 boxTitle: '<i>The International Voice</i>',
                                 boxText: 'Trained at the Faculty of Fine Arts in Dhaka (1966–69), Monirul left for Madrid on a Spanish government scholarship in 1969 — and the Liberation War kept him from returning. He stayed, studied fresco at the Royal Academy of Fine Arts of San Fernando, and found his medium: etching. He worked alongside the vanguard of European printmaking in the Grupo Quince in the early 1970s — alongside Antonio Saura, Antoni Tàpies, and others — and carved out a position entirely his own.',
                                 sourceCredit: 'Source: Collected'
@@ -1363,7 +1441,38 @@
                                 boxText: 'His free-bite etching technique became known in Spain as "Escuela de Monir" — a named school of practice. He was the first non-Spanish artist to win the Calcografia Nacional Award of Spain (1997). Monirul took Bangladeshi printmaking into international art circuits at the highest level, while keeping it rooted in something unmistakably personal.',
                                 sourceCredit: 'Source: Collected'
 
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_monirul_5',
+
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_monirul_10',
+
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_monirul_12',
+
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_monirul_13',
+
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_monirul_14',
+
+                                sourceCredit: 'Source: Collected'
+
                             }
+
                         ]
                     },
                     {
@@ -1394,7 +1503,32 @@
                                 boxTitle: '<i>Significant shift</i>',
                                 boxText: "Rafiqun Nabi expanded what woodcut could depict. By fusing a cartoonist's command of figurative line with a painter's feel for colour and composition, he brought a new life and legibility to the medium, pulling it away from abstraction and toward the everyday world. His prints and his cartoons are formally different, but morally the same: always turning toward the lives of ordinary people.",
                                 sourceCredit: 'Source: Collected'
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_rafique_6',
+
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_rafique_7',
+
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_rafique_9',
+
+                                sourceCredit: 'Source: Collected'
+
+                            },
+                            {
+                                fileNameBase: 'assets/5_early_rafique_1',
+
+                                sourceCredit: 'Source: Collected'
+
                             }
+
                         ]
                     }
                 ]
@@ -1802,7 +1936,7 @@
 
                     </div>
                     <div class="absolute bottom-4 left-6 z-20 pointer-events-none">
-                        <span class="font-label-caps text-[10px] tracking-[0.15em] text-white/70 drop-shadow-md">Rafiqun Nabi</span>
+                        <span class="font-label-caps text-[8px] tracking-[0.15em] text-white/70 drop-shadow-md">Wood cut by Rafiqun Nabi</span>
                     </div>
                     ` : ''}
                 </div>
@@ -2119,7 +2253,7 @@
 
         // 1. Menu Configuration (Customize Names & Colors here)
         const MENU_CONFIG = [
-            { label: "The Plate", target: "#nav-anchor-intro", color: "#e5e2e1" }, // Base White
+            { label: "Prologue", target: "#nav-anchor-intro", color: "#e5e2e1" }, // Base White
             { label: "What is Printmaking?", target: "#nav-anchor-what-is", color: "#D4AF37" }, // Premium Gold Accent
             { label: "Major Techniques", target: "#nav-anchor-mediums", color: "#E8A55D" }, // Warm Gold
             { label: "Early Roots", target: "#nav-anchor-pre-partition", color: "#4A90E2" }, // Archival Blue
