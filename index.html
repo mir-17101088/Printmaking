@@ -678,7 +678,7 @@
         <!-- Segments will be injected here by JS -->
     </main>
     <div id="side-arrows"
-        class="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-[60] flex flex-col items-center w-10 md:w-12 gap-[50px] md:gap-[60px] pointer-events-none opacity-0 invisible transition-all duration-500">
+        class="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-[60] flex flex-col items-center w-10 md:w-12 gap-[80px] md:gap-[100px] pointer-events-none opacity-0 invisible transition-all duration-500">
         <button id="scroll-up"
             class="glass-nav-btn pointer-events-auto w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white shadow-[0_2px_12px_rgba(0,0,0,0.4)] group">
             <span
@@ -1159,25 +1159,25 @@
 
                         {
                             fileNameBase: 'assets/4_pre_partition_charles_4',
-                            caption: '<b>Remains of a Bridge near the Tantee Bazar, Dhaka</b>',
+                            caption: '<b>Ruins of a mosque near the Buriganga River, 1827</b>',
 
                             sourceCredit: 'Artist/Printmaker: Charles D\'Oyly. <br/> Source: Wikimedia Commons'
                         },
                         {
                             fileNameBase: 'assets/4_pre_partition_charles_5',
-                            caption: '<b>Ruins of Tongi Bridge, 1825</b>',
+                            caption: '<b>Remains of a Bridge near the Tantee Bazar, Dhaka</b>',
 
                             sourceCredit: 'Artist/Printmaker: Charles D\'Oyly. <br/> Source: Wikimedia Commons'
 
                         },
                         {
                             fileNameBase: 'assets/4_pre_partition_charles_6',
-                            caption: '<b>Paugla Pool, with part of Dacca in the extreme distance, 1817</b>',
+                            caption: '<b>Ruins of Tongi Bridge, 1825</b>',
 
                             sourceCredit: 'Artist/Printmaker: Charles D\'Oyly. <br/> Source: Wikimedia Commons'
                         },
                         {
-                            fileNameBase: 'assets/4_pre_partition_charles_7',
+                            fileNameBase: 'assets/4_pre_partition_charles_8',
                             caption: '<b>Part of the Interior of the City of Dacca (1814), depicting a structure built to record Dhaka’s monsoon flood levels. The pool surrounding it used served as a storm shelter for small boats, with the ruins of a footbridge visible in the foreground.</b>',
 
                             sourceCredit: 'Artist/Printmaker: Charles D\'Oyly. <br/> Source: Wikimedia Commons'
@@ -1748,8 +1748,8 @@
 
                     htmlContent += `
                     <div class="horizontal-subsection-wrapper relative w-full" style="height: ${scrollHeightVp}vh;">
-                        <div class="sticky-viewport sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col bg-background">
-                            <button class="horizontal-next-btn absolute right-4 md:right-6 top-1/2 -translate-y-1/2 z-[70] w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-neutral-900/60 backdrop-blur-md border border-white/20 text-white shadow-[0_4px_12px_rgba(0,0,0,0.4)] cursor-pointer opacity-0 pointer-events-none transition-all duration-300 hover:bg-neutral-800/80 group">
+                        <div class="sticky-viewport sticky top-0 left-0 w-full h-[100dvh] overflow-hidden flex flex-col bg-background">
+                            <button class="horizontal-next-btn fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-[70] w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-neutral-900/60 backdrop-blur-md border border-white/20 text-white shadow-[0_4px_12px_rgba(0,0,0,0.4)] cursor-pointer opacity-0 pointer-events-none transition-all duration-300 hover:bg-neutral-800/80 group">
                                 <span class="material-symbols-outlined text-[20px] md:text-[24px] text-white/70 group-hover:text-white group-hover:translate-x-0.5 transition-transform duration-300">arrow_forward</span>
                             </button>
                             
@@ -1852,7 +1852,7 @@
                     const { sectionHeight, boxesHTML } = generateTextBoxesHTML(img);
                     htmlContent += `
                     <section class="relative w-full dual-phase-section" data-enable-reveal="${img.enableReveal !== false}" style="height: ${sectionHeight}vh;">
-                        <div class="sticky top-0 w-full h-screen overflow-hidden bg-surface-container-lowest pin-bg">
+                        <div class="sticky top-0 w-full h-[100dvh] overflow-hidden bg-surface-container-lowest pin-bg">
                             
                             <div class="info-reveal-group absolute top-6 left-6 z-50 flex items-center gap-3">
                                     
@@ -1907,7 +1907,7 @@
                             
                         </div>
                         
-                        <div class="sticky top-0 w-full h-screen flex flex-col items-center justify-center pb-margin-mobile md:pb-[15vh] z-20 pointer-events-none px-4 md:px-0 md:flex-row md:items-end ${imgIndex % 2 === 0 ? 'md:justify-start md:pl-margin-desktop' : 'md:justify-end md:pr-margin-desktop'}">
+                        <div class="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center pb-margin-mobile md:pb-[15vh] z-20 pointer-events-none px-4 md:px-0 md:flex-row md:items-end ${imgIndex % 2 === 0 ? 'md:justify-start md:pl-margin-desktop' : 'md:justify-end md:pr-margin-desktop'}">
                             <div class="relative w-[90%] max-w-[500px] md:w-5/12 pointer-events-auto">
                                 ${boxesHTML}
                             </div>
@@ -1920,7 +1920,7 @@
                 const { sectionHeight, boxesHTML } = generateTextBoxesHTML(section);
                 htmlContent += `
             <section class="relative w-full dual-phase-section" data-enable-reveal="${section.enableReveal !== false}" style="height: ${sectionHeight}vh;">
-                <div class="sticky top-0 w-full h-screen overflow-hidden bg-[#050505] pin-bg">
+                <div class="sticky top-0 w-full h-[100dvh] overflow-hidden bg-[#050505] pin-bg">
 
                     ${section.image
                         ? `<div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
@@ -1965,7 +1965,7 @@
                     ` : ''}
                 </div>
                 
-                <div class="sticky top-0 w-full h-screen flex flex-col items-center justify-center pb-margin-mobile md:pb-[15vh] z-20 pointer-events-none px-4 md:px-0 md:flex-row md:items-end ${index % 2 === 0 ? 'md:justify-start md:pl-margin-desktop' : 'md:justify-end md:pr-margin-desktop'}">
+                <div class="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center pb-margin-mobile md:pb-[15vh] z-20 pointer-events-none px-4 md:px-0 md:flex-row md:items-end ${index % 2 === 0 ? 'md:justify-start md:pl-margin-desktop' : 'md:justify-end md:pr-margin-desktop'}">
                     <div class="relative w-[90%] max-w-[500px] md:w-5/12 pointer-events-auto">
                         ${boxesHTML}
                     </div>
