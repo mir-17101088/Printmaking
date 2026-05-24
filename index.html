@@ -191,11 +191,11 @@
 
         @media (max-width: 768px) {
             #sticky-logo-container.logo-big img {
-                height: 35px;
+                height: 28px;
             }
 
             #slow-reads-logo-container img {
-                height: 28px;
+                height: 24px;
             }
         }
 
@@ -763,8 +763,7 @@
                 id: 'intro',
                 fig: '01',
                 tag: 'THE PLATE',
-                title: 'PRINTMAKING <br/>LEGACY',
-                subtitle: 'An art of pressure, patience, and process',
+                title: 'Bangladesh\'s <br/>Printmaking',
 
                 boxText: '<b><span class="editorial-dropcap">P</span></b>rintmaking is a unique visual art form rooted in indirect creation. Images are carved, etched, pressed, and pulled into existence through labour and repetition. In an age of AI-generated art and NFTs, the true beauty of printmaking lies in its intensely manual craft – the sharp bite of a burin into copper, the pressure of wood against paper, the persistence of ink-stained hands, and the slow emergence of an image from absence.',
 
@@ -1593,38 +1592,38 @@
                         fileNameBase: 'assets/7_current_situation_1',
 
                         boxText: 'Today, printmaking in Bangladesh continues to expand quietly within the broader art scene. Once largely confined to specialist studios and academic circles, the medium is now gradually reaching wider audiences through dedicated initiatives, exhibitions, and festivals',
-                        sourceCredit: 'Source: Collected'
+                        sourceCredit: 'Source: Star'
 
                     },
                     {
                         fileNameBase: 'assets/7_current_situation_2',
 
                         boxText: 'Events such as the month-long printmaking festival at Kala Kendra in Lalmatia — including the Kibria Printmaking Fair which is being held every year since 2012— have played a key role in this shift. Bringing together studios, institutions, and artists from across the country, the fair has grown into an important platform for both established names and emerging practitioners. This year, works by pioneers such as Safiuddin Ahmed and Mohammad Kibria are being shown alongside newer experiments, creating a dialogue between generations',
-                        sourceCredit: 'Source: Collected'
+                        sourceCredit: 'Source: Star'
                     },
                     {
                         fileNameBase: 'assets/7_current_situation_3',
 
                         boxText: 'A notable feature of these recent initiatives is their openness — printmaking is being presented not only as a refined artistic practice but also as an accessible medium for younger collectors and audiences. Workshops, artist talks, and curated exhibitions have further strengthened this ecosystem, encouraging experimentation across techniques and themes, from personal memory and urban observation to abstraction and social reflection.',
-                        sourceCredit: 'Source: Collected'
+                        sourceCredit: 'Source: Star'
                     },
                     {
                         fileNameBase: 'assets/7_current_situation_4',
 
                         boxText: 'Alongside spaces like Kala Kendra, institutions such as Bengal Foundation and Safiuddin Shilpalay continue to support printmaking through exhibitions, archival work, and training initiatives. What emerges today is a medium in transition, which is still rooted in its disciplined, labour-intensive traditions, yet increasingly shaped by young artists who are expanding its visual language.',
-                        sourceCredit: 'Source: Collected'
+                        sourceCredit: 'Source: Star'
                     },
                     {
                         fileNameBase: 'assets/7_current_situation_5',
                         boxTitle: '<i>New Generation</i>',
                         boxText: "As new generations experiment with form, process, and subject, printmaking in Bangladesh is slowly moving beyond its “lesser-explored” status, finding renewed relevance in contemporary practice and the argument for the medium remains as old as Bengal's print tradition itself, and just as persuasive.",
-                        sourceCredit: 'Source: Collected'
+                        sourceCredit: 'Source: Star'
                     },
                     {
                         fileNameBase: 'assets/7_current_situation_6',
                         boxTitle: '<i>A print is democratic by nature</i>',
                         boxText: 'if an artist values a work at one lakh taka and creates ten editions, each print costs ten thousand — making it accessible in a way a single painting never can be. From the five-taka folios sold at Laldighi Maidan in 1971 to the editions now going into private collections, that logic has never changed. The plate gets inked. The paper gets pressed. The image goes out into the world, and the art finds more homes than a painting ever could.',
-                        sourceCredit: 'Source: Collected'
+                        sourceCredit: 'Source: Star'
 
                     }
 
@@ -1935,23 +1934,25 @@
                     
 
                     ${section.isIntro ? `
-                    <div class="absolute inset-0 flex flex-col justify-center items-center text-center z-10 px-8 md:px-margin-desktop intro-title pointer-events-none">
+                    <div class="absolute inset-0 flex flex-col justify-center items-center text-center z-10 px-6 md:px-12 intro-title pointer-events-none">
                         
-                        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.65)_0%,transparent_50%)] z-[-1]"></div>
+                        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.65)_0%,transparent_60%)] z-[-1]"></div>
 
-                        <span class="intro-tagline font-label-caps text-label-caps tracking-[0.3em] text-primary mb-[clamp(0.5rem,1.5vh,2rem)] uppercase drop-shadow-md">A Visual Journey Through Bengal's</span>
+                        <span class="intro-tagline font-label-caps text-xs md:text-sm tracking-[0.3em] text-primary/90 mb-4 md:mb-6 uppercase drop-shadow-md">A Visual History of</span>
                         
-                        <h1 class="font-display-lg text-[clamp(2.5rem,10vmin,7.5rem)] text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/90 mb-[clamp(0.75rem,2vh,2.5rem)] leading-[0.9] tracking-tighter drop-shadow-2xl">
+                        <h1 class="font-display-lg text-[clamp(2.5rem,9vmin,7rem)] md:text-[clamp(4rem,9vmin,8.5rem)] text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/90 mb-5 md:mb-8 leading-[1.1] md:leading-[1.15] tracking-tight drop-shadow-2xl max-w-[95vw] md:max-w-[85vw] lg:max-w-5xl mx-auto break-words">
                             ${section.title}
                         </h1>
                         
-                        <p class="intro-subtitle font-body-md text-[clamp(0.875rem,2.2vmin,1.25rem)] text-primary max-w-2xl font-light tracking-wide drop-shadow-lg">
+                        ${section.subtitle ? `
+                        <p class="intro-subtitle font-body-md text-base md:text-[1.15rem] text-primary/90 max-w-2xl font-light tracking-wide drop-shadow-lg mx-auto">
                             ${section.subtitle}
                         </p>
+                        ` : ''}
 
-                        <div class="intro-byline flex flex-col items-center gap-[clamp(0.5rem,1.5vh,1rem)] mt-[clamp(1.5rem,5vh,3rem)]">
-                            <span class="font-label-caps text-[clamp(9px,1.5vmin,12px)] tracking-[0.4em] text-primary/90">By Miftahul Jannat</span>
-                            <button onclick="lenis.scrollTo(window.innerHeight, {duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))})" class="w-[24px] h-[clamp(1.5rem,5vh,4rem)] flex justify-center cursor-pointer pointer-events-auto group bg-transparent border-none p-0 outline-none hover:scale-[1.15] transition-transform" aria-label="Scroll to next section">
+                        <div class="intro-byline flex flex-col items-center gap-4 mt-8 md:mt-12">
+                            <span class="font-label-caps text-[clamp(11px,1.8vmin,14px)] tracking-[0.4em] text-primary/90 uppercase">By Miftahul Jannat</span>
+                            <button onclick="lenis.scrollTo(window.innerHeight, {duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))})" class="w-[24px] h-[50px] md:h-[60px] flex justify-center cursor-pointer pointer-events-auto group bg-transparent border-none p-0 outline-none hover:scale-[1.15] transition-transform" aria-label="Scroll to next section">
                                 <div class="w-[2px] h-full bg-white/20 overflow-hidden relative transition-colors rounded-full group-hover:bg-white/40">
                                     <div class="absolute inset-0 w-full h-full bg-white origin-top animate-scroll-line group-hover:animate-none transition-all duration-300"></div>
                                 </div>
