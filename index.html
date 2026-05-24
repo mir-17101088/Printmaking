@@ -1670,8 +1670,8 @@
             // Optional Chapter Transition before section (except intro or specifically hidden sections)
             if (index > 0 && !section.hideChapterTransition) {
                 htmlContent += `
-                <section class="w-full py-32 md:py-40 bg-gradient-to-b from-[#1A0B1C] via-[#2F1033] to-[#1A0B1C] flex flex-col items-center justify-center px-6 md:px-margin-desktop border-y border-white/10 chapter-transition relative overflow-hidden">                    
-                    <div class="absolute top-0 w-[1px] h-16 bg-gradient-to-b from-[#D4AF37]/40 to-transparent"></div>
+                <section class="w-full py-20 md:py-24 bg-gradient-to-b from-[#1A0B1C] via-[#2F1033] to-[#1A0B1C] flex flex-col items-center justify-center px-6 md:px-margin-desktop border-y border-white/10 chapter-transition relative overflow-hidden">                    
+                    <div class="absolute top-0 w-[1px] h-12 bg-gradient-to-b from-[#D4AF37]/40 to-transparent"></div>
                     
                     <div class="flex flex-col items-center gap-6 z-10">
                         <h2 class="font-display-md text-5xl md:text-7xl text-center tracking-tighter leading-[0.85] chapter-title-deboss uppercase">
@@ -1682,7 +1682,7 @@
                         </div>
                     </div>
                     
-                    <div class="absolute bottom-0 w-[1px] h-16 bg-gradient-to-t from-[#D4AF37]/40 to-transparent"></div>
+                    <div class="absolute bottom-0 w-[1px] h-12 bg-gradient-to-t from-[#D4AF37]/40 to-transparent"></div>
                 </section>
                 `;
             }
