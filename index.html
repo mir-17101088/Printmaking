@@ -678,7 +678,7 @@
         <!-- Segments will be injected here by JS -->
     </main>
     <div id="side-arrows"
-        class="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-[60] flex flex-col gap-2 pointer-events-none opacity-0 invisible transition-all duration-500">
+        class="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-[60] flex flex-col items-center w-10 md:w-12 gap-[50px] md:gap-[60px] pointer-events-none opacity-0 invisible transition-all duration-500">
         <button id="scroll-up"
             class="glass-nav-btn pointer-events-auto w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white shadow-[0_2px_12px_rgba(0,0,0,0.4)] group">
             <span
@@ -947,11 +947,11 @@
                         categoryName: '<i>Early Roots in Bengal</i>',
                         images: [
                             {
-                                fileNameBase: 'assets/4_kolkata_2',
+                                fileNameBase: 'assets/4_kolkata_1',
 
 
                                 boxText: 'Long before it was ever framed on a gallery wall, printmaking was born out of pure human necessity. Humans pressed clay seals and carved stone stamps — not as art, but out of pure necessity: marking ownership, sealing deals. Then came wooden blocks, dragged across cloth to leave patterns. The Chinese formalised it all — paper invented in AD 105, prints following almost immediately after.',
-                                caption: 'Drawings made by Charles Wilkins of Bengali letter forms.',
+
                                 sourceCredit: 'Source: British Library'
 
 
@@ -1548,6 +1548,22 @@
                         boxTitle: '<i>The Liberation War had not yet formally begun.</i>',
                         boxText: 'That is what makes Banglay Bidroho remarkable, it was created in real time, in the weeks of maximum uncertainty, before the outcome was known. Today the folio is preserved at the Liberation War Museum. What cost five taka on a Chattogram maidan is now an irreplaceable document of resistance',
                         sourceCredit: 'Credit: Rashid Chowdhury'
+                    },
+                    {
+                        fileNameBase: 'assets/6_bangla_bidroho_series_1',
+                        sourceCredit: 'Cover of Folio Banglay Bidroho'
+                    },
+                    {
+                        fileNameBase: 'assets/6_bangla_bidroho_series_4',
+                        sourceCredit: 'Credit: Sabih-ul Alam'
+                    },
+                    {
+                        fileNameBase: 'assets/6_bangla_bidroho_series_5',
+                        sourceCredit: 'Credit: Syed Abdullah Khalid'
+                    },
+                    {
+                        fileNameBase: 'assets/6_bangla_bidroho_series_7',
+                        sourceCredit: 'Credit: Mizanur Rahim'
                     }
 
 
@@ -1719,6 +1735,9 @@
                     htmlContent += `
                     <div class="horizontal-subsection-wrapper relative w-full" style="height: ${scrollHeightVp}vh;">
                         <div class="sticky-viewport sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col bg-background">
+                            <button class="horizontal-next-btn absolute right-4 md:right-6 top-1/2 -translate-y-1/2 z-[70] w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-neutral-900/60 backdrop-blur-md border border-white/20 text-white shadow-[0_4px_12px_rgba(0,0,0,0.4)] cursor-pointer opacity-0 pointer-events-none transition-all duration-300 hover:bg-neutral-800/80 group">
+                                <span class="material-symbols-outlined text-[20px] md:text-[24px] text-white/70 group-hover:text-white group-hover:translate-x-0.5 transition-transform duration-300">arrow_forward</span>
+                            </button>
                             
                             <div class="relative overflow-hidden w-full z-40 bg-gradient-to-r ${currentGradient} backdrop-blur-lg border-b border-white/10 px-6 py-4 md:py-5 shadow-lg flex items-center gap-4 flex-shrink-0">
                                 <div class="w-1.5 h-6 bg-surface-tint rounded-full opacity-60"></div>
@@ -2010,6 +2029,8 @@
 
 
                 // Create the master timeline for this specific track
+                const hzNextBtn = wrapper.querySelector('.horizontal-next-btn');
+                
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: wrapper,
@@ -2018,9 +2039,29 @@
                         scrub: isTouchDevice ? 0.3 : 0.6,
                         invalidateOnRefresh: true,
                         anticipatePin: 1, // Prevents mobile browsers from flashing when sticky engages
-                        fastScrollEnd: true // Prevents getting stuck if the user flicks really fast
+                        fastScrollEnd: true, // Prevents getting stuck if the user flicks really fast
+                        onUpdate: (self) => {
+                            if (hzNextBtn) {
+                                if (self.progress > 0 && self.progress < 0.99) {
+                                    hzNextBtn.classList.remove('opacity-0', 'pointer-events-none');
+                                    hzNextBtn.classList.add('opacity-100', 'pointer-events-auto');
+                                } else {
+                                    hzNextBtn.classList.add('opacity-0', 'pointer-events-none');
+                                    hzNextBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                                }
+                            }
+                        }
                     }
                 });
+
+                if (hzNextBtn) {
+                    hzNextBtn.addEventListener('click', () => {
+                        lenis.scrollTo(window.scrollY + (window.innerHeight * 0.55), {
+                            duration: 0.9,
+                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                        });
+                    });
+                }
                 // Progress bar: scrub:true = instant sync to scroll position, zero lag
                 const progressBar = wrapper.querySelector('.hz-progress-bar');
                 if (progressBar) {
